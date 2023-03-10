@@ -77,7 +77,7 @@ var weixin_push = false;
 var maoyun_draw_1 = true;
 var no_2 = false;
 var no_3 = true;
-//var suiji_1 = hamibot.env.suiji_1;
+var suiji_1 = false;
 var  id_group_name  = 'hg4';
 device.wakeUp();//唤醒设备 
 sleep(2000); // 等待屏幕亮起 
