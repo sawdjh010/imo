@@ -342,7 +342,7 @@ function push_msg(send_msg){
 .item .bar div{height:10px;background-color:#ed4e45;border-radius:5px;}</style>'; 
     send_msg +='</div>' + style_str;
     let r = http.postJson("http://www.pushplus.plus/send", {
-    token: token, //'f10efb5abb454dd99426886b3fa62389',
+    token: pushplus, //'f10efb5abb454dd99426886b3fa62389',
     title: "申购反馈：",   // + name,
     content: send_msg + "</div><style>.item{height:1.5em;line-height:1.5em;}.item span{display:inline-block;padding-left:0.4em;}.item .bar{width:200px;height:10px;background-color:#ddd;border-radius:5px;display:inline-block;}.item .bar div{height:10px;background-color:#ed4e45;border-radius:5px;}</style>",
     template: "markdown",// "markdown" "html",
