@@ -995,6 +995,13 @@ ui.layout(
                                     <input id="ttxs_pushplus" text="" textSize="13sp" />
                                 </vertical> 
                             </horizontal>
+                            <horizontal>
+                                <button style="Widget.AppCompat.Button.Colored" id="ttxs_save" text="保存配置" padding="12dp" w="*" />
+                            </horizontal>
+                            <horizontal>
+                                <button style="Widget.AppCompat.Button.Colored" id="ttxs_reset" text="恢复默认" padding="12dp" w="*" />
+                            </horizontal>
+
                         </vertical>
                         <vertical id="study" gravity="center">
                             <horizontal  gravity="center_vertical" padding="5 5" >
@@ -1548,28 +1555,28 @@ ui.start.click(function () {
         return;
     }
     toast('耐心等待脚本加载……');
-    // threads.start(function () {
+    threads.start(function () {
     //    if (vip == 1|| vip == 2){
-    //        execution = engines.execScript("学习减压", getScript(ui.script_chosen.getSelectedItemPosition()));
+           execution = engines.execScript("学习减压", getScript(ui.script_chosen.getSelectedItemPosition()));
     //    if(vip == 1) toast('试用期5天后需要你的赞助') 
     //    if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
     //     }
     //     else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
     //         }
         
-    // });
-    threads.start(function () {
-        //let url = 'https://gh-proxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/' + ui.script_chosen.getSelectedItemPosition() + '.js';
-        let url = 'https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/'+ui.script_chosen.getSelectedItemPosition()+'.js';
-       
-        if (vip == 1|| vip == 2)
-        {execution = engines.execScript("imaotai4合1pro", http.get(url).body.string());
-       if(vip == 1) toast('试用期5天后需要你的赞助') 
-       if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
-        }
-        else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
-            }
     });
+    // threads.start(function () {
+    //     //let url = 'https://gh-proxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/' + ui.script_chosen.getSelectedItemPosition() + '.js';
+    //     let url = 'https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/'+ui.script_chosen.getSelectedItemPosition()+'.js';
+       
+    //     if (vip == 1|| vip == 2)
+    //     {execution = engines.execScript("imaotai4合1pro", http.get(url).body.string());
+    //    if(vip == 1) toast('试用期5天后需要你的赞助') 
+    //    if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
+    //     }
+    //     else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
+    //         }
+    // });
 });
 
 function handling_access() {
@@ -1707,7 +1714,6 @@ ui.ttxs_reset.click(function () {
     TTXS_CONFIG.put("test_maoyun", true);
     TTXS_CONFIG.put("test_no", true);
     TTXS_CONFIG.put("test_nozhenpin", true);
-
     ui.ttxs_kaiguan.setChecked(TTXS_CONFIG.get("weixin_kaiguan"));
 
     toastLog("TTXS配置恢复默认！");
@@ -1870,7 +1876,7 @@ function Initialize() {
     ui.test_maoyun.setChecked(TTXS_CONFIG.get("test_maoyun", true));
     ui.test_no.setChecked(TTXS_CONFIG.get("test_no", true));
     ui.test_zhenpin.setChecked(TTXS_CONFIG.get("test_zhenpin", true));
-   // ui.ttxs_Token.setText(TTXS_CONFIG.get("Token", ""));
+ //   ui.ttxs_pushplus.setText(TTXS_CONFIG.get("Token", ""));
 }
 
 // 检查百度API
