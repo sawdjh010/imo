@@ -652,7 +652,7 @@ ui.layout(
     <drawer id="drawer">
         <vertical>
             <appbar>
-                <toolbar id="toolbar" bg="#ff4fb3ff" title="学习减压四合一PRO"/>
+                <toolbar id="toolbar" bg="#ff4fb3ff" title="imaotai-PRO"/>
                 <tabs id="tabs" bg="#ff4fb3ff"/>
             </appbar>
             <viewpager id="viewpager">
@@ -713,7 +713,7 @@ ui.layout(
                            <button h="50" layout_gravity="center" id="log" textSize="17sp" text="查看日志" ></button>
                         </horizontal>
                         <button h="60" layout_gravity="center" id="update" textSize="18sp" />
-                        <button id="start" text="开 始 学 习" textSize="25sp" color="#ffffff" bg="#FF4FB3FF" foreground="?selectableItemBackground"/>
+                        <button id="start" text="i茅启动" textSize="25sp" color="#ffffff" bg="#FF4FB3FF" foreground="?selectableItemBackground"/>
                     </vertical>
                 </frame>
                 </ScrollView>
@@ -952,9 +952,48 @@ ui.layout(
                             <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
                                 <vertical padding="10 8" h="auto" w="0" layout_weight="1">
-                                    <text w="auto" textColor="#222222" textSize="15sp" text="测试" />
+                                <text w="auto" textColor="#222222" textSize="15sp" text="默认是申购" />
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="申购查询" />
                                 </vertical>
-                                <checkbox id="test_article1" marginLeft="4" marginRight="6" checked="true" />
+                                <checkbox id="test_chaxun" marginLeft="4" marginRight="6" checked="true" />
+                            </horizontal>
+                            <horizontal  gravity="center_vertical" padding="5 5" >
+                                <View bg="#00BFFF" h="*" w="10"  ></View>
+                                <vertical padding="10 8" h="auto" w="0" layout_weight="1">
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="领取小茅运" />
+                                </vertical>
+                                <checkbox id="test_maoyun" marginLeft="4" marginRight="6" checked="true" />
+                            </horizontal>
+                            <horizontal  gravity="center_vertical" padding="5 5" >
+                                <View bg="#00BFFF" h="*" w="10"  ></View>
+                                <vertical padding="10 8" h="auto" w="0" layout_weight="1">
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="no-1935" />
+                                </vertical>
+                                <checkbox id="test_no" marginLeft="4" marginRight="6" checked="true" />
+                            </horizontal>
+                            <horizontal  gravity="center_vertical" padding="5 5" >
+                                <View bg="#00BFFF" h="*" w="10"  ></View>
+                                <vertical padding="10 8" h="auto" w="0" layout_weight="1">
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="no-珍品" />
+                                </vertical>
+                                <checkbox id="test_zhenpin" marginLeft="4" marginRight="6" checked="true" />
+                            </horizontal>
+                            <horizontal  gravity="center_vertical" padding="5 5" >
+                                <View bg="#00BFFF" h="*" w="10"  ></View>
+                                <vertical padding="10 8" h="auto" w="0" layout_weight="1">
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="pushplus_token(微信推送)开关" />
+                                    <text w="auto" textColor="#999999" textSize="12sp" text="选推送，需要勾选并填写下方token" />
+                                </vertical>
+                                <checkbox id="ttxs_kaiguan" marginLeft="4" marginRight="6" checked="true" />
+                            </horizontal>
+                            <horizontal  gravity="center_vertical" padding="5 5" >
+                                <View bg="#00BFFF" h="*" w="10"  ></View>
+                                <vertical padding="10 8" h="auto" w="0" layout_weight="1">
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="pushplus_token(微信推送)" />
+                                    <text w="auto" textColor="#999999" textSize="12sp" text="微信关注pushplus推送加，复制token填入" />
+                                    <text w="auto" textColor="#999999" textSize="12sp" text="注意！搜索结果有两个，一定要关注正确" />
+                                    <input id="ttxs_pushplus" text="" textSize="13sp" />
+                                </vertical> 
                             </horizontal>
                         </vertical>
                         <vertical id="study" gravity="center">
@@ -1204,11 +1243,12 @@ var BH_KAMI_CONFIG = storages.create("BH_KAMI_CONFIG");
 var GLOBAL_CONFIG = storages.create("GLOBAL_CONFIG");
 var TTXS_PRO_CONFIG = storages.create("TTXS_PRO_CONFIG");
 var STUDY_CONFIG = storages.create("STUDY_CONFIG");
+var TTXS_CONFIG = storages.create("TTXS_CONFIG");
 var BAIDUAPI = storages.create("BAIDUAPI");
 var execution = "";
 var thread = null;
 Initialize();
-
+var handling_access = handling_access();
 // 版本更新检查
 var apkurl = "https://wwsc.lanzouo.com/imSwd0mvp0ze";
 var latest_version = "2.2.0";
@@ -1403,7 +1443,7 @@ ui.emitter.on("options_item_selected", (e, item) => {
             app.startActivity("console");
             break;
         case "关于":
-            alert("关于", "学习减压4+1Pro_v" + latest_version + "\n  新Q群：758116397");
+            alert("关于", "imaotai4+1Pro_v" + latest_version + "\n  新Q群：758116397");
             break;
             case "最新版下载(密码:ex28)":
                 app.openUrl("https://wwsc.lanzouo.com/imSwd0mvp0ze");
@@ -1501,27 +1541,6 @@ ui.update.click(function () {
 // 下载并运行所选脚本
 ui.start.click(function () {
     toast('耐心等待脚本加载 中……');
-//     threads.start(function(){ ui.bh_kami.setText(BH_KAMI_CONFIG.get("bh_kami", ""));});
-//     var BH_KAMI_CONFIG = storages.create("BH_KAMI_CONFIG");
-//      kami = BH_KAMI_CONFIG.get("bh_kami", "");
-//    toast("kami:" + kami)
-//      if (kami.length ==12){
-       
-//                 console.info("读取到了卡密:%s", kami);
-//                 //开始判断卡密是否过期
-//                 pjysdk.SetCard(kami);
-//                 pjyUser = pjysdk.CardLogin();
-                
-//             } else {
-//                 console.info("未读取到卡密，开始试用登陆");
-//                 pjyUser = pjysdk.TrialLogin();
-//             }
-//                 if (pjyUser.code == 0) {
-//                     ui.endTime.setText(pjyUser.result.expires);
-//                     vip=2
-//                 } else {
-//                     ui.endTime.setText(pjyUser.message);
-//                 }  
                
     threads.shutDownAll();
     if (thread != null && thread.isAlive()) {
@@ -1530,24 +1549,52 @@ ui.start.click(function () {
     }
     toast('耐心等待脚本加载……');
     threads.start(function () {
-        //let url = 'https://gh-proxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/' + ui.script_chosen.getSelectedItemPosition() + '.js';
-        let url = 'https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/'+ui.script_chosen.getSelectedItemPosition()+'.js';
-       
-        if (vip == 1|| vip == 2)
-        {execution = engines.execScript("学习减压4合1pro", http.get(url).body.string());
-       if(vip == 1) toast('试用期5天后需要你的赞助') 
-       if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
-        }
-        else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
-            }
+       // if (vip == 1|| vip == 2){
+            execution = engines.execScript("学习减压", getScript(ui.script_chosen.getSelectedItemPosition()));
+    //    if(vip == 1) toast('试用期5天后需要你的赞助') 
+    //    if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
+    //     }
+    //     else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
+    //         }
+        
     });
+    // threads.start(function () {
+    //     //let url = 'https://gh-proxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/' + ui.script_chosen.getSelectedItemPosition() + '.js';
+    //     let url = 'https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/'+ui.script_chosen.getSelectedItemPosition()+'.js';
+       
+    //     if (vip == 1|| vip == 2)
+    //     {execution = engines.execScript("imaotai4合1pro", http.get(url).body.string());
+    //    if(vip == 1) toast('试用期5天后需要你的赞助') 
+    //    if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
+    //     }
+    //     else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
+    //         }
+    // });
 });
 
+function handling_access() {
+    var thread_handling =  threads.start(function(){
+        pjysdk.SetCard(ui.bh_kami.getText().toString());
+        let login_ret = pjysdk.CardLogin();
+        if (login_ret.code == 0) {
+            // 登录成功，后面写你的业务代码
+            // console.show();
+            console.log('欢迎使用本脚本，继续点击‘开始学习’');
+            toast('欢迎使用本脚本，继续点击‘开始学习’');
+             vip = 2;
+        
+        } else {
+            // 登录失败提示
+            toast(login_ret.message);
+        }
+    });
+    return thread_handling
+   }
 // // 保存卡密设置
 // ui.cun_bh_kami.click(function () {
 //     TTXS_PRO_CONFIG.put("cun_bh", ui.bh_kami.getText() + "");
 // });
-// 保存学习减压四合一pro脚本设置
+// 保存imaotai四合一pro脚本设置
 ui.ttxs_pro_save.click(function () {
     TTXS_PRO_CONFIG.put("watchdog", ui.ttxs_pro_watchdog.getText() + "");
     TTXS_PRO_CONFIG.put("slide_verify", ui.ttxs_pro_slide_verify.getText() + "");
@@ -1578,10 +1625,10 @@ ui.ttxs_pro_save.click(function () {
     TTXS_PRO_CONFIG.put("yinliang", ui.ttxs_pro_yinliang.getText() + "");
     TTXS_PRO_CONFIG.put("zhanghao", ui.ttxs_pro_zhanghao.getText() + "");
 
-    toastLog("学习减压四合一pro配置保存成功！");
+    toastLog("imaotai四合一pro配置保存成功！");
 });
 
-// 重置学习减压四合一pro脚本设置
+// 重置imaotai四合一pro脚本设置
 ui.ttxs_pro_reset.click(function () {
     TTXS_PRO_CONFIG.put("watchdog", "1800");
     ui.ttxs_pro_watchdog.setText(TTXS_PRO_CONFIG.get("watchdog"));
@@ -1638,11 +1685,33 @@ ui.ttxs_pro_reset.click(function () {
     TTXS_PRO_CONFIG.put("yinliang", "0");
     ui.ttxs_pro_yinliang.setText(TTXS_PRO_CONFIG.get("yinliang"));
     TTXS_PRO_CONFIG.put("zhanghao", "");
-    ui.ttxs_pro_zhanghao.setText(TTXS_PRO_CONFIG.get("zhanghao"));
+    ui.ttxs_pro_zhanghao.setText(TTXS_PRO_CONFIG.get("zhanghao"));STUDY
 
-    toastLog("学习减压四合一pro配置恢复默认！");
+    toastLog("imaotai四合一pro配置恢复默认！");
 });
 
+// 保存TTXS脚本设置
+ui.ttxs_save.click(function () {
+    TTXS_CONFIG.put("test_chaxun", ui.test_chaxun.isChecked());
+    TTXS_CONFIG.put("test_maoyun", ui.test_maoyun_video.getSelectedItemPosition());
+    TTXS_CONFIG.put("test_no", ui.test_no.isChecked());
+    TTXS_CONFIG.put("test_nozhenpin", ui.test_zhenpin.isChecked());
+    TTXS_CONFIG.put("pushplus", ui.ttxs_pushplus.getText() + "");
+    TTXS_CONFIG.put("weixin_kaiguan", ui.ttxs_kaiguan.isChecked());
+    toastLog("TTXS配置保存成功！");
+});
+
+// 重置TTXS脚本设置
+ui.ttxs_reset.click(function () {
+    TTXS_CONFIG.put("test_chaxun", true);
+    TTXS_CONFIG.put("test_maoyun", true);
+    TTXS_CONFIG.put("test_no", true);
+    TTXS_CONFIG.put("test_nozhenpin", true);
+
+    ui.ttxs_kaiguan.setChecked(TTXS_CONFIG.get("weixin_kaiguan"));
+
+    toastLog("TTXS配置恢复默认！");
+});
 // 保存study脚本设置
 ui.study_save.click(function () {
     STUDY_CONFIG.put("article", ui.study_article.isChecked());
@@ -1794,6 +1863,14 @@ function Initialize() {
     ui.study_time1.setText(STUDY_CONFIG.get("time1", "61"));
     ui.study_time2.setText(STUDY_CONFIG.get("time2", "6"));
     ui.study_Token.setText(STUDY_CONFIG.get("Token", ""));
+
+    ui.ttxs_kaiguan.setChecked(TTXS_CONFIG.get("weixin_kaiguan", true));
+    ui.ttxs_pushplus.setText(TTXS_CONFIG.get("pushplus", ""));
+    ui.test_chaxun.setChecked(TTXS_CONFIG.get("test_chaxun", true));
+    ui.test_maoyun.setChecked(TTXS_CONFIG.get("test_maoyun", true));
+    ui.test_no.setChecked(TTXS_CONFIG.get("test_no", true));
+    ui.test_zhenpin.setChecked(TTXS_CONFIG.get("test_zhenpin", true));
+    ui.ttxs_Token.setText(TTXS_CONFIG.get("Token", ""));
 }
 
 // 检查百度API
@@ -1897,4 +1974,29 @@ function startDownload(url) {
         app.viewFile(path);
     })
 }
+function getScript(choice) {
+    let url_prefix = [
+        'https://gh-proxy.com/https://github.com/sawdjh010/imo/blob/main/',
+       //"https://ghproxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/",
+        "https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/",
+        'https://cdn.jsdelivr.net/gh/sawdjh010/imo/blob@main/',
+        'https://raw.githubusercontent.com/sawdjh010/imo/blob/main/',
+    ];
+    for (var i = 0; i < url_prefix.length; i++) {
+        try {
+            let res = http.get(url_prefix[i] + choice + ".js");
+            console.log(i, ":" + res.statusCode);
+            if (res.statusCode == 200) {
+                var UI = res.body.string();
+                if (UI.indexOf('auto.waitFor();') == 0) break;
+            } else {
+                toastLog('学习脚本:地址' + i + '下载失败');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    return UI;
+}
+
 require('./去限制.js')
