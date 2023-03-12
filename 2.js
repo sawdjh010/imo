@@ -512,7 +512,7 @@ function purchase_result(){
          }
    //推送push
    result_1 = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
-  if(weixin_kaiguan && pushplus != null && pushplus.Token.length > 6){
+  if(weixin_kaiguan && pushplus != null && pushplus.length > 6){
         delay(random(0.7, 1)); 
         push_msg(result_1 + result);
         delay(random(4, 5)); 
