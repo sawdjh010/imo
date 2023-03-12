@@ -1870,7 +1870,7 @@ function Initialize() {
     ui.test_maoyun.setChecked(TTXS_CONFIG.get("test_maoyun", true));
     ui.test_no.setChecked(TTXS_CONFIG.get("test_no", true));
     ui.test_zhenpin.setChecked(TTXS_CONFIG.get("test_zhenpin", true));
-    ui.ttxs_Token.setText(TTXS_CONFIG.get("Token", ""));
+   // ui.ttxs_Token.setText(TTXS_CONFIG.get("Token", ""));
 }
 
 // 检查百度API
