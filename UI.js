@@ -949,34 +949,33 @@ ui.layout(
                             </horizontal>
                         </vertical>
                         <vertical id="ttxs" gravity="center">
-                            <horizontal  gravity="center_vertical" padding="5 5" >
+                        <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
                                 <vertical padding="10 8" h="auto" w="0" layout_weight="1">
-                                <text w="auto" textColor="#222222" textSize="15sp" text="默认是申购" />
-                                    <text w="auto" textColor="#222222" textSize="15sp" text="申购查询" />
-                                </vertical>
-                                <checkbox id="test_chaxun" marginLeft="4" marginRight="6" checked="true" />
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="默认是申购" />
+                                    <spinner id="ttxs_test_chaxun" marginLeft="4" marginRight="6" entries="申购|申购查询" />
+                                </vertical> 
                             </horizontal>
                             <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
                                 <vertical padding="10 8" h="auto" w="0" layout_weight="1">
                                     <text w="auto" textColor="#222222" textSize="15sp" text="领取小茅运" />
                                 </vertical>
-                                <checkbox id="test_maoyun" marginLeft="4" marginRight="6" checked="true" />
+                                <checkbox id="ttxs_test_maoyun" marginLeft="4" marginRight="6" checked="true" />
                             </horizontal>
                             <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
                                 <vertical padding="10 8" h="auto" w="0" layout_weight="1">
                                     <text w="auto" textColor="#222222" textSize="15sp" text="no-1935" />
                                 </vertical>
-                                <checkbox id="test_no" marginLeft="4" marginRight="6" checked="true" />
+                                <checkbox id="ttxs_test_no" marginLeft="4" marginRight="6" checked="true" />
                             </horizontal>
                             <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
                                 <vertical padding="10 8" h="auto" w="0" layout_weight="1">
                                     <text w="auto" textColor="#222222" textSize="15sp" text="no-珍品" />
                                 </vertical>
-                                <checkbox id="test_zhenpin" marginLeft="4" marginRight="6" checked="true" />
+                                <checkbox id="ttxs_test_zhenpin" marginLeft="4" marginRight="6" checked="true" />
                             </horizontal>
                             <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
@@ -1699,22 +1698,29 @@ ui.ttxs_pro_reset.click(function () {
 
 // 保存TTXS脚本设置
 ui.ttxs_save.click(function () {
-    TTXS_CONFIG.put("test_chaxun", ui.test_chaxun.isChecked());
-    TTXS_CONFIG.put("test_maoyun", ui.test_maoyun_video.getSelectedItemPosition());
-    TTXS_CONFIG.put("test_no", ui.test_no.isChecked());
-    TTXS_CONFIG.put("test_nozhenpin", ui.test_zhenpin.isChecked());
+   // TTXS_CONFIG.put("test_chaxun", ui.test_chaxun.isChecked());
+    TTXS_CONFIG.put("test_maoyun", ui.ttxs_test_maoyun.isChecked());
+    TTXS_CONFIG.put("test_no", ui.ttxs_test_no.isChecked());
+    TTXS_CONFIG.put("test_nozhenpin", ui.ttxs_test_zhenpin.isChecked());
     TTXS_CONFIG.put("pushplus", ui.ttxs_pushplus.getText() + "");
     TTXS_CONFIG.put("weixin_kaiguan", ui.ttxs_kaiguan.isChecked());
+    TTXS_CONFIG.put("test_chaxun", ui.ttxs_test_chaxun.getSelectedItemPosition());
     toastLog("TTXS配置保存成功！");
 });
 
 // 重置TTXS脚本设置
 ui.ttxs_reset.click(function () {
-    TTXS_CONFIG.put("test_chaxun", true);
+    //TTXS_CONFIG.put("test_chaxun", true);
     TTXS_CONFIG.put("test_maoyun", true);
+    ui.ttxs_test_maoyun.setChecked(TTXS_PRO_CONFIG.get("test_maoyun"));
     TTXS_CONFIG.put("test_no", true);
+    ui.ttxs_test_no.setChecked(TTXS_PRO_CONFIG.get("test_no"));
     TTXS_CONFIG.put("test_nozhenpin", true);
+    ui.ttxs_test_nozhenpin.setChecked(TTXS_CONFIG.get("test_nozhenpin"));
+
     ui.ttxs_kaiguan.setChecked(TTXS_CONFIG.get("weixin_kaiguan"));
+    TTXS_CONFIG.put("test_chaxun", 0);
+    ui.ttxs_test_chaxun.setSelection(TTXS_CONFIG.get("test_chaxun"));
 
     toastLog("TTXS配置恢复默认！");
 });
@@ -1872,10 +1878,10 @@ function Initialize() {
 
     ui.ttxs_kaiguan.setChecked(TTXS_CONFIG.get("weixin_kaiguan", true));
     ui.ttxs_pushplus.setText(TTXS_CONFIG.get("pushplus", ""));
-    ui.test_chaxun.setChecked(TTXS_CONFIG.get("test_chaxun", true));
-    ui.test_maoyun.setChecked(TTXS_CONFIG.get("test_maoyun", true));
-    ui.test_no.setChecked(TTXS_CONFIG.get("test_no", true));
-    ui.test_zhenpin.setChecked(TTXS_CONFIG.get("test_zhenpin", true));
+    ui.ttxs_test_maoyun.setChecked(TTXS_CONFIG.get("test_maoyun", true));
+    ui.ttxs_test_no.setChecked(TTXS_CONFIG.get("test_no", true));
+    ui.ttxs_test_zhenpin.setChecked(TTXS_CONFIG.get("test_zhenpin", true));
+    ui.ttxs_test_chaxun.setSelection(TTXS_CONFIG.get("test_chaxun", 0));
  //   ui.ttxs_pushplus.setText(TTXS_CONFIG.get("Token", ""));
 }
 

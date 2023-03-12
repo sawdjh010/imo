@@ -17,6 +17,52 @@ importClass(java.net.URL);
 importClass(java.io.File);
 importClass(java.io.FileOutputStream);
 
+var TTXS_CONFIG = storages.create("TTXS_CONFIG");
+var weixin_kaiguan = TTXS_CONFIG.get("weixin_kaiguan", true);
+
+var pushplus = TTXS_CONFIG.get("pushplus", "");
+var test_maoyun = TTXS_CONFIG.get("test_maoyun", true);
+var test_no = TTXS_CONFIG.get("test_no", true);
+var test_nozhenpin = TTXS_CONFIG.get("test_nozhenpin", true);
+var test_chaxun = TTXS_CONFIG.get("test_chaxun", 0);
+
+var isPrivateModes = getVersion("cn.xuexi.android").match(/[0-9][0-9]*/g).join('');
+var isPrivateMode_1 = isPrivateModes-2380;
+
+var privateModeStartVersion = "2.39.0";
+var isPrivateMode = version1GreaterVersion2(getVersion("cn.xuexi.android"), privateModeStartVersion);
+
+console.info('当前i茅台版本为' + getVersion("cn.xuexi.android") + '(' + isPrivateModes + ')');
+
+function getVersion(package_name) {
+    // 该函数来源：https://blog.csdn.net/aa490791706/article/details/122863666
+    let pkgs = context.getPackageManager().getInstalledPackages(0).toArray();
+    for (let i in pkgs) {
+        if (pkgs[i].packageName.toString() === package_name) {
+            return pkgs[i].versionName;
+        }
+    }
+}
+function version1GreaterVersion2(version1, version2, equal) {
+    // 该函数来源：https://blog.csdn.net/aa490791706/article/details/122863666
+    if (equal && version1 === version2) {
+        return true;
+    }
+    let versionArr1 = version1.split('.');
+    let versionArr2 = version2.split('.');
+    let result = false;
+    for (var i = 0; i < versionArr1.length; i++) {
+        if (versionArr1[i] > versionArr2[i]) {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+
+
+
+
 var config = {
     iv: "abcdfui8701olkw4",
     bm: "UTF-8",
@@ -296,7 +342,7 @@ function push_msg(send_msg){
 .item .bar div{height:10px;background-color:#ed4e45;border-radius:5px;}</style>'; 
     send_msg +='</div>' + style_str;
     let r = http.postJson("http://www.pushplus.plus/send", {
-    token: 'f10efb5abb454dd99426886b3fa62389',
+    token: token, //'f10efb5abb454dd99426886b3fa62389',
     title: "申购反馈：",   // + name,
     content: send_msg + "</div><style>.item{height:1.5em;line-height:1.5em;}.item span{display:inline-block;padding-left:0.4em;}.item .bar{width:200px;height:10px;background-color:#ddd;border-radius:5px;display:inline-block;}.item .bar div{height:10px;background-color:#ed4e45;border-radius:5px;}</style>",
     template: "markdown",// "markdown" "html",
@@ -466,11 +512,11 @@ function purchase_result(){
          }
    //推送push
    result_1 = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
- // if(hamibot.env.Token != null && hamibot.env.Token.length > 6){
+  if(weixin_kaiguan && pushplus != null && pushplus.Token.length > 6){
         delay(random(0.7, 1)); 
         push_msg(result_1 + result);
         delay(random(4, 5)); 
- //   }
+    }
   //发送微信
   if(weixin_push == true){
   send_wx_msg(result_1 + result)
@@ -557,8 +603,8 @@ function purchase_buy(){
       }
       else if(good_enterence.text()=='预约申购'){
           // if(no_1&&rukou==1) continue;
-           if(no_2 && rukou==2) {console.info("已勾选不申请--1935");continue;}
-           if(no_3 && rukou==3)  {console.info("已勾选不申请--贵州茅台酒(珍品)");continue;}
+           if(test_no && rukou==2) {console.info("已勾选不申请--1935");continue;}
+           if(test_nozhenpin && rukou==3)  {console.info("已勾选不申请--贵州茅台酒(珍品)");continue;}
           // if(no_4&&rukou==4) continue;
        // my_click_non_clickable("预约申购");	
         good_enterence.click()
@@ -576,7 +622,7 @@ function purchase_buy(){
                                    console.info(wen_ts);   
                                    console.info("申购完毕！");
                                  log("准备查询/领取小茅运返回top")}
-  if(maoyun_draw_1 == true){
+  if(test_maoyun == true){
     console.info("准备查询/领取小茅运")
     toast("准备查询/领取小茅运")
     var resultss =  maoyun_draw();//领取或查询小茅运
@@ -587,11 +633,11 @@ function purchase_buy(){
             resultss = "\n\n" + wen_ts + "\n\n" + resultss;
                 }
   //推送push
-  //if(hamibot.env.Token != null && hamibot.env.Token.length > 6){
+  if(weixin_kaiguan && pushplus != null && pushplus.length > 6){
          delay(random(0.7, 1)); 
         push_msg(resultss);
          delay(random(4, 5)); 
-  //  }
+    }
   //发送微信
   if(weixin_push == true){
   send_wx_msg(resultss)
@@ -1045,7 +1091,7 @@ function rt(){
           var start = new Date().getTime(); //程序开始时间
                   
           //购买
-          if(run_type=='buy'){
+          if(test_chaxun == 0){
 	          //  buy_task();
              purchase_buy()
                }
