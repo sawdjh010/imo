@@ -145,7 +145,7 @@ swipe(500,2000,500,1000,240);//可以
 // }
 if(suiji_1) delay(random(5, 600)); 
 console.warn( " 产品厂商品牌:"+ device.brand + "\n设备型号:" + device.model+"\n Android 系统版本号:"+ device.release);
-console.warn("设备的ID:" +device.getAndroidId()+ "\n MAC:"+ device.getMacAddress()+ "\n当前电量:"+ device.getBattery());
+console.warn("设备的ID:" +device.getAndroidId()+ "\n MAC:"+ device.getMacAddress()+ "\n当前i茅台版本为:" + getVersion("com.moutai.mall"));
 if(device.getBattery() < 30)console.error("当前电量:"+ device.getBattery());
 else console.info("当前电量:"+ device.getBattery());
 // console.warn("\n 产品厂商品牌:"+ device.brand);
