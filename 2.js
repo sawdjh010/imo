@@ -148,11 +148,6 @@ console.warn( " 产品厂商品牌:"+ device.brand + "\n设备型号:" + device.
 console.warn("设备的ID:" +device.getAndroidId()+ "\n MAC:"+ device.getMacAddress()+ "\n当前电量:"+ device.getBattery());
 if(device.getBattery() < 30)console.error("当前电量:"+ device.getBattery());
 else console.info("当前电量:"+ device.getBattery());
-// console.warn("设备IMEI:"+ device.getIMEI());
-// console.warn("\n Android 系统版本号:"+ device.release);
-// console.warn("\n硬件序列号:" + device.serial);
-
-// console.warn("设备IMEI:"+ device.getIMEI()+ "\n Android 系统版本号:"+ device.release + "\n硬件序列号:" + device.serial);
 // console.warn("\n 产品厂商品牌:"+ device.brand);
 // console.warn("\n设备型号:" + device.model);
 // console.warn("设备的主板(?)型号:"+ device.broad);

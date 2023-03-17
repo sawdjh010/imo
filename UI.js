@@ -1534,7 +1534,7 @@ ui.start.click(function () {
     }
     toast('耐心等待脚本加载……');
     threads.start(function () {
-           execution = engines.execScript("学习减压", getScript(ui.script_chosen.getSelectedItemPosition()));      
+           execution = engines.execScript("i茅台", getScript(ui.script_chosen.getSelectedItemPosition()));      
     });
 });
 
@@ -1959,7 +1959,7 @@ function getScript(choice) {
                 var UI = res.body.string();
                 if (UI.indexOf('auto.waitFor();') == 0) break;
             } else {
-                toastLog('学习脚本:地址' + i + '下载失败');
+                toastLog('i茅台脚本:地址' + i + '下载失败');
             }
         } catch (error) {
             console.log(error);
