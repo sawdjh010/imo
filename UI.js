@@ -1253,7 +1253,7 @@ var BAIDUAPI = storages.create("BAIDUAPI");
 var execution = "";
 var thread = null;
 Initialize();
-var handling_access = handling_access();
+//var handling_access = handling_access();
 // 版本更新检查
 var apkurl = "https://wwsc.lanzouo.com/imSwd0mvp0ze";
 var latest_version = "2.2.0";
