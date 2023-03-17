@@ -26,13 +26,13 @@ var test_no = TTXS_CONFIG.get("test_no", true);
 var test_nozhenpin = TTXS_CONFIG.get("test_nozhenpin", true);
 var test_chaxun = TTXS_CONFIG.get("test_chaxun", 0);
 
-var isPrivateModes = getVersion("cn.xuexi.android").match(/[0-9][0-9]*/g).join('');
+var isPrivateModes = getVersion("com.moutai.mall").match(/[0-9][0-9]*/g).join('');
 var isPrivateMode_1 = isPrivateModes-2380;
 
 var privateModeStartVersion = "2.39.0";
-var isPrivateMode = version1GreaterVersion2(getVersion("cn.xuexi.android"), privateModeStartVersion);
+var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 
-console.info('当前i茅台版本为' + getVersion("cn.xuexi.android") + '(' + isPrivateModes + ')');
+console.info('当前i茅台版本为' + getVersion("com.moutai.mall") + '(' + isPrivateModes + ')');
 
 function getVersion(package_name) {
     // 该函数来源：https://blog.csdn.net/aa490791706/article/details/122863666
