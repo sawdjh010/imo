@@ -29,6 +29,7 @@ var test_chaxun = TTXS_CONFIG.get("test_chaxun", 0);
 var isPrivateModes = getVersion("com.moutai.mall").match(/[0-9][0-9]*/g).join('');
 var isPrivateMode_1 = isPrivateModes-2380;
 var imaotai_guanbi_thread = imaotai_guanbi();
+var imaotai_KeyDown_thread = imaotai_KeyDown();
 var privateModeStartVersion = "1.3.6";
 var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 
@@ -1133,6 +1134,19 @@ function rt(){
     exit();
 }
 rt();
+/**监听音量键 */
+function imaotai_KeyDown(){
+  let KeyDown_thread = threads.start(function(){  //开启子线程
+  //监听音量键-，关闭所有脚本
+  events.observeKey();
+  events.onKeyDown("volume_down",function(event){//音量+改为volume_up
+    engines.stopAllAndToast();   
+   });
+
+} )
+return KeyDown_thread;
+  }
+/** 监听结束*/
 
 //检测出现i茅台脚本关闭应用程序
 function imaotai_guanbi(){
