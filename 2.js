@@ -1140,6 +1140,7 @@ function imaotai_KeyDown(){
   //监听音量键-，关闭所有脚本
   events.observeKey();
   events.onKeyDown("volume_down",function(event){//音量+改为volume_up
+    console.hide();
     engines.stopAllAndToast();   
    });
 
