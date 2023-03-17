@@ -28,7 +28,7 @@ var test_chaxun = TTXS_CONFIG.get("test_chaxun", 0);
 
 var isPrivateModes = getVersion("com.moutai.mall").match(/[0-9][0-9]*/g).join('');
 var isPrivateMode_1 = isPrivateModes-2380;
-var qg_guanbi_thread = qg_guanbi();
+var imaotai_guanbi_thread = imaotai_guanbi();
 var privateModeStartVersion = "1.3.6";
 var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 
@@ -1140,11 +1140,11 @@ function imaotai_guanbi(){
     //在新线程执行的代码
     //sleep(500);
     fInfo("检测兼容性--‘关闭应用’弹窗");
-    var btn = className("android.widget.Button").textMatches(/关闭应用|应用信息|等待|immo没有响应|START NOW/).findOne(5000);
+    var btn = className("android.widget.Button").textMatches(/等待/).findOne(5000);
     if (btn) {
       sleep(1000);
-      click( btn.bounds().centerX() + 50, btn.bounds().centerX() - 30);
-      press(btn.bounds().centerX() + 50, btn.bounds().centerX() - 30,100)
+      click( btn.bounds().centerX(), btn.bounds().centerX());
+      press(btn.bounds().centerX(), btn.bounds().centerX(),100)
     }
     fInfo("检测到兼容性弹窗--已关闭应用");
     toastLog("检测到兼容性弹窗--已关闭应用");
