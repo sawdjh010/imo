@@ -709,7 +709,7 @@ ui.layout(
                          </horizontal>
                        </vertical>
                        <horizontal>
-                           <button id="denglu_1" text="VIP登录" textSize="18sp" color="#ffffff" bg="#FF4FB3FF" layout_weight='1'></button>
+                           {/* <button id="denglu_1" text="VIP登录" textSize="18sp" color="#ffffff" bg="#FF4FB3FF" layout_weight='1'></button> */}
                            <button h="50" layout_gravity="center" id="log" textSize="17sp" text="查看日志" ></button>
                         </horizontal>
                         <button id="start" text="i茅启动" textSize="25sp" color="#ffffff" bg="#FF4FB3FF" foreground="?selectableItemBackground"/>
@@ -1452,7 +1452,8 @@ ui.emitter.on("options_item_selected", (e, item) => {
 activity.setSupportActionBar(ui.toolbar);
 
 // 设置滑动页面的标题
-ui.viewpager.setTitles(["首页", "脚本配置",'VIP卡密']);
+//ui.viewpager.setTitles(["首页", "脚本配置",'VIP卡密']);
+ui.viewpager.setTitles(["首页", "脚本配置"]);
 // 让滑动页面和标签栏联动
 ui.tabs.setupWithViewPager(ui.viewpager);
 
