@@ -710,7 +710,7 @@ ui.layout(
                        </vertical>
                        <horizontal>
                            {/* <button id="denglu_1" text="VIP登录" textSize="18sp" color="#ffffff" bg="#FF4FB3FF" layout_weight='1'></button> */}
-                           <button h="50" layout_gravity="center" id="log" textSize="17sp" text="查看日志" ></button>
+                           <button w='*' h="50" layout_gravity="center" id="log" textSize="17sp" text="查看日志" ></button>
                         </horizontal>
                         <button id="start" text="i茅启动" textSize="25sp" color="#ffffff" bg="#FF4FB3FF" foreground="?selectableItemBackground"/>
                     </vertical>
