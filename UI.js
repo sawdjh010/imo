@@ -974,7 +974,7 @@ ui.layout(
                                 <vertical padding="10 8" h="auto" w="0" layout_weight="1">
                                     <text w="auto" textColor="#222222" textSize="15sp" text="no-珍品" />
                                 </vertical>
-                                <checkbox id="ttxs_test_zhenpin" marginLeft="4" marginRight="6" checked="true" />
+                                <checkbox id="ttxs_test_nozhenpin" marginLeft="4" marginRight="6" checked="true" />
                             </horizontal>
                             <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
@@ -1659,7 +1659,7 @@ ui.ttxs_save.click(function () {
    // TTXS_CONFIG.put("test_chaxun", ui.test_chaxun.isChecked());
     TTXS_CONFIG.put("test_maoyun", ui.ttxs_test_maoyun.isChecked());
     TTXS_CONFIG.put("test_no", ui.ttxs_test_no.isChecked());
-    TTXS_CONFIG.put("test_nozhenpin", ui.ttxs_test_zhenpin.isChecked());
+    TTXS_CONFIG.put("test_nozhenpin", ui.ttxs_test_nozhenpin.isChecked());
     TTXS_CONFIG.put("pushplus", ui.ttxs_pushplus.getText() + "");
     TTXS_CONFIG.put("weixin_kaiguan", ui.ttxs_kaiguan.isChecked());
     TTXS_CONFIG.put("test_chaxun", ui.ttxs_test_chaxun.getSelectedItemPosition());
@@ -1838,7 +1838,7 @@ function Initialize() {
     ui.ttxs_pushplus.setText(TTXS_CONFIG.get("pushplus", ""));
     ui.ttxs_test_maoyun.setChecked(TTXS_CONFIG.get("test_maoyun", true));
     ui.ttxs_test_no.setChecked(TTXS_CONFIG.get("test_no", true));
-    ui.ttxs_test_zhenpin.setChecked(TTXS_CONFIG.get("test_zhenpin", true));
+    ui.ttxs_test_nozhenpin.setChecked(TTXS_CONFIG.get("test_nozhenpin", true));
     ui.ttxs_test_chaxun.setSelection(TTXS_CONFIG.get("test_chaxun", 0));
  //   ui.ttxs_pushplus.setText(TTXS_CONFIG.get("Token", ""));
 }
