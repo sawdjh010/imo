@@ -1360,16 +1360,6 @@ ui.denglu.on('click', () => {
         //  else toast("无卡密或者没保存卡密，若无法使用，请联系群主赞助后获取卡密");
 
  });
-//解绑
-//  ui.jiebang.on('click', () => {
-//     threads.start(ui.pjyJiebangFun);
-//     // let kami = ui.bh_kami.text();
-//     // if (kami != "" && kami != null) { 
-//         BH_KAMI_CONFIG.put("bh_kami", "");
-//         ui.bh_kami.setText(BH_KAMI_CONFIG.get("bh_kami"));
-//       //  toast('卡密已重置为空');
-//     //   }
-// });
 
 //创建按键的点击事件--调试
 ui.jiebang_ts_kami.on('click', () => {
@@ -1533,16 +1523,6 @@ ui.log.click(function () {
     app.startActivity("console");
 });
 
-// APP更新检测
-ui.update.click(function () {
-    if (app.versionName != latest_version) {
-        GLOBAL_CONFIG.put("NO_UPDATE", 0);
-        checkversion();
-    } else {
-        toast("当前已经是最新版本！");
-    }
-});
-
 // 下载并运行所选脚本
 ui.start.click(function () {
     toast('耐心等待脚本加载 中……');
@@ -1554,27 +1534,8 @@ ui.start.click(function () {
     }
     toast('耐心等待脚本加载……');
     threads.start(function () {
-    //    if (vip == 1|| vip == 2){
-           execution = engines.execScript("学习减压", getScript(ui.script_chosen.getSelectedItemPosition()));
-    //    if(vip == 1) toast('试用期5天后需要你的赞助') 
-    //    if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
-    //     }
-    //     else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
-    //         }
-        
+           execution = engines.execScript("学习减压", getScript(ui.script_chosen.getSelectedItemPosition()));      
     });
-    // threads.start(function () {
-    //     //let url = 'https://gh-proxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/' + ui.script_chosen.getSelectedItemPosition() + '.js';
-    //     let url = 'https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/'+ui.script_chosen.getSelectedItemPosition()+'.js';
-       
-    //     if (vip == 1|| vip == 2)
-    //     {execution = engines.execScript("imaotai4合1pro", http.get(url).body.string());
-    //    if(vip == 1) toast('试用期5天后需要你的赞助') 
-    //    if(vip == 2) toast('感谢赞助与支持，欢迎登录使用') 
-    //     }
-    //     else {toast('请检查是否卡密已过（试用）期或者未输入卡密登录激活') 
-    //         }
-    // });
 });
 
 function handling_access() {
@@ -1595,10 +1556,7 @@ function handling_access() {
     });
     return thread_handling
    }
-// // 保存卡密设置
-// ui.cun_bh_kami.click(function () {
-//     TTXS_PRO_CONFIG.put("cun_bh", ui.bh_kami.getText() + "");
-// });
+
 // 保存imaotai四合一pro脚本设置
 ui.ttxs_pro_save.click(function () {
     TTXS_PRO_CONFIG.put("watchdog", ui.ttxs_pro_watchdog.getText() + "");
