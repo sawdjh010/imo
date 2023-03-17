@@ -1143,6 +1143,7 @@ function imaotai_KeyDown(){
     
     engines.stopAllAndToast();   
     console.hide();
+    floaty.closeAll()
     exit();
    });
 
