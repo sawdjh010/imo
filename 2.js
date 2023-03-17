@@ -1142,6 +1142,7 @@ function imaotai_KeyDown(){
   events.onKeyDown("volume_down",function(event){//音量+改为volume_up
     console.hide();
     engines.stopAllAndToast();   
+    exit();
    });
 
 } )
