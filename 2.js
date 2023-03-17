@@ -1103,7 +1103,7 @@ function rt(){
     console.log("运行结束,共耗时" + (parseInt(end - start)) / 1000 + "秒");
           back_main_page()   //返回主页
           click_text_element("首页",is_wait=false)
-    console.log("3s后自动关闭悬浮窗，查看日志请到hamibot内查看");
+    console.log("3s后自动关闭悬浮窗，可以查看日志");
    sleep(3000);
     console.hide();
     device.cancelKeepingAwake();
@@ -1140,8 +1140,9 @@ function imaotai_KeyDown(){
   //监听音量键-，关闭所有脚本
   events.observeKey();
   events.onKeyDown("volume_down",function(event){//音量+改为volume_up
-    console.hide();
+    
     engines.stopAllAndToast();   
+    console.hide();
     exit();
    });
 
