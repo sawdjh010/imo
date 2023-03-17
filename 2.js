@@ -1136,7 +1136,7 @@ rt();
 
 //检测出现i茅台脚本关闭应用程序
 function imaotai_guanbi(){
-  let qg_guanbi_thread = threads.start(function () {
+  let imaotai_guanbi_thread = threads.start(function () {
     //在新线程执行的代码
     //sleep(500);
     fInfo("检测兼容性--‘关闭应用’弹窗");
