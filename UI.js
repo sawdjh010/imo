@@ -1240,7 +1240,7 @@ ui.layout(
     </drawer>
 );
 
-ui.update.visibility = 8;
+//ui.update.visibility = 8;
 
 http.__okhttp__.setTimeout(10000);
 var BH_KAMI_CONFIG = storages.create("BH_KAMI_CONFIG");
@@ -1257,12 +1257,12 @@ var handling_access = handling_access();
 // 版本更新检查
 var apkurl = "https://wwsc.lanzouo.com/imSwd0mvp0ze";
 var latest_version = "2.2.0";
-if (GLOBAL_CONFIG.get("NO_UPDATE", 0) && (app.versionName != latest_version)) {
-    ui.update.visibility = 0;
-    ui.update.setText("点击更新至最新版v" + latest_version);
-} else if (app.versionName != latest_version) {
-    checkversion();
-}
+// if (GLOBAL_CONFIG.get("NO_UPDATE", 0) && (app.versionName != latest_version)) {
+//     ui.update.visibility = 0;
+//     ui.update.setText("点击更新至最新版v" + latest_version);
+// } else if (app.versionName != latest_version) {
+//     checkversion();
+// }
 // 监听心跳失败事件
 pjysdk.event.on("heartbeat_failed", function(hret) {
     toastLog(hret.message);
