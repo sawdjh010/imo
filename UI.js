@@ -1308,23 +1308,23 @@ ui.denglu.click(function() {
         }
     });
 });
-ui.denglu_1.click(function() {
-    threads.start(function(){
-        pjysdk.SetCard(ui.bh_kami.getText().toString());
-        let login_ret = pjysdk.CardLogin();
-        if (login_ret.code == 0) {
-            // 登录成功，后面写你的业务代码
-            // console.show();
-            console.log('欢迎使用本脚本，继续点击‘开始学习’');
-            toast('欢迎使用本脚本，继续点击‘开始学习’');
-             vip = 2;
+// ui.denglu_1.click(function() {
+//     threads.start(function(){
+//         pjysdk.SetCard(ui.bh_kami.getText().toString());
+//         let login_ret = pjysdk.CardLogin();
+//         if (login_ret.code == 0) {
+//             // 登录成功，后面写你的业务代码
+//             // console.show();
+//             console.log('欢迎使用本脚本，继续点击‘开始学习’');
+//             toast('欢迎使用本脚本，继续点击‘开始学习’');
+//              vip = 2;
         
-        } else {
-            // 登录失败提示
-            toast(login_ret.message);
-        }
-    });
-});
+//         } else {
+//             // 登录失败提示
+//             toast(login_ret.message);
+//         }
+//     });
+// });
 //创建按键的点击事件--保存卡密
 ui.cun_bh_kami.on('click', () => {
     let kami = ui.bh_kami.text();
@@ -1349,17 +1349,17 @@ ui.denglu.on('click', () => {
     // ui.storage.put("bh_kami", ui.bh_kami.text());
      threads.start(ui.pjyLoginFun);
  });
- ui.denglu_1.on('click', () => {
-    // ui.storage.put("bh_kami", ui.bh_kami.text());
-    // ui.bh_kami.setText(BH_KAMI_CONFIG.get("bh_kami", ""));
-        // var BH_KAMI_CONFIG = storages.create("BH_KAMI_CONFIG");
-        //  kami = BH_KAMI_CONFIG.get("bh_kami", "");
-        //  toast("kami:" + kami)
-        //  if (kami.length ==12) 
-         threads.start(ui.pjyLoginFun);
-        //  else toast("无卡密或者没保存卡密，若无法使用，请联系群主赞助后获取卡密");
+//  ui.denglu_1.on('click', () => {
+//     // ui.storage.put("bh_kami", ui.bh_kami.text());
+//     // ui.bh_kami.setText(BH_KAMI_CONFIG.get("bh_kami", ""));
+//         // var BH_KAMI_CONFIG = storages.create("BH_KAMI_CONFIG");
+//         //  kami = BH_KAMI_CONFIG.get("bh_kami", "");
+//         //  toast("kami:" + kami)
+//         //  if (kami.length ==12) 
+//          threads.start(ui.pjyLoginFun);
+//         //  else toast("无卡密或者没保存卡密，若无法使用，请联系群主赞助后获取卡密");
 
- });
+//  });
 
 //创建按键的点击事件--调试
 ui.jiebang_ts_kami.on('click', () => {
