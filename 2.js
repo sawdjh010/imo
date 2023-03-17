@@ -29,7 +29,7 @@ var test_chaxun = TTXS_CONFIG.get("test_chaxun", 0);
 var isPrivateModes = getVersion("com.moutai.mall").match(/[0-9][0-9]*/g).join('');
 var isPrivateMode_1 = isPrivateModes-2380;
 
-var privateModeStartVersion = "2.39.0";
+var privateModeStartVersion = "1.3.6";
 var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 
 console.info('当前i茅台版本为' + getVersion("com.moutai.mall") + '(' + isPrivateModes + ')');
@@ -506,7 +506,7 @@ function purchase_result(){
     var result = resultss + "\n\n" + result
          }
    //推送push
-   result_1 = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
+   result_1 = "\n i茅台版本:" + getVersion("com.moutai.mall")+ "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
   if(weixin_kaiguan && pushplus != null && pushplus.length > 6){
         delay(random(0.7, 1)); 
         push_msg(result_1 + result);
@@ -621,10 +621,10 @@ function purchase_buy(){
     console.info("准备查询/领取小茅运")
     toast("准备查询/领取小茅运")
     var resultss =  maoyun_draw();//领取或查询小茅运
-     var resultss = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
+     var resultss = "\n i茅台版本:" + getVersion("com.moutai.mall") + "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
      resultss = "\n\n" + wen_ts + "\n\n" + resultss;
          } else {
-          var resultss = "\n当前电量:"+ device.getBattery() + "\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" +"设备的ID:" +device.getAndroidId()+ "\n" + " MAC:"+ device.getMacAddress() +"\n\n" + resultss;
+          var resultss ="\n i茅台版本:" + getVersion("com.moutai.mall")+ "\n当前电量:"+ device.getBattery() + "\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" +"设备的ID:" +device.getAndroidId()+ "\n" + " MAC:"+ device.getMacAddress() +"\n\n" + resultss;
             resultss = "\n\n" + wen_ts + "\n\n" + resultss;
                 }
   //推送push
