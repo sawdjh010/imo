@@ -948,8 +948,8 @@ function maoyun_draw(){
  // let rooot = className("android.widget.TextView").depth(14).drawingOrder(3).enabled(true).find()
   var b_energy = queryList_0(rooot,2);
   log("耐力值1:" + b_energy);
-  var b_energy_1 = parseInt(b_energy * 0.1);
-  if(b_energy_1 < tansuo_num)  tansuo_num = b_energy_1;
+  var a_energy_1 = parseInt(b_energy * 0.1);
+  if(a_energy_1 < tansuo_num)  tansuo_num = a_energy_1;
   //  toast("耐力值:" + b_energy)
   var resultss = "当前现有:小茅运"+b_coin+"---&&---"+"耐力值"+b_energy;
   // log(resultss)
@@ -1236,6 +1236,12 @@ function imaotai_guanbi(){
 //探索
 function tansuo_draw(){
   console.info("准备去探索（小茅运）");
+  if(a_energy_1 < tansuo_num)  {fInfo("实有耐力值低于配置次数，将执行"+a_energy_1+"次");
+  toastLog("实有耐力值低于设定次数，将执行"+a_energy_1+"次");}
+  else {
+    fInfo("将执行配置的"+tansuo_num+"次");
+  toastLog("将执行配置的"+ tansuo_num+"次");
+}
       //等待进入到主页
        back_main_page() 
    //wait_come_home_page()
