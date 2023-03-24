@@ -35,6 +35,7 @@ var imaotai_KeyDown_thread = imaotai_KeyDown();
 var privateModeStartVersion = "1.3.6";
 var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 var w = fInit();
+sleep(3000);
 fInfo('当前i茅台版本为' + getVersion("com.moutai.mall") + '(' + isPrivateModes + ')');
 
 function getVersion(package_name) {
