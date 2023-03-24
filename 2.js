@@ -1074,7 +1074,7 @@ function queryList_0(json, mubiaoshu) {
           // log("小茅运"+a_coin)
         //  break
         } else {
-            queryList_0(sonList);
+            queryList_0(sonList,mubiaoshu);
         }
     }
       //返回结果值
