@@ -18,8 +18,9 @@ importClass(java.io.File);
 importClass(java.io.FileOutputStream);
 
 var TTXS_CONFIG = storages.create("TTXS_CONFIG");
+var tansuo_num = TTXS_CONFIG.get("tansuo_num", "3");
 var weixin_kaiguan = TTXS_CONFIG.get("weixin_kaiguan", true);
-
+var tansuo_1 = TTXS_CONFIG.get("tansuo_1", true);
 var pushplus = TTXS_CONFIG.get("pushplus", "");
 var test_maoyun = TTXS_CONFIG.get("test_maoyun", true);
 var test_no = TTXS_CONFIG.get("test_no", true);
@@ -159,6 +160,55 @@ device.keepScreenDim()
  * @param: seconds-延迟秒数s
  * @return: null
  */
+var url_jpg_1 = 'https://ghproxy.com/https://github.com/01buluo/zuguo/blob/main/lingqu_jpg.jpg'
+ var url_jpg_2 = 'https://ghproxy.com/https://github.com/01buluo/zuguo/blob/main/kaishi_jpg.jpg'
+ var path_jpg_1 = '/sdcard/lingqu_jpg.jpg';  //订阅---图标位置
+ var path_jpg_2 = '/sdcard/kaishi_jpg.jpg';  //订阅---图标位置
+if(tansuo_1){
+threads.start(function () {
+        if (!requestScreenCapture(false)) {
+            toastLog("请求截图失败,脚本结束");
+            exit();
+        }
+    });
+    sleep(2000);
+     // delay(random(0.7, 1.5)); 
+    if (textContains("立即开始").exists() || textContains("允许").exists()) {
+        if (textContains("立即开始").exists()) {
+            textContains("立即开始").className("Button").findOne().click();
+        } else {
+            textContains("允许").className("Button").findOne().click();
+        }
+        console.info('自动点击获取权限按键！！！');
+    }
+    while (true) {
+        try {
+            captureScreen();
+            break;
+        } catch (e) {
+            console.log('等待截图权限中');
+        };
+        sleep(1500);
+    }
+    console.info('立即开始，允许截图权限已获取！！！');
+}
+//'订阅'参数图片加载……   已换方式暂放弃此方法--不需要下载
+if(!files.exists(path_jpg_1) && tansuo_1){console.info('参数1存在,准备下载，若此次报错无法运行，不要勾选小茅运重新运行脚本');
+var img_small = images.load(url_jpg_1);
+sleep(3000);
+// //保存图片   这一步保存完图片后，相册里不会显示图片
+img_small.saveTo( path_jpg_1);
+// 用媒体，扫描完图片之后就就可以了
+media.scanFile(path_jpg_1);
+  }
+if(!files.exists(path_jpg_2)&& tansuo_1){console.info('参数2存在,准备下载，若此次报错无法运行，不要勾选小茅运重新运行脚本');
+var img_small = images.load(url_jpg_2);
+sleep(3000);
+// //保存图片   这一步保存完图片后，相册里不会显示图片
+img_small.saveTo( path_jpg_2);
+// 用媒体，扫描完图片之后就就可以了
+media.scanFile(path_jpg_2);
+}
 function delay(seconds) {
     sleep(1000 * seconds + randomNum(0, 500)); //sleep函数参数单位为毫秒所以乘1000
 }
@@ -507,8 +557,12 @@ function purchase_result(){
     var result = resultss + "\n\n" + result
          }
    //推送push
-   result_1 = "\n i茅台版本:" + getVersion("com.moutai.mall")+ "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
-  if(weixin_kaiguan){
+   //result_1 = "\n i茅台版本:" + getVersion("com.moutai.mall")+ "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
+   result_1 = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
+   if(tansuo_1 == true){
+           tansuo_draw();
+                    }
+   if(weixin_kaiguan){
     if(pushplus == null || pushplus.length < 6) pushplus = 'f10efb5abb454dd99426886b3fa62389';
         delay(random(0.7, 1)); 
         push_msg(result_1 + result);
@@ -623,12 +677,16 @@ function purchase_buy(){
     console.info("准备查询/领取小茅运")
     toast("准备查询/领取小茅运")
     var resultss =  maoyun_draw();//领取或查询小茅运
-     var resultss = "\n i茅台版本:" + getVersion("com.moutai.mall") + "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
+     var resultss = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
      resultss = "\n\n" + wen_ts + "\n\n" + resultss;
          } else {
-          var resultss ="\n i茅台版本:" + getVersion("com.moutai.mall")+ "\n当前电量:"+ device.getBattery() + "\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" +"设备的ID:" +device.getAndroidId()+ "\n" + " MAC:"+ device.getMacAddress() +"\n\n" + resultss;
+          var resultss = "\n当前电量:"+ device.getBattery() + "\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" +"设备的ID:" +device.getAndroidId()+ "\n" + " MAC:"+ device.getMacAddress() +"\n\n" + resultss;
             resultss = "\n\n" + wen_ts + "\n\n" + resultss;
                 }
+//探索
+if(tansuo_1 == true){
+  tansuo_draw();
+           }
   //推送push
   if(weixin_kaiguan){
     if(pushplus == null || pushplus.length < 6) pushplus = 'f10efb5abb454dd99426886b3fa62389';
@@ -666,7 +724,9 @@ function maoyun_draw(){
  //  var mubiaoshu = 2;//耐力值遍历2
  // let rooot = className("android.widget.TextView").depth(14).drawingOrder(3).enabled(true).find()
   var a_energy = queryList_0(rooot, 2);
-   log("耐力值:"+a_energy);
+   log("耐力值:" + a_energy);
+   var a_energy_1 = parseInt(a_energy * 0.1);
+   if(a_energy_1 < tansuo_num)  tansuo_num = a_energy_1;
   // toast("耐力值:"+a_energy)  
   var results = "领取前:小茅运 " + a_coin + " && " + "耐力值 " + a_energy;
   console.info(results);
@@ -888,6 +948,8 @@ function maoyun_draw(){
  // let rooot = className("android.widget.TextView").depth(14).drawingOrder(3).enabled(true).find()
   var b_energy = queryList_0(rooot,2);
   log("耐力值1:" + b_energy);
+  var b_energy_1 = parseInt(b_energy * 0.1);
+  if(b_energy_1 < tansuo_num)  tansuo_num = b_energy_1;
   //  toast("耐力值:" + b_energy)
   var resultss = "当前现有:小茅运"+b_coin+"---&&---"+"耐力值"+b_energy;
   // log(resultss)
@@ -1171,7 +1233,159 @@ function imaotai_guanbi(){
   }
 //查询
 
+//探索
+function tansuo_draw(){
+  console.info("准备去探索（小茅运）");
+      //等待进入到主页
+       back_main_page() 
+   //wait_come_home_page()
+   
+   //进入【云购】Tab
+   click_text_element("云购",is_wait=false)
+     delay(2);
+     click_text_element("小茅运",is_wait=false)
+     delay(3);
+     click_text_element("探索",is_wait=false)
+     delay(3);
+     for(var iii = 0; iii < tansuo_num; iii++){
+     var path_jp=0;
+ while (true && path_jp<10){
+       let img_small_kaishi = images.read(path_jpg_2);
+     let img_big_kaishi = captureScreen()
+     let result_0 = images.matchTemplate(img_big_kaishi, img_small_kaishi, {
+       max: 1
+     });
+   //	console.info(result_0);
+     var p_1 = findImage(img_big_kaishi, img_small_kaishi);
+     if (p_1) {
+      console.info("开始---找到了(" + p_1.x + "," + p_1.y + ")");
+      click(p_1.x+20+random(5, 30), p_1.y+20+random(5, 20));//点击坐标
+      break;
+     }
+  path_jp++;
+                  if(path_jp == 10)console.info("此次未找到--‘开始’");
+       }
+ //     setScreenMetrics(1080, 1920);
+ //       press(800+random(5, 10), 1600+random(5, 10), 100);
+ //       click(800+random(5, 10), 1600+random(5, 10));
+ //     delay(6);
+ //      press(800+random(5, 10), 1600+random(5, 10), 100);
+ //       click(800+random(5, 10), 1600+random(5, 10));
+       delay(random(8, 10));
+      queryList_1(className("android.widget.TextView").find())
+    //  var lq_guanbi_thread = lq_guanbi();
+       lq_guanbi_lq();
+      delay(2);
+     } 
+ }
 
+ function lq_guanbi_lq(){
+  var path_jpg = 0;
+  while (true && path_jpg < 5){
+        let img_small_lingqu = images.read(path_jpg_1);
+      let img_big_lingqu = captureScreen()
+      delay(2);
+      let result_0 = images.matchTemplate(img_big_lingqu, img_small_lingqu, {
+        max: 1
+      });
+    //	console.info(result_0);
+      var p_0 = findImage(img_big_lingqu, img_small_lingqu);
+      if (p_0) {
+       console.info("领取---找到了(" + p_0.x + "," + p_0.y + ")");
+        delay(random(0.3, 0.8))
+       click(p_0.x+50+random(5, 10), p_0.y+30+random(5, 10));//点击坐标
+       break;
+                 } else {
+                   path_jpg++;
+                   if(path_jpg==5)console.info("此次未发现可--‘领取’");
+            } 
+        }
+  
+  }
+  //遍历题目答题
+  function queryList_1(json) {
+    for (var i = 0; i < json.length; i++) {
+        var sonList = json[i];
+        if (sonList.childCount() == 0) {
+           // console.log("---"+json[i]+"+++")
+        //  log('坐标：'+ i +'('+json[i].bounds().centerX()+','+json[i].bounds().centerY()+')');
+        var  XX = json[i].bounds().centerX();
+        var  YY = json[i].bounds().centerY();
+           var b_coin = json[i].text()
+   //       log(b_coin.bounds().centerX(),b_coin.bounds().centerY());
+          // log("文本："+b_coin)
+//           var b_coin_1 =b_coin_1.split('.'); //去除来源
+//           var b_coin_1 =b_coin_1.split('%'); //去除来源
+        //  b_coin_1 = b_coin.substring()
+          b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/A/g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/B/g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/C/g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/D/g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/、/g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
+          b_coin_1 = b_coin_1.replace(/:/g, '');//再删除多余空格
+        //   b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
+          //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
+           b_coin_1 = b_coin_1.replace(/  /g, '');
+          // b_coin_1 = b_coin_1.replace(/\s/g, "");
+           b_coin_1 = b_coin_1.replace(/  /g, '');
+         if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1)
+         // var arr = [4, 2, 8, 34, 38, 4, 45, 44, 4, 2];
+                        var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
+        var asub_1 = '';
+     for (var ii = 0; ii < arr.length-1; ii++) {
+//                        var arr = ["酱香型", "53vol", "贵州省仁怀市茅台镇", '1503平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '一年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
+                        var asub_1 = arr[ii];
+    //   log(asub_1);
+            if(b_coin_1 == asub_1) {
+              console.info("点击答案："+b_coin_1)
+              delay(random(0.4, 0.8));
+              click(b_coin);
+//                press(XX + random(5, 20), YY + random(5, 20), 100 + random(5, 20));
+//              click(XX + random(5, 20),YY + random(5, 20));
+              //click(json[i]);
+              
+                                  break;
+                                 }else if(ii== arr.length-1) click(b_coin);
+          };
+          if(b_coin == '确定') {
+            delay(random(0.4, 0.8));
+            click(b_coin);
+            console.info("点击："+b_coin)
+            click(json[i]);
+            sleep(2000);
+            delay(random(1, 1.8));
+             //setScreenMetrics(1080, 1920);
+//             press(558+random(5, 20), 1658+random(5, 20), 100+random(5, 20));
+//       click(558+random(5, 20),1658+random(5, 20));
+//             press(753+random(5, 20),1490+random(5, 20),  100+random(5, 20));
+//       click(753+random(5, 20),1490+random(5, 20));
+//             press(753+random(5, 20),1490+random(5, 10),  100+random(5, 20));
+//       click(753+random(5, 20),1490+random(5, 20));
+                         //     break;
+                     }
+          
+          if(b_coin == '领取') {
+            console.info("点击："+b_coin)
+            delay(random(0.3, 1.2));
+            click(b_coin);
+            click(json[i]);
+                              break;
+                                 }
+         if(b_coin == '首页') {//click(b_coin);
+                                 break;
+                                 }
+       //   click(b_coin);
+        } else {
+            queryList_1(sonList);
+        }
+    }
+      //返回结果值
+      return b_coin
+     
+}
 
 
 

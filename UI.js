@@ -965,6 +965,16 @@ ui.layout(
                             <horizontal  gravity="center_vertical" padding="5 5" >
                                 <View bg="#00BFFF" h="*" w="10"  ></View>
                                 <vertical padding="10 8" h="auto" w="0" layout_weight="1">
+                                    <text w="auto" textColor="#222222" textSize="15sp" text="探索（小茅运）" />
+                                    <text w="auto" textColor="#999999" textSize="12sp" text="填3就是探索3次，每次消耗10个耐力值" />
+                                    <text w="auto" textColor="#999999" textSize="12sp" text="空着或0默认3次，填写数量大于实际耐力值/10时，取实际耐力值/10" />
+                                </vertical> 
+                                <checkbox id="ttxs_tansuo_1" marginLeft="4" marginRight="6" checked="true" />
+                                <input id="ttxs_tansuo_num" marginLeft="4" marginRight="6" text="3"  hint="次"  textSize="13sp"  inputType="number" />
+                            </horizontal>
+                            <horizontal  gravity="center_vertical" padding="5 5" >
+                                <View bg="#00BFFF" h="*" w="10"  ></View>
+                                <vertical padding="10 8" h="auto" w="0" layout_weight="1">
                                     <text w="auto" textColor="#222222" textSize="15sp" text="no-1935" />
                                 </vertical>
                                 <checkbox id="ttxs_test_no" marginLeft="4" marginRight="6" checked="true" />
@@ -1654,21 +1664,25 @@ ui.ttxs_pro_reset.click(function () {
     toastLog("imaotai四合一pro配置恢复默认！");
 });
 
-// 保存TTXS脚本设置
+// 保存TTXS(i茅台)脚本设置
 ui.ttxs_save.click(function () {
    // TTXS_CONFIG.put("test_chaxun", ui.test_chaxun.isChecked());
+    TTXS_CONFIG.put("tansuo_num", ui.ttxs_tansuo_num.getText() + "");
     TTXS_CONFIG.put("test_maoyun", ui.ttxs_test_maoyun.isChecked());
     TTXS_CONFIG.put("test_no", ui.ttxs_test_no.isChecked());
     TTXS_CONFIG.put("test_nozhenpin", ui.ttxs_test_nozhenpin.isChecked());
     TTXS_CONFIG.put("pushplus", ui.ttxs_pushplus.getText() + "");
     TTXS_CONFIG.put("weixin_kaiguan", ui.ttxs_kaiguan.isChecked());
+    TTXS_CONFIG.put("tansuo_1", ui.ttxs_tansuo_1.isChecked());
     TTXS_CONFIG.put("test_chaxun", ui.ttxs_test_chaxun.getSelectedItemPosition());
     toastLog("TTXS配置保存成功！");
 });
 
-// 重置TTXS脚本设置
+// 重置TTXS（i茅台）脚本设置
 ui.ttxs_reset.click(function () {
     //TTXS_CONFIG.put("test_chaxun", true);
+    TTXS_CONFIG.put("tansuo_num", "3");
+    ui.ttxs_tansuo_num.setText(TTXS_CONFIG.get("tansuo_num"));
     TTXS_CONFIG.put("test_maoyun", true);
     ui.ttxs_test_maoyun.setChecked(TTXS_PRO_CONFIG.get("test_maoyun"));
     TTXS_CONFIG.put("test_no", true);
@@ -1677,6 +1691,7 @@ ui.ttxs_reset.click(function () {
     ui.ttxs_test_nozhenpin.setChecked(TTXS_CONFIG.get("test_nozhenpin"));
 
     ui.ttxs_kaiguan.setChecked(TTXS_CONFIG.get("weixin_kaiguan"));
+    ui.ttxs_tansuo_1.setChecked(TTXS_CONFIG.get("tansuo_1"));
     TTXS_CONFIG.put("test_chaxun", 0);
     ui.ttxs_test_chaxun.setSelection(TTXS_CONFIG.get("test_chaxun"));
 
@@ -1834,7 +1849,9 @@ function Initialize() {
     ui.study_time2.setText(STUDY_CONFIG.get("time2", "6"));
     ui.study_Token.setText(STUDY_CONFIG.get("Token", ""));
 
+    ui.ttxs_tansuo_num.setText(TTXS_CONFIG.get("tansuo_num", "3"));
     ui.ttxs_kaiguan.setChecked(TTXS_CONFIG.get("weixin_kaiguan", true));
+    ui.ttxs_tansuo_1.setChecked(TTXS_CONFIG.get("tansuo_1", true));
     ui.ttxs_pushplus.setText(TTXS_CONFIG.get("pushplus", ""));
     ui.ttxs_test_maoyun.setChecked(TTXS_CONFIG.get("test_maoyun", true));
     ui.ttxs_test_no.setChecked(TTXS_CONFIG.get("test_no", true));
