@@ -468,7 +468,7 @@ function send_wx_msg(send_msg){
 
 //查询申购结果
 function get_buy_result(){
-  //fSet("title", "申购…");
+  fSet("title", "申购…");
 	click_text_element("我的",is_wait=false)
                
   // 获取用户名称
@@ -510,7 +510,7 @@ function get_buy_result(){
             var status =element.findOne(id("draw_status")).text()
             //品种
             var title = element.findOne(id("mt_goods_name")).text()
-            fInfo("种类:",title,",结果:",status)
+            log("种类:",title,",结果:",status)
                  result += "\n\n " + " " + "\n\n种类:"+title+"，" + "\n结果:"+status;      
            	if(status == "申购失败" || status == "静候申购结果"){
               var r_l_t = 0;
@@ -577,7 +577,7 @@ function purchase_result(){
 
 //真实预约
 function real_buy(){
-  //fSet("title", "申购…");
+  fSet("title", "申购…");
   fInfo("预约申购")
     //等待【选择门店】页面加载完全
   
@@ -678,7 +678,7 @@ function purchase_buy(){
   if(test_maoyun == true){
     fInfo("准备查询/领取小茅运")
     toast("准备查询/领取小茅运")
-    //fSet("title", "领取小茅运…");
+    fSet("title", "领取小茅运…");
     var resultss =  maoyun_draw();//领取或查询小茅运
      var resultss = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
      resultss = "\n\n" + wen_ts + "\n\n" + resultss;
@@ -1129,7 +1129,7 @@ function buy_task(){
 //查询
 function result_task(){
 		threads.start(function(){
-     // fSet("title", "查询申购…");
+      fSet("title", "查询申购…");
    			log("查询任务。。。")
       	purchase_result()
 		})
@@ -1239,7 +1239,7 @@ function imaotai_guanbi(){
 
 //探索
 function tansuo_draw(){
- // fSet("title", "探索…");
+  fSet("title", "探索…");
   fInfo("准备去探索（小茅运）");
   // if(a_energy_1 < tansuo_num)  {fInfo("实有耐力值低于配置次数，将执行"+ a_energy_1 +"次");
   // toastLog("实有耐力值低于设定次数，将执行"+a_energy_1+"次");}
