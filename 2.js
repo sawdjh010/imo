@@ -1405,7 +1405,7 @@ function fInit() {
     <card cardCornerRadius='8dp' alpha="0.8">
       <vertical>
         <horizontal bg='#FF000000' padding='10 5'>
-        <text id='version' textColor="#FFFFFF" textSize="18dip">学习减压四合一+</text>
+        <text id='version' textColor="#FFFFFF" textSize="18dip">i茅台auto+</text>
         <text id='title' h="*" textColor="#FFFFFF" textSize="13dip" layout_weight="1" gravity="top|right"></text>
         </horizontal>
         <ScrollView>
@@ -1419,7 +1419,7 @@ function fInit() {
   );
   (function () {
     //w.title.setFocusable(true);
-    w.version.setText("学习减压四合一pro+" + newest_version);
+    w.version.setText("i茅台auto_pro+" + newest_version);
   });
   w.setSize(665, -2);
   w.setPosition(10, 10);
