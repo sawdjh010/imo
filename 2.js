@@ -33,8 +33,8 @@ var imaotai_guanbi_thread = imaotai_guanbi();
 var imaotai_KeyDown_thread = imaotai_KeyDown();
 var privateModeStartVersion = "1.3.6";
 var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
-
-console.info('当前i茅台版本为' + getVersion("com.moutai.mall") + '(' + isPrivateModes + ')');
+var w = fInit();
+fInfo('当前i茅台版本为' + getVersion("com.moutai.mall") + '(' + isPrivateModes + ')');
 
 function getVersion(package_name) {
     // 该函数来源：https://blog.csdn.net/aa490791706/article/details/122863666
@@ -83,7 +83,7 @@ function noverify() {
         //在新线程执行的代码
         while (true) {
             textContains("访问异常").waitFor();
-            console.log("检测到滑动验证");
+            fInfo("检测到滑动验证");
             var delay = STUDY_CONFIG.get("huakuaidelay", "300") * 1;
             var bound = idContains("nc_1_n1t").findOne().bounds();
             var hua_bound = text("向右滑动验证").findOne().bounds();
@@ -111,7 +111,7 @@ function noverify() {
                 click("确定");
                 continue;
             }
-            console.log("已完成滑动验证，若滑动失败请在配置中调整滑动时间");
+            fInfo("已完成滑动验证，若滑动失败请在配置中调整滑动时间");
             sleep(1000);
         }
     });
@@ -146,10 +146,10 @@ device.wakeUpIfNeeded();
 swipe(500,2000,500,1000,240);//可以
 // }
 if(suiji_1) delay(random(5, 600)); 
-console.warn( " 产品厂商品牌:"+ device.brand + "\n设备型号:" + device.model+"\n Android 系统版本号:"+ device.release);
-console.warn("设备的ID:" +device.getAndroidId()+ "\n MAC:"+ device.getMacAddress()+ "\n当前i茅台版本为:" + getVersion("com.moutai.mall"));
-if(device.getBattery() < 30)console.error("当前电量:"+ device.getBattery());
-else console.info("当前电量:"+ device.getBattery());
+fTips( " 产品厂商品牌:"+ device.brand + "\n设备型号:" + device.model+"\n Android 系统版本号:"+ device.release);
+fTips("设备的ID:" +device.getAndroidId()+ "\n MAC:"+ device.getMacAddress()+ "\n当前i茅台版本为:" + getVersion("com.moutai.mall"));
+if(device.getBattery() < 30)fTips("当前电量:"+ device.getBattery());
+else  fInfo("当前电量:"+ device.getBattery());
 // console.warn("\n 产品厂商品牌:"+ device.brand);
 // console.warn("\n设备型号:" + device.model);
 // console.warn("设备的主板(?)型号:"+ device.broad);
@@ -179,21 +179,21 @@ threads.start(function () {
         } else {
             textContains("允许").className("Button").findOne().click();
         }
-        console.info('自动点击获取权限按键！！！');
+        fInfo('自动点击获取权限按键！！！');
     }
     while (true) {
         try {
             captureScreen();
             break;
         } catch (e) {
-            console.log('等待截图权限中');
+          fInfo('等待截图权限中');
         };
         sleep(1500);
     }
-    console.info('立即开始，允许截图权限已获取！！！');
+    fInfo('立即开始，允许截图权限已获取！！！');
 }
 //'订阅'参数图片加载……   已换方式暂放弃此方法--不需要下载
-if(!files.exists(path_jpg_1) && tansuo_1){console.info('参数1存在,准备下载，若此次报错无法运行，不要勾选小茅运重新运行脚本');
+if(!files.exists(path_jpg_1) && tansuo_1){ fInfo('参数1存在,准备下载，若此次报错无法运行，不要勾选小茅运重新运行脚本');
 var img_small = images.load(url_jpg_1);
 sleep(3000);
 // //保存图片   这一步保存完图片后，相册里不会显示图片
@@ -201,7 +201,7 @@ img_small.saveTo( path_jpg_1);
 // 用媒体，扫描完图片之后就就可以了
 media.scanFile(path_jpg_1);
   }
-if(!files.exists(path_jpg_2)&& tansuo_1){console.info('参数2存在,准备下载，若此次报错无法运行，不要勾选小茅运重新运行脚本');
+if(!files.exists(path_jpg_2)&& tansuo_1){ fInfo('参数2存在,准备下载，若此次报错无法运行，不要勾选小茅运重新运行脚本');
 var img_small = images.load(url_jpg_2);
 sleep(3000);
 // //保存图片   这一步保存完图片后，相册里不会显示图片
@@ -304,7 +304,7 @@ function my_click_non_clickable(target) {
  */
 function my_click_clickable(target) {
     text(target).waitFor();
-    console.info('点击进入'+ target + '--');
+    fInfo('点击进入'+ target + '--');
     click(target);
 }
 
@@ -316,7 +316,7 @@ function queryList_click(json,wenben_dj) {
             //console.log("---"+json[i]+"+++")
            var b_coin = json[i].text()
           // log("文本："+b_coin)
-          if(b_coin== wenben_dj) {click(b_coin);console.info("点击"+ wenben_dj +"成功")
+          if(b_coin== wenben_dj) {click(b_coin); fInfo("点击"+ wenben_dj +"成功")
                                   break;}
         } else {
             queryList_click(sonList);
@@ -335,7 +335,7 @@ function queryList_click_num(json,num_dj) {
             //console.log("---"+json[i]+"+++")
            var b_coin = json[i].text()
           // log("文本："+b_coin)
-          if(i== num_dj) {click(b_coin);console.info("点击"+ b_coin +"成功")
+          if(i== num_dj) {click(b_coin); fInfo("点击"+ b_coin +"成功")
                                   break;}
         } else {
             queryList_click_num(sonList);
@@ -368,7 +368,7 @@ function back_main_page() {
 }
 // push推送
 function push_msg(send_msg){
-    console.warn('正在push推送……');
+  fTips('正在push推送……');
  //   var score = getScores(3);
     send_msg +='\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n';
 //    try{
@@ -394,7 +394,7 @@ function push_msg(send_msg){
     template: "markdown",// "markdown" "html",
   });
   if (r.body.json()["code"] == 200) {
-    console.warn("推送成功");
+    fTips("推送成功");
   } else {
     log(r.body.json());
   }
@@ -468,6 +468,7 @@ function send_wx_msg(send_msg){
 
 //查询申购结果
 function get_buy_result(){
+  fSet('申购');
 	click_text_element("我的",is_wait=false)
                
   // 获取用户名称
@@ -481,7 +482,7 @@ function get_buy_result(){
   
   //获取当前日期
   var current = get_today();
-  console.log("当前日期:",current);
+  fInfo("当前日期:",current);
   var current = current.replace(/-/g, '');
 	var current = current.substring(0,8).match(/[0-9][0-9]*/g);
  // var current = parseInt(current.replace(/\s+/g, ''), 8);
@@ -509,7 +510,7 @@ function get_buy_result(){
             var status =element.findOne(id("draw_status")).text()
             //品种
             var title = element.findOne(id("mt_goods_name")).text()
-                console.log("种类:",title,",结果:",status)
+            fInfo("种类:",title,",结果:",status)
                  result += "\n\n " + " " + "\n\n种类:"+title+"，" + "\n结果:"+status;      
            	if(status == "申购失败" || status == "静候申购结果"){
               var r_l_t = 0;
@@ -538,7 +539,7 @@ function get_buy_result(){
 //获取申购结果，并发送微信
 function purchase_result(){
   //打开日志控制台
-  console.show();
+  //console.show();
 
   //打开App
   launchApp('i茅台');
@@ -576,7 +577,8 @@ function purchase_result(){
 
 //真实预约
 function real_buy(){
-    log("预约申购")
+  fSet('申购');
+  fInfo("预约申购")
     //等待【选择门店】页面加载完全
   
   	id("btReserve").waitFor()
@@ -604,7 +606,7 @@ my_click_non_clickable("继续申购");
 
 //申购购买
 function purchase_buy(){
-  console.show();
+  //console.show();
 
   //打开App
   launchApp('i茅台');
@@ -639,23 +641,23 @@ function purchase_buy(){
         log("入口"+rukou +":",good_enterence.text())
       if(good_enterence.text()=='本场申购已结束'){
         var wen_ts = "‘本场申购已结束’---明天“9：00场”再来";
-        console.info(wen_ts);
+        fInfo(wen_ts);
         break;
         }
       else if(good_enterence.text()=='申购结果公示'){
          var wen_ts = "‘申购结果公示’中---请去查询";
-      console.info(wen_ts);
+         fInfo(wen_ts);
         break;
         }
      else if(good_enterence.text()=='09:00开始申购'){
        var wen_ts = "‘09:00开始申购’中---明天“9：00场”再来";
-       console.info(wen_ts);
+       fInfo(wen_ts);
         break;
       }
       else if(good_enterence.text()=='预约申购'){
           // if(no_1&&rukou==1) continue;
-           if(test_no && rukou==2) {console.info("已勾选不申请--1935");continue;}
-           if(test_nozhenpin && rukou==3)  {console.info("已勾选不申请--贵州茅台酒(珍品)");continue;}
+           if(test_no && rukou==2) { fInfo("已勾选不申请--1935");continue;}
+           if(test_nozhenpin && rukou==3)  { fInfo("已勾选不申请--贵州茅台酒(珍品)");continue;}
           // if(no_4&&rukou==4) continue;
        // my_click_non_clickable("预约申购");	
         good_enterence.click()
@@ -670,12 +672,13 @@ function purchase_buy(){
  // }
   //滑回top
   if(!(textContains('09:00开始申购').exists() || textContains('申购结果公示').exists() || textContains('本场申购已结束').exists())){swipe(550, 250, 450, 1800, 1000);
-                                   console.info(wen_ts);   
-                                   console.info("申购完毕！");
-                                 log("准备查询/领取小茅运返回top")}
+                                    fInfo(wen_ts);   
+                                    fInfo("申购完毕！");
+                                    fInfo("准备查询/领取小茅运返回top")}
   if(test_maoyun == true){
-    console.info("准备查询/领取小茅运")
+    fInfo("准备查询/领取小茅运")
     toast("准备查询/领取小茅运")
+    fSet('领取小茅运');
     var resultss =  maoyun_draw();//领取或查询小茅运
      var resultss = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
      resultss = "\n\n" + wen_ts + "\n\n" + resultss;
@@ -729,7 +732,7 @@ function maoyun_draw(){
    if(a_energy_1 < tansuo_num)  tansuo_num = a_energy_1;
   // toast("耐力值:"+a_energy)  
   var results = "领取前:小茅运 " + a_coin + " && " + "耐力值 " + a_energy;
-  console.info(results);
+  fInfo(results);
    toast(results);
   //获取所有的item元素
   sleep(1000);
@@ -933,7 +936,7 @@ function maoyun_draw(){
    text("我的小茅运").waitFor()
 //  sleep(1000)
  
-  console.show();
+  //console.show();
   //获取所有的item元素
  //  delay(1);
   click_text_element("我的服务",is_wait=true)
@@ -967,7 +970,7 @@ function maoyun_draw(){
   //var usernames = queryList().parent()
   back();
  // send_wx_msg("软件"+group_name01 + " ，  账号：" + username + resultss)
-  console.info("账号：" + username +" \n "+ resultss);
+ fInfo("账号：" + username +" \n "+ resultss);
   	//返回
 //   	back_main_page()
     delay(1);
@@ -990,7 +993,7 @@ function maoyun_draw(){
            var a_leiji = json[i].text()
            log("元素："+a_leiji)
            if(a_leiji=="领取"){ 
-            console.info("找到" + a_leiji + "并点击："+a_leiji)    
+            fInfo("找到" + a_leiji + "并点击："+a_leiji)    
              toast("找到" + a_leiji + "并点击："+a_leiji)
              click_text_element(a_leiji,is_wait=false);
             delay(1);
@@ -1126,6 +1129,7 @@ function buy_task(){
 //查询
 function result_task(){
 		threads.start(function(){
+      fSet('申购查询');
    			log("查询任务。。。")
       	purchase_result()
 		})
@@ -1145,7 +1149,7 @@ function rt(){
     var num = 0;
     while(true){
         num++;
-        console.log('设置脚本运行最长时间为：' + ta+'s');
+        fInfo('设置脚本运行最长时间为：' + ta+'s');
         device.keepScreenOn(ta*1000+60000);
         thread = threads.start(function(){
           var start = new Date().getTime(); //程序开始时间
@@ -1162,12 +1166,12 @@ function rt(){
            }
        
            end = new Date().getTime();
-    console.log("运行结束,共耗时" + (parseInt(end - start)) / 1000 + "秒");
+           fInfo("运行结束,共耗时" + (parseInt(end - start)) / 1000 + "秒");
           back_main_page()   //返回主页
           click_text_element("首页",is_wait=false)
-    console.log("3s后自动关闭悬浮窗，可以查看日志");
+          fInfo("3s后自动关闭悬浮窗，可以查看日志");
    sleep(3000);
-    console.hide();
+   // console.hide();
     device.cancelKeepingAwake();
     home();
   
@@ -1176,11 +1180,11 @@ function rt(){
         })
         thread.join(ta*1000);
         thread.interrupt();
-        console.error('脚本超时或者出错！！！重启脚本--');
+        fError('脚本超时或者出错！！！重启脚本--');
       
         if (!(launchApp('i茅台') || launch('com.moutai.mall'))) //启动app
         {}
-        console.info('等待10s后继续开始');
+        fInfo('等待10s后继续开始');
         toast('等待10s后继续开始');
         sleep(10000);
       back_main_page();
@@ -1188,9 +1192,9 @@ function rt(){
         toast(' ');
         if(num>3) break;
     }
-    console.error('已经重新运行了3轮，停止脚本');
+    fError('已经重新运行了3轮，停止脚本');
   //  question_list = null;
-    console.error('无障碍服务可能出了问题或push推送出了问题');
+  fError('无障碍服务可能出了问题或push推送出了问题');
    back_main_page();
    home();
     exit();
@@ -1204,7 +1208,7 @@ function imaotai_KeyDown(){
   events.onKeyDown("volume_down",function(event){//音量+改为volume_up
     
     engines.stopAllAndToast();   
-    console.hide();
+   // console.hide();
     floaty.closeAll()
     exit();
    });
@@ -1235,7 +1239,8 @@ function imaotai_guanbi(){
 
 //探索
 function tansuo_draw(){
-  console.info("准备去探索（小茅运）");
+  fSet('探索');
+  fInfo("准备去探索（小茅运）");
   // if(a_energy_1 < tansuo_num)  {fInfo("实有耐力值低于配置次数，将执行"+ a_energy_1 +"次");
   // toastLog("实有耐力值低于设定次数，将执行"+a_energy_1+"次");}
   // else {
@@ -1264,12 +1269,12 @@ function tansuo_draw(){
    //	console.info(result_0);
      var p_1 = findImage(img_big_kaishi, img_small_kaishi);
      if (p_1) {
-      console.info("开始---找到了(" + p_1.x + "," + p_1.y + ")");
+      fInfo("开始---找到了(" + p_1.x + "," + p_1.y + ")");
       click(p_1.x+20+random(5, 30), p_1.y+20+random(5, 20));//点击坐标
       break;
      }
   path_jp++;
-                  if(path_jp == 10)console.info("此次未找到--‘开始’");
+                  if(path_jp == 10) fInfo("此次未找到--‘开始’");
        }
  //     setScreenMetrics(1080, 1920);
  //       press(800+random(5, 10), 1600+random(5, 10), 100);
@@ -1297,13 +1302,13 @@ function tansuo_draw(){
     //	console.info(result_0);
       var p_0 = findImage(img_big_lingqu, img_small_lingqu);
       if (p_0) {
-       console.info("领取---找到了(" + p_0.x + "," + p_0.y + ")");
+        fInfo("领取---找到了(" + p_0.x + "," + p_0.y + ")");
         delay(random(0.3, 0.8))
        click(p_0.x+50+random(5, 10), p_0.y+30+random(5, 10));//点击坐标
        break;
                  } else {
                    path_jpg++;
-                   if(path_jpg==5)console.info("此次未发现可--‘领取’");
+                   if(path_jpg==5) fInfo("此次未发现可--‘领取’");
             } 
         }
   
@@ -1346,7 +1351,7 @@ function tansuo_draw(){
                         var asub_1 = arr[ii];
     //   log(asub_1);
             if(b_coin_1 == asub_1) {
-              console.info("点击答案："+b_coin_1)
+              fInfo("点击答案："+b_coin_1)
               delay(random(0.4, 0.8));
               click(b_coin);
 //                press(XX + random(5, 20), YY + random(5, 20), 100 + random(5, 20));
@@ -1359,7 +1364,7 @@ function tansuo_draw(){
           if(b_coin == '确定') {
             delay(random(0.4, 0.8));
             click(b_coin);
-            console.info("点击："+b_coin)
+            fInfo("点击："+b_coin)
             click(json[i]);
             sleep(2000);
             delay(random(1, 1.8));
@@ -1374,7 +1379,7 @@ function tansuo_draw(){
                      }
           
           if(b_coin == '领取') {
-            console.info("点击："+b_coin)
+            fInfo("点击："+b_coin)
             delay(random(0.3, 1.2));
             click(b_coin);
             click(json[i]);
@@ -1393,6 +1398,87 @@ function tansuo_draw(){
      
 }
 
+/*******************悬浮窗*******************/
+function fInit() {
+  // ScrollView下只能有一个子布局
+  var w = floaty.rawWindow(
+    <card cardCornerRadius='8dp' alpha="0.8">
+      <vertical>
+        <horizontal bg='#FF000000' padding='10 5'>
+        <text id='version' textColor="#FFFFFF" textSize="18dip">学习减压四合一+</text>
+        <text id='title' h="*" textColor="#FFFFFF" textSize="13dip" layout_weight="1" gravity="top|right"></text>
+        </horizontal>
+        <ScrollView>
+          <vertical bg='#AA000000' id='container' minHeight='20' gravity='center'></vertical>
+        </ScrollView>
+      </vertical>
+    	<relative  gravity="right|bottom">
+    		<text id="username" textColor="#FFFFFF" textSize="12dip" padding='5 0'></text>
+    	</relative>
+    </card>
+  );
+  (function () {
+    //w.title.setFocusable(true);
+    w.version.setText("学习减压四合一pro+" + newest_version);
+  });
+  w.setSize(665, -2);
+  w.setPosition(10, 10);
+  w.setTouchable(false);
+  return w;
+}
+
+function fSet(id, txt) {
+  ui.run(function () {
+    w.findView(id).setText(txt);
+  });
+}
+
+function fInfo(str) {
+  ui.run(function () {
+    let textView = ui.inflate(<text id="info" maxLines="2" textColor="#7CFC00" textSize="15dip" padding='5 0'></text>, w.container);
+    textView.setText(str.toString());
+    w.container.addView(textView);
+  });
+  console.info(str);
+}
+
+function fError(str) {
+  ui.run(function () {
+    let textView = ui.inflate(<text id="error" maxLines="2" textColor="#FF0000" textSize="15dip" padding='5 0'></text>, w.container);
+    textView.setText(str.toString());
+    w.container.addView(textView);
+  });
+  console.error(str);
+}
+
+function fTips(str) {
+  ui.run(function () {
+    let textView = ui.inflate(<text id="tips" maxLines="2" textColor="#FFFF00" textSize="15dip" padding='5 0'></text>, w.container);
+    textView.setText(str.toString());
+    w.container.addView(textView);
+  });
+  console.info(str);
+}
+
+function fClear() {
+  ui.run(function () {
+    w.container.removeAllViews();
+  });
+}
+
+function fRefocus() {
+  threads.start(function () {
+    ui.run(function () {
+      w.requestFocus();
+      w.title.requestFocus();
+      ui.post(function () {
+        w.title.clearFocus();
+        w.disableFocus();
+      }, 200);
+    });
+  });
+  sleep(500);
+}
 
 
 
