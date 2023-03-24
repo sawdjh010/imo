@@ -498,9 +498,9 @@ function get_buy_result(){
   
   //获取所有的item元素
   var rv_element= id("reservation_rv").findOne()
-  delay(0.5);
   //获取当前日期
   var current = get_today();
+  delay(0.5);
   fInfo("当前日期:",current);
   var current = current.replace(/-/g, '');
 	var current = current.substring(0,8).match(/[0-9][0-9]*/g);
