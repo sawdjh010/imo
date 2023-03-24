@@ -36,6 +36,7 @@ var privateModeStartVersion = "1.3.6";
 var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 var w = fInit();
 sleep(3000);
+fRefocus();
 fInfo('当前i茅台版本为' + getVersion("com.moutai.mall") + '(' + isPrivateModes + ')');
 
 function getVersion(package_name) {
@@ -489,7 +490,7 @@ function send_wx_msg(send_msg){
 //查询申购结果
 function get_buy_result(){
   fSet("title", "申购查询…");
-  var w = fInit();
+   w = fInit();
 	click_text_element("我的",is_wait=false)
                
   // 获取用户名称
