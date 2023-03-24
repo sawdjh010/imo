@@ -498,7 +498,7 @@ function get_buy_result(){
   
   //获取所有的item元素
   var rv_element= id("reservation_rv").findOne()
-  
+  delay(0.5);
   //获取当前日期
   var current = get_today();
   fInfo("当前日期:",current);
@@ -529,6 +529,7 @@ function get_buy_result(){
             var status =element.findOne(id("draw_status")).text()
             //品种
             var title = element.findOne(id("mt_goods_name")).text()
+            delay(0.5);
             fInfo("种类:",title,",结果:",status)
                  result += "\n\n " + " " + "\n\n种类:"+title+"，" + "\n结果:"+status;      
            	if(status == "申购失败" || status == "静候申购结果"){
