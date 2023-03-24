@@ -488,7 +488,8 @@ function send_wx_msg(send_msg){
 
 //查询申购结果
 function get_buy_result(){
-  fSet("title", "申购…");
+  fSet("title", "申购查询…");
+  var w = fInit();
 	click_text_element("我的",is_wait=false)
                
   // 获取用户名称
