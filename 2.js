@@ -12,6 +12,7 @@ importClass("javax.crypto.spec.SecretKeySpec");
 importClass("javax.crypto.KeyGenerator");
 importClass("javax.crypto.spec.IvParameterSpec");
 
+//importClass(Core.NATIVE_LIBRARY_NAME);
 importClass(java.net.HttpURLConnection);
 importClass(java.net.URL);
 importClass(java.io.File);
@@ -482,7 +483,7 @@ function get_buy_result(){
   
   //获取当前日期
   var current = get_today();
-  console.info("当前日期:",current);
+  fInfo("当前日期:",current);
   var current = current.replace(/-/g, '');
 	var current = current.substring(0,8).match(/[0-9][0-9]*/g);
  // var current = parseInt(current.replace(/\s+/g, ''), 8);
@@ -510,7 +511,7 @@ function get_buy_result(){
             var status =element.findOne(id("draw_status")).text()
             //品种
             var title = element.findOne(id("mt_goods_name")).text()
-            console.info("种类:",title,",结果:",status)
+            fInfo("种类:",title,",结果:",status)
                  result += "\n\n " + " " + "\n\n种类:"+title+"，" + "\n结果:"+status;      
            	if(status == "申购失败" || status == "静候申购结果"){
               var r_l_t = 0;
