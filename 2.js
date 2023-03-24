@@ -166,32 +166,50 @@ var url_jpg_1 = 'https://ghproxy.com/https://github.com/01buluo/zuguo/blob/main/
  var path_jpg_1 = '/sdcard/lingqu_jpg.jpg';  //订阅---图标位置
  var path_jpg_2 = '/sdcard/kaishi_jpg.jpg';  //订阅---图标位置
 if(tansuo_1){
+  // 自动允许权限进程
 threads.start(function () {
-        if (!requestScreenCapture(false)) {
-            toastLog("请求截图失败,脚本结束");
-            exit();
-        }
-    });
-    sleep(2000);
-     // delay(random(0.7, 1.5)); 
-    if (textContains("立即开始").exists() || textContains("允许").exists()) {
-        if (textContains("立即开始").exists()) {
-            textContains("立即开始").className("Button").findOne().click();
-        } else {
-            textContains("允许").className("Button").findOne().click();
-        }
-        fInfo('自动点击获取权限按键！！！');
-    }
-    while (true) {
-        try {
-            captureScreen();
-            break;
-        } catch (e) {
-          fInfo('等待截图权限中');
-        };
-        sleep(1500);
-    }
-    fInfo('立即开始，允许截图权限已获取！！！');
+  //在新线程执行的代码
+  //sleep(500);
+  toastLog("开始自动获取截图权限");
+  var btn = className("android.widget.Button").textMatches(/允许|立即开始|START NOW/).findOne(5000);
+  if (btn) {
+    sleep(1000);
+    btn.click();
+  }
+  toastLog("结束获取截图权限");
+});
+fInfo("请求截图权限");
+// 请求截图权限、似乎请求两次会失效
+if (!requestScreenCapture(false)) { // false为竖屏方向
+  fError('请求截图失败');
+  exit();
+}
+// threads.start(function () {
+//         if (!requestScreenCapture(false)) {
+//             toastLog("请求截图失败,脚本结束");
+//             exit();
+//         }
+//     });
+//     sleep(2000);
+//      // delay(random(0.7, 1.5)); 
+//     if (textContains("立即开始").exists() || textContains("允许").exists()) {
+//         if (textContains("立即开始").exists()) {
+//             textContains("立即开始").className("Button").findOne().click();
+//         } else {
+//             textContains("允许").className("Button").findOne().click();
+//         }
+//         fInfo('自动点击获取权限按键！！！');
+//     }
+//     while (true) {
+//         try {
+//             captureScreen();
+//             break;
+//         } catch (e) {
+//           fInfo('等待截图权限中');
+//         };
+//         sleep(1500);
+//     }
+//     fInfo('立即开始，允许截图权限已获取！！！');
 }
 //'订阅'参数图片加载……   已换方式暂放弃此方法--不需要下载
 if(!files.exists(path_jpg_1) && tansuo_1){ fInfo('参数1存在,准备下载，若此次报错无法运行，不要勾选小茅运重新运行脚本');
