@@ -676,9 +676,7 @@ function purchase_buy(){
                                     fInfo("申购完毕！");
                                     fInfo("准备查询/领取小茅运返回top")}
   if(test_maoyun == true){
-    fInfo("准备查询/领取小茅运")
-    toast("准备查询/领取小茅运")
-    fSet("title", "领取小茅运…");
+   
     var resultss =  maoyun_draw();//领取或查询小茅运
      var resultss = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
      resultss = "\n\n" + wen_ts + "\n\n" + resultss;
@@ -705,6 +703,9 @@ if(tansuo_1 == true){
 }
 //领取小茅运
 function maoyun_draw(){
+  fInfo("准备查询/领取小茅运")
+  toast("准备查询/领取小茅运")
+  fSet("title", "查询/领取小茅运…");
 //     //打开App
 //   launchApp('i茅台');
 //    //等待进入到主页
