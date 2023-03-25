@@ -1267,6 +1267,7 @@ function imaotai_guanbi(){
 function tansuo_draw(){
   fSet("title", "探索…");
   fInfo("准备去探索（小茅运）");
+  fClear();
   // if(a_energy_1 < tansuo_num)  {fInfo("实有耐力值低于配置次数，将执行"+ a_energy_1 +"次");
   // toastLog("实有耐力值低于设定次数，将执行"+a_energy_1+"次");}
   // else {
@@ -1285,6 +1286,7 @@ function tansuo_draw(){
      click_text_element("探索",is_wait=false)
      delay(3);
      for(var iii = 0; iii < tansuo_num; iii++){
+      fInfo("第" + (iii + 1) + "次点击‘开始’");
      var path_jp=0;
  while (true && path_jp<10){
        let img_small_kaishi = images.read(path_jpg_2);
@@ -1309,7 +1311,8 @@ function tansuo_draw(){
  //      press(800+random(5, 10), 1600+random(5, 10), 100);
  //       click(800+random(5, 10), 1600+random(5, 10));
        delay(random(8, 10));
-      queryList_1(className("android.widget.TextView").find())
+     //queryList_1(className("android.widget.TextView").find())
+      queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
        lq_guanbi_lq();
       delay(2);
