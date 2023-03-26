@@ -1530,7 +1530,7 @@ function hamibot_ocr_api() {
   fSet("title", "题目识别…");
  let queding = 0;
    let list = ocr.recognize(arguments[0])['results']; // 识别文字，并得到results
- log(list);
+ //log(list);
  var list_1 =list.location;
 // log('zuo:'+list_1);
    let eps = 30; // 坐标误差
@@ -1608,7 +1608,7 @@ function hamibot_ocr_api() {
              lingdao_1 == 2;
            //  click(json[i]);  
                                //  break;
-                                }else if(b_coin_1 == '取消') {
+                                }else if(b_coin_1 == '取消' && queding != 1) {
                                   click(xx+ random(-10, 100) ,yy + random(-10, 15));
                                   lingdao_1 == 2;
                                 }
@@ -1696,7 +1696,7 @@ var asub_1 = arr[ii];
            lingdao_1 == 2;
          //  click(json[i]);  
                              //  break;
-                              }else if(b_coin_1 == '取消') {
+                              }else if(b_coin_1 == '取消' && queding != 1) {
                                 click(xx+ random(-10, 100) ,yy + random(-10, 15));
                                 lingdao_1 == 2;
                               }
@@ -1785,7 +1785,7 @@ var asub_1 = arr[ii];
            lingdao_1 == 2;
          //  click(json[i]);  
                              //  break;
-                              }else if(b_coin_1 == '取消') {
+                              }else if(b_coin_1 == '取消' && queding != 1) {
                                 click(xx+ random(-10, 100) ,yy + random(-10, 15));
                                 lingdao_1 == 2;
                               }
