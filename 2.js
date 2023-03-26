@@ -1607,12 +1607,12 @@ function hamibot_ocr_api() {
              console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
              click(x+ random(-10, 100),y);
              queding = 1;
-             lingdao_1 == 2;
+             lingdao_1 = 2;
            //  click(json[i]);  
                                //  break;
                                 }else if(b_coin_1 == '取消' && queding != 1) {
                                   click(xx+ random(-10, 100) ,yy + random(-10, 15));
-                                  lingdao_1 == 2;
+                                  lingdao_1 = 2;
                                 }
          };
      sleep(500);
@@ -1695,12 +1695,12 @@ var asub_1 = arr[ii];
            console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
            click(x+ random(-10, 100),y);
            queding = 1;
-           lingdao_1 == 2;
+           lingdao_1 = 2;
          //  click(json[i]);  
                              //  break;
                               }else if(b_coin_1 == '取消' && queding != 1) {
                                 click(xx+ random(-10, 100) ,yy + random(-10, 15));
-                                lingdao_1 == 2;
+                                lingdao_1 = 2;
                               }
        };
    sleep(500);
@@ -1784,12 +1784,12 @@ var asub_1 = arr[ii];
            console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
            click(x+ random(-10, 100),y);
            queding = 1;
-           lingdao_1 == 2;
+           lingdao_1 = 2;
          //  click(json[i]);  
                              //  break;
                               }else if(b_coin_1 == '取消' && queding != 1) {
                                 click(xx+ random(-10, 100) ,yy + random(-10, 15));
-                                lingdao_1 == 2;
+                                lingdao_1 = 2;
                               }
        };
    sleep(500);
