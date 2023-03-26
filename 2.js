@@ -1286,6 +1286,7 @@ function tansuo_draw(){
      click_text_element("探索",is_wait=false)
      delay(3);
      for(var iii = 0; iii < tansuo_num; iii++){
+      fSet("title", "探索…");
       fInfo("第" + (iii + 1) + "次点击‘开始’");
      var path_jp=0;
  while (true && path_jp<10){
@@ -1351,7 +1352,7 @@ function tansuo_draw(){
                  } else {
                    path_jpg++;
                    if(path_jpg==5) fInfo("此次未发现可--‘领取’");
-                   lingdao_1 = true;
+                   lingdao_1 = false;
             } 
         }
         return lingdao_1;
@@ -1389,7 +1390,7 @@ function tansuo_draw(){
            b_coin_1 = b_coin_1.replace(/  /g, '');
           // b_coin_1 = b_coin_1.replace(/\s/g, "");
            b_coin_1 = b_coin_1.replace(/  /g, '');
-         if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1)
+         if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
          // var arr = [4, 2, 8, 34, 38, 4, 45, 44, 4, 2];
                         var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
         var asub_1 = '';
