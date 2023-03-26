@@ -1314,7 +1314,7 @@ function tansuo_draw(){
       //  var neirong_n = className("android.widget.TextView").findOne(1000);
       //  if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
       //  else {
-        var lingdao_1=0;
+        let lingdao_1 = 0;
         lq_guanbi_lq();
       if(lingdao_1 == 0){
       fClear();
@@ -1325,7 +1325,7 @@ function tansuo_draw(){
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
-      if(lingdao_1 == 2) lq_guanbi_lq();
+      if(lingdao_1 == 0) lq_guanbi_lq();
       delay(2);
      } 
  }
@@ -1346,13 +1346,15 @@ function tansuo_draw(){
          lingdao_1 = 1;
         delay(random(0.3, 0.8))
        click(p_0.x+50+random(5, 10), p_0.y+30+random(5, 10));//点击坐标
+       delay(random(0.5, 1))
        break;
                  } else {
                    path_jpg++;
                    if(path_jpg==5) fInfo("此次未发现可--‘领取’");
+                   lingdao_1 = 0;
             } 
         }
-  
+        return lingdao_1;
   }
   //遍历题目答题
   function queryList_1(json) {
@@ -1757,18 +1759,18 @@ function paddle_ocr_api() {
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
  //  log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');
-    b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
+       b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
        b_coin_1 = b_coin_1.replace(/A/g, '');//再删除多余空格
        b_coin_1 = b_coin_1.replace(/B/g, '');//再删除多余空格
        b_coin_1 = b_coin_1.replace(/C/g, '');//再删除多余空格
        b_coin_1 = b_coin_1.replace(/D/g, '');//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/、/g, '');//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/:/g, '');//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
+  //     b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
+    //   b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
+    //   b_coin_1 = b_coin_1.replace(/:/g, '');//再删除多余空格
      //   b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
        //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
-        b_coin_1 = b_coin_1.replace(/  /g, '');
+     //   b_coin_1 = b_coin_1.replace(/  /g, '');
        // b_coin_1 = b_coin_1.replace(/\s/g, "");
         b_coin_1 = b_coin_1.replace(/  /g, '');
      // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
