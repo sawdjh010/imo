@@ -1319,7 +1319,7 @@ function tansuo_draw(){
         let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
 
        };
-      queryList_1(find());
+    //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
        lq_guanbi_lq();
       delay(2);
