@@ -1314,9 +1314,9 @@ function tansuo_draw(){
       //  var neirong_n = className("android.widget.TextView").findOne(1000);
       //  if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
       //  else {
-        let lingdao_1 = 0;
+        let lingdao_1 = false;
         lq_guanbi_lq();
-      if(lingdao_1 == 0){
+      if(!lingdao_1){
       fClear();
         let img = captureScreen();
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
@@ -1325,7 +1325,7 @@ function tansuo_draw(){
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
-      if(lingdao_1 == 0) lq_guanbi_lq();
+      if(!lingdao_1) lq_guanbi_lq();
       delay(2);
      } 
  }
@@ -1343,7 +1343,7 @@ function tansuo_draw(){
       var p_0 = findImage(img_big_lingqu, img_small_lingqu);
       if (p_0) {
         fInfo("领取---找到了(" + p_0.x + "," + p_0.y + ")");
-         lingdao_1 = 1;
+         lingdao_1 = true;
         delay(random(0.3, 0.8))
        click(p_0.x+50+random(5, 10), p_0.y+30+random(5, 10));//点击坐标
        delay(random(0.5, 1))
@@ -1351,7 +1351,7 @@ function tansuo_draw(){
                  } else {
                    path_jpg++;
                    if(path_jpg==5) fInfo("此次未发现可--‘领取’");
-                   lingdao_1 = 0;
+                   lingdao_1 = true;
             } 
         }
         return lingdao_1;
@@ -1758,12 +1758,12 @@ function paddle_ocr_api() {
    if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
- //  log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');
+ //  log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
-       b_coin_1 = b_coin.replace(/A/g, '');//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/B/g, '');//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/C/g, '');//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/D/g, '');//再删除多余空格
+       b_coin_1 = b_coin.replace(/A/g, "");//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/B/g, "");//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/C/g, "");//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/D/g, "");//再删除多余空格
        b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
   //     b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
     //   b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
@@ -1772,7 +1772,7 @@ function paddle_ocr_api() {
        //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
      //   b_coin_1 = b_coin_1.replace(/  /g, '');
         b_coin_1 = b_coin_1.replace(/\s/g, "");
-        b_coin_1 = b_coin_1.replace(/  /g, '');
+        b_coin_1 = b_coin_1.replace(/  /g, "");
      // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
                      var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
      var asub_1 = '';
@@ -1784,19 +1784,20 @@ var asub_1 = arr[ii];
            console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
            click(x+ random(-10, 100),y);
            queding = 1;
-           lingdao_1 = 2;
+           lingdao_1 = true;
          //  click(json[i]);  
                              //  break;
                               }else if(b_coin_1 == '取消' && queding != 1) {
                                 click(xx+ random(-10, 100) ,yy + random(-10, 15));
-                                lingdao_1 = 2;
+                                lingdao_1 = true;
                               }
        };
    sleep(500);
    if(b_coin_1 == '确定'&& queding == 1) {
            console.info("点击："+ b_coin + '坐标:('+ x + random(-10, 100) + ',' + y+ random(-10, 15) + ')')
            click(x+ random(-10, 100), y+ random(-10, 15));
-         //  click(json[i]);  
+         //  click(json[i]); 
+                    lingdao_1 = true;
                               break;
                               };
  }
