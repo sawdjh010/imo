@@ -1310,18 +1310,20 @@ function tansuo_draw(){
  //     delay(6);
  //      press(800+random(5, 10), 1600+random(5, 10), 100);
  //       click(800+random(5, 10), 1600+random(5, 10));
-       delay(random(8, 10));
-       var neirong_n = className("android.widget.TextView").findOne(1000);
-       if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
-       else {
-        fClear();
+      //  delay(random(8, 10));
+      //  var neirong_n = className("android.widget.TextView").findOne(1000);
+      //  if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
+      //  else {
+        var lingdao_1=0;
+      if(lingdao_1 == 0){
+      fClear();
         let img = captureScreen();
         let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
 
-       };
+        };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
-       lq_guanbi_lq();
+      if(lingdao_1 == 2) lq_guanbi_lq();
       delay(2);
      } 
  }
@@ -1339,6 +1341,7 @@ function tansuo_draw(){
       var p_0 = findImage(img_big_lingqu, img_small_lingqu);
       if (p_0) {
         fInfo("领取---找到了(" + p_0.x + "," + p_0.y + ")");
+         lingdao_1 = 1;
         delay(random(0.3, 0.8))
        click(p_0.x+50+random(5, 10), p_0.y+30+random(5, 10));//点击坐标
        break;
@@ -1569,8 +1572,11 @@ function hamibot_ocr_api() {
    for (var i = 0; i < list.length; i++) {
      res += list[i]['text'];
     var b_coin = list[i]['text'];
-      x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2
-      y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2
+      x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
+      y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
+     if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
+      yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
+          };
    //  log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');
       b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
          b_coin_1 = b_coin_1.replace(/A/g, '');//再删除多余空格
@@ -1596,10 +1602,14 @@ function hamibot_ocr_api() {
            if(b_coin_1 == asub_1) {
              console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
              click(x+ random(-10, 100),y);
-             queding=1;
+             queding = 1;
+             lingdao_1 == 2;
            //  click(json[i]);  
                                //  break;
-                                }else if(b_coin_1 == '取消') click(x ,y - 240 + random(-10, 15));
+                                }else if(b_coin_1 == '取消') {
+                                  click(xx+ random(-10, 100) ,yy + random(-10, 15));
+                                  lingdao_1 == 2;
+                                }
          };
      sleep(500);
      if(b_coin_1 == '确定'&& queding == 1) {
