@@ -1768,13 +1768,13 @@ function paddle_ocr_api() {
        b_coin_1 = b_coin_1.replace(/B/g, "");//再删除多余空格
        b_coin_1 = b_coin_1.replace(/C/g, "");//再删除多余空格
        b_coin_1 = b_coin_1.replace(/D/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
-  //     b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
-    //   b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
-    //   b_coin_1 = b_coin_1.replace(/:/g, '');//再删除多余空格
-     //   b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
+      // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
+      b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
+      b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
+      b_coin_1 = b_coin_1.replace(/:/g, '');//再删除多余空格
+      // b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
        //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
-     //   b_coin_1 = b_coin_1.replace(/  /g, '');
+        b_coin_1 = b_coin_1.replace(/  /g, "");
         b_coin_1 = b_coin_1.replace(/\s/g, "");
         b_coin_1 = b_coin_1.replace(/  /g, "");
       }else continue;
@@ -1796,6 +1796,7 @@ var asub_1 = arr[ii];
                               }else if(b_coin_1 == '取消' && queding != 1) {
                                 click(xx+ random(-10, 100) ,yy + random(-10, 15));
                                 lingdao_1 = true;
+                                queding = 1;
                               }
        };
    sleep(500);
