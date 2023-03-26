@@ -1321,8 +1321,8 @@ function tansuo_draw(){
       fClear();
         let img = captureScreen();
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-      // let res =paddle_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));  
+       //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
+       let res =paddle_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));  
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
