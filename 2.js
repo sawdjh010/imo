@@ -1304,6 +1304,7 @@ function tansuo_draw(){
      if (p_1) {
       fInfo("开始---找到了(" + p_1.x + "," + p_1.y + ")");
       click(p_1.x+20+random(5, 30), p_1.y+20+random(5, 20));//点击坐标
+      img_small_kaishi.recycle();
       break;
      }
     // }catch (e) {
@@ -1312,7 +1313,8 @@ function tansuo_draw(){
     //   continue;
     // }
   path_jp++;
-                  if(path_jp == 7) fInfo("此次未找到--‘开始’");
+                  if(path_jp == 7) {fInfo("此次未找到--‘开始’");
+                  img_small_kaishi.recycle();}
 
        }
  //     setScreenMetrics(1080, 1920);
@@ -1337,8 +1339,9 @@ function tansuo_draw(){
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        let res = paddle_ocr_api(img);  
        //let res = google_ocr_api(img);
-       ocr_rslt_to_txt(res);
-       log(ocr_rslt_to_txt.replace(/\s+/g, ""));
+      // ocr_rslt_to_txt(res);
+     //  log(ocr_rslt_to_txt.replace(/\s+/g, ""));
+       img.recycle();
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
@@ -1774,7 +1777,7 @@ function paddle_ocr_api() {
   }
   let res = '';
   for (var i = 0; i < list.length; i++) {
-    var b_coin = list[i]['text'];
+    var b_coin = list[i]['textWords'];
      res += list[i]['text'];
     x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
     y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
@@ -1782,7 +1785,7 @@ function paddle_ocr_api() {
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
         log(b_coin);
-        log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
+        log(list[i]['textWords'] +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
       if(b_coin != null){
         // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
