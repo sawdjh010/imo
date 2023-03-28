@@ -1865,3 +1865,18 @@ function exit_app(name) {
   }
   return true;
 }
+
+// 尝试成功点击
+function real_click(obj) {
+  for (let i = 1; i <= 3; i++) {
+    if (obj.click()) {
+      log("real click: true");
+      return true;
+    }
+    sleep(300);
+  }
+  console.warn("控件无法正常点击：", obj);
+  log("尝试再次点击");
+  click(obj.bounds().centerX(), obj.bounds().centerY());
+  return false;
+}
