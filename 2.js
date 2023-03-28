@@ -1324,11 +1324,12 @@ function tansuo_draw(){
       if(!lingdao_1){
       fClear();
         let img = captureScreen();
-        img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3))
+        img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
         img = images.interval(img, "#FD1111", 120);
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       let res = paddle_ocr_api(img);  
+       //let res = paddle_ocr_api(img);  
+       let res = google_ocr_api(img);
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
@@ -1638,6 +1639,7 @@ function google_ocr_api(img) {
  // console.log('GoogleMLKit文字识别中');
   fSet("title", "题目识别…");
   let list = JSON.parse(JSON.stringify(gmlkit.ocr(img, "zh").toArray(3))); // 识别文字，并得到results
+  log(list);
   let eps = 30; // 坐标误差
   for (
     var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
@@ -1691,6 +1693,7 @@ function google_ocr_api(img) {
      //   b_coin_1 = b_coin_1.replace(/  /g, '');
         b_coin_1 = b_coin_1.replace(/\s/g, "");
         b_coin_1 = b_coin_1.replace(/  /g, "");
+        log(b_coin_1);
       }else continue;
       if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
      // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
