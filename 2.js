@@ -1739,7 +1739,7 @@ function paddle_ocr_api() {
  // console.log('PaddleOCR文字识别中');
   fSet("title", "题目识别…");
   let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
-  log(list);
+  fInfo(list);
   let eps = 30; // 坐标误差
   if (arguments.length >= 2) eps = arguments[1];
   for (
@@ -1772,14 +1772,15 @@ function paddle_ocr_api() {
   }
   let res = '';
   for (var i = 0; i < list.length; i++) {
-    res += list[i]['text'];
     var b_coin = list[i]['text'];
+     res += list[i]['text'];
     x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
     y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
    if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
-   log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
+        fInfo(b_coin);
+        fInfo(list[i]['text'] +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
       if(b_coin != null){
         // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
@@ -1828,6 +1829,7 @@ function paddle_ocr_api() {
                               break;
                               };
                               }
+     //  res += list[i]['text'];
  }
   list = null;
   return res;
