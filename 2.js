@@ -1323,7 +1323,7 @@ function tansuo_draw(){
  //     delay(6);
  //      press(800+random(5, 10), 1600+random(5, 10), 100);
  //       click(800+random(5, 10), 1600+random(5, 10));
-      //  delay(random(8, 10));
+        delay(random(8, 10));
        var neirong_n = className("android.widget.TextView").findOne(2000);
        if (neirong_n != null){ queryList_1(className("android.widget.TextView").find());
        let lingdao_1 = false;
