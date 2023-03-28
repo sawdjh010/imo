@@ -1285,14 +1285,15 @@ function tansuo_draw(){
    click_text_element("云购",is_wait=false)
      delay(2);
      click_text_element("小茅运",is_wait=false)
-     delay(3);
+     delay(4);
      click_text_element("探索",is_wait=false)
      delay(3);
      for(var iii = 0; iii < tansuo_num; iii++){
       fSet("title", "探索…");
       fInfo("第" + (iii + 1) + "次点击‘开始’");
      var path_jp=0;
- while (true && path_jp<10){
+ while (true && path_jp<7){
+  try {
        let img_small_kaishi = images.read(path_jpg_2);
      let img_big_kaishi = captureScreen()
      let result_0 = images.matchTemplate(img_big_kaishi, img_small_kaishi, {
@@ -1305,8 +1306,14 @@ function tansuo_draw(){
       click(p_1.x+20+random(5, 30), p_1.y+20+random(5, 20));//点击坐标
       break;
      }
+    }catch (e) {
+      fError(e + "：识图功能异常，继续尝试");
+      sleep(200);
+      continue;
+    }
   path_jp++;
-                  if(path_jp == 10) fInfo("此次未找到--‘开始’");
+                  if(path_jp == 7) fInfo("此次未找到--‘开始’");
+
        }
  //     setScreenMetrics(1080, 1920);
  //       press(800+random(5, 10), 1600+random(5, 10), 100);
@@ -1318,7 +1325,7 @@ function tansuo_draw(){
       //  var neirong_n = className("android.widget.TextView").findOne(1000);
       //  if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
       //  else {
-        let lingdao_1 = false;
+      let lingdao_1 = false;
        // lq_guanbi_lq();
        lingdao_1 = lq_guanbi_lq(path_jpg_1, 5, lingdao_1);
       if(!lingdao_1){
@@ -1328,8 +1335,8 @@ function tansuo_draw(){
         img = images.interval(img, "#FD1111", 120);
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       //let res = paddle_ocr_api(img);  
-       let res = google_ocr_api(img);
+       let res = paddle_ocr_api(img);  
+       //let res = google_ocr_api(img);
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
@@ -1732,6 +1739,7 @@ function paddle_ocr_api() {
  // console.log('PaddleOCR文字识别中');
   fSet("title", "题目识别…");
   let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
+  log(list);
   let eps = 30; // 坐标误差
   if (arguments.length >= 2) eps = arguments[1];
   for (
@@ -1773,20 +1781,23 @@ function paddle_ocr_api() {
         };
  //  log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
-      if(b_coin!=null){b_coin_1 = b_coin.replace(/A/g, "");//再删除多余空格
+      if(b_coin!=null){
+        // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
+       b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/A/g, "");//再删除多余空格
        b_coin_1 = b_coin_1.replace(/B/g, "");//再删除多余空格
        b_coin_1 = b_coin_1.replace(/C/g, "");//再删除多余空格
        b_coin_1 = b_coin_1.replace(/D/g, "");//再删除多余空格
-      // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
-      b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
-      b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
-      b_coin_1 = b_coin_1.replace(/:/g, '');//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/：/g, "");//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/%/g, "");//再删除多余空格
+       b_coin_1 = b_coin_1.replace(/:/g, "");//再删除多余空格
       // b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
        //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
         b_coin_1 = b_coin_1.replace(/  /g, "");
         b_coin_1 = b_coin_1.replace(/\s/g, "");
         b_coin_1 = b_coin_1.replace(/  /g, "");
         log(b_coin_1);
+        log(b_coin);
       }else continue;
       if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
      // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
