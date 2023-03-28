@@ -1225,6 +1225,9 @@ function rt(){
    home();
     exit();
 }
+fInfo("运行前重置学习APP");
+exit_app("i茅台");
+sleep(1500);
 rt();
 /**监听音量键 */
 function imaotai_KeyDown(){
@@ -1813,4 +1816,52 @@ function paddle_ocr_api() {
  }
   list = null;
   return res;
+}
+
+// 强行退出应用名称
+function exit_app(name) {
+  // fClear();
+  fInfo("尝试结束" + name + "APP");
+  var packageName = getPackageName(name);
+  if (!packageName) {
+    if (getAppName(name)) {
+      packageName = name;
+    } else {
+      return false;
+    }
+  }
+  log("打开应用设置界面");
+  app.openAppSetting(packageName);
+  var appName = app.getAppName(packageName);
+  //log(appName);
+  log("等待加载界面")
+  //textMatches(/应用信息|应用详情/).findOne(5000);
+  text(appName).findOne(5000);
+  sleep(1500);
+  log("查找结束按钮")
+  //let stop = textMatches(/(^强行.*|.*停止$|^结束.*)/).packageNameMatches(/.*settings.*|.*securitycenter.*/).findOne();
+  let stop = textMatches(/(强.停止$|.*停止$|结束运行|停止运行|[Ff][Oo][Rr][Cc][Ee] [Ss][Tt][Oo][Pp])/).findOne();
+  log("stop:", stop.enabled())
+  if (stop.enabled()) {
+    //log("click:", stop.click());
+    real_click(stop);
+    sleep(1000);
+    log("等待确认弹框")
+    //let sure = textMatches(/(确定|^强行.*|.*停止$)/).packageNameMatches(/.*settings.*|.*securitycenter.*/).clickable().findOne();
+    let sure = textMatches(/(确定|.*停止.*|[Ff][Oo][Rr][Cc][Ee] [Ss][Tt][Oo][Pp]|O[Kk])/).clickable().findOne(1500);
+    if (!sure) {
+      fInfo(appName + "应用已关闭");
+      back();
+      return false;
+    }
+    log("sure click:", sure.click());
+    fInfo(appName + "应用已被关闭");
+    sleep(1000);
+    back();
+  } else {
+    fInfo(appName + "应用不能被正常关闭或不在后台运行");
+    sleep(1000);
+    back();
+  }
+  return true;
 }
