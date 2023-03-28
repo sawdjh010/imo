@@ -1326,6 +1326,7 @@ function tansuo_draw(){
       //  delay(random(8, 10));
        var neirong_n = className("android.widget.TextView").findOne(2000);
        if (neirong_n != null){ queryList_1(className("android.widget.TextView").find());
+       let lingdao_1 = false;
        lq_guanbi_lq(path_jpg_1, 5, lingdao_1);}
       else {
       let lingdao_1 = false;
