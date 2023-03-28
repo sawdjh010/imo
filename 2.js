@@ -1324,9 +1324,9 @@ function tansuo_draw(){
  //      press(800+random(5, 10), 1600+random(5, 10), 100);
  //       click(800+random(5, 10), 1600+random(5, 10));
       //  delay(random(8, 10));
-      //  var neirong_n = className("android.widget.TextView").findOne(1000);
-      //  if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
-      //  else {
+       var neirong_n = className("android.widget.TextView").findOne(1000);
+       if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
+       else {
       let lingdao_1 = false;
        // lq_guanbi_lq();
        lingdao_1 = lq_guanbi_lq(path_jpg_1, 5, lingdao_1);
@@ -1346,6 +1346,8 @@ function tansuo_draw(){
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
       if(!lingdao_1) lq_guanbi_lq(path_jpg_1, 5, lingdao_1);
+    }
+    lq_guanbi_lq(path_jpg_1, 5, lingdao_1);
       delay(2);
      } 
  }
