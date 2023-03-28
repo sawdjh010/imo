@@ -1292,29 +1292,29 @@ function tansuo_draw(){
       fSet("title", "探索…");
       fInfo("第" + (iii + 1) + "次点击‘开始’");
      var path_jp=0;
-// while (true && path_jp<7){
-  try {
+ while (true && path_jp<7){
+ // try {
        let img_small_kaishi = images.read(path_jpg_2);
      let img_big_kaishi = captureScreen()
-     let result_0 = images.matchTemplate(img_big_kaishi, img_small_kaishi, {
-       max: 1
-     });
-   	log(result_0);
+    //  let result_0 = images.matchTemplate(img_big_kaishi, img_small_kaishi, {
+    //    max: 1
+    //  });
+   	// log(result_0);
      var p_1 = findImage(img_big_kaishi, img_small_kaishi);
      if (p_1) {
       fInfo("开始---找到了(" + p_1.x + "," + p_1.y + ")");
       click(p_1.x+20+random(5, 30), p_1.y+20+random(5, 20));//点击坐标
       break;
      }
-    }catch (e) {
-      fError(e + "：识图功能异常，继续尝试");
-      sleep(200);
-      continue;
-    }
- // path_jp++;
-  //                if(path_jp == 7) fInfo("此次未找到--‘开始’");
+    // }catch (e) {
+    //   fError(e + "：识图功能异常，继续尝试");
+    //   sleep(200);
+    //   continue;
+    // }
+  path_jp++;
+                  if(path_jp == 7) fInfo("此次未找到--‘开始’");
 
-  //     }
+       }
  //     setScreenMetrics(1080, 1920);
  //       press(800+random(5, 10), 1600+random(5, 10), 100);
  //       click(800+random(5, 10), 1600+random(5, 10));
