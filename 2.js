@@ -1337,6 +1337,8 @@ function tansuo_draw(){
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        let res = paddle_ocr_api(img);  
        //let res = google_ocr_api(img);
+       ocr_rslt_to_txt(res);
+       log(ocr_rslt_to_txt.replace(/\s+/g, ""));
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
@@ -1896,4 +1898,38 @@ function real_click(obj) {
   log("尝试再次点击");
   click(obj.bounds().centerX(), obj.bounds().centerY());
   return false;
+}
+// 把ocr结果转换为正序的字符串
+function ocr_rslt_to_txt(result) {
+  let top = 0;
+  let previous_left = 0;
+  let txt = "";
+  let txt_list = [];
+  for (let idx in result) {
+    if (top == 0) {
+      top = result[idx].bounds.top;
+    }
+    if (previous_left == 0) {
+      previous_left = result[idx].bounds.left;
+    }
+    if (result[idx].bounds.top >= top - 10 && result[idx].bounds.top <= top + 10) {
+      if (result[idx].bounds.left > previous_left) {
+        txt = txt + "   " + result[idx].text;
+      } else {
+        txt = result[idx].text + "   " + txt;
+      }
+    } else {
+      top = result[idx].bounds.top;
+      txt_list.push(txt);
+      txt = result[idx].text;
+    }
+    if (idx == result.length - 1) {
+      txt_list.push(txt);
+    }
+    previous_left = result[idx].bounds.left;
+  }
+  //每行直接加个换行
+  let ans = txt_list.join("\n");
+  log(ans);
+  return ans;
 }
