@@ -1316,25 +1316,28 @@ function tansuo_draw(){
       //  if (neirong_n != null) queryList_1(className("android.widget.TextView").find());
       //  else {
         let lingdao_1 = false;
-        lq_guanbi_lq();
+       // lq_guanbi_lq();
+       lingdao_1 = lq_guanbi_lq(path_jpg_1, 5, lingdao_1);
       if(!lingdao_1){
       fClear();
         let img = captureScreen();
+        img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3))
+        img = images.interval(img, "#FD1111", 120);
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       let res =paddle_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));  
+       let res = paddle_ocr_api(img);  
       };
     //  queryList_1(find());
     //  var lq_guanbi_thread = lq_guanbi();
-      if(!lingdao_1) lq_guanbi_lq();
+      if(!lingdao_1) lq_guanbi_lq(path_jpg_1, 5, lingdao_1);
       delay(2);
      } 
  }
 
- function lq_guanbi_lq(){
+ function lq_guanbi_lq(path_jpg_num,num,lingdao_1){
   var path_jpg = 0;
-  while (true && path_jpg < 5){
-        let img_small_lingqu = images.read(path_jpg_1);
+  while (true && path_jpg < num){
+        let img_small_lingqu = images.read(path_jpg_num);
       let img_big_lingqu = captureScreen()
       delay(2);
       let result_0 = images.matchTemplate(img_big_lingqu, img_small_lingqu, {
@@ -1777,15 +1780,15 @@ function paddle_ocr_api() {
         b_coin_1 = b_coin_1.replace(/  /g, "");
         b_coin_1 = b_coin_1.replace(/\s/g, "");
         b_coin_1 = b_coin_1.replace(/  /g, "");
+        log(b_coin_1);
       }else continue;
       if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
      // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
-                     var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
+       var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
      var asub_1 = '';
   for (var ii = 0; ii < arr.length-1; ii++) {
-var asub_1 = arr[ii];
- //   log(asub_1);
-    
+         var asub_1 = arr[ii];
+ //   log(asub_1); 
          if(b_coin_1 == asub_1) {
            console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
            click(x+ random(-10, 100),y);
