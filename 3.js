@@ -1781,7 +1781,7 @@ function paddle_ocr_api_1() {
   }
   let res = '';
   for (var i = 0; i < list.length; i++) {
-    var b_coin = list[i]['textWords'];
+    var b_coin = list[i].words;
      res += list[i]['text'];
     x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
     y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
@@ -1993,7 +1993,7 @@ let img = captureScreen();
         img = images.interval(img, "#FD1111", 120);
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       let res = paddle_ocr_api(img);  
+       let res = paddle_ocr_api_1(img);  
        //let res = google_ocr_api(img);
       // ocr_rslt_to_txt(res);
      //  log(ocr_rslt_to_txt.replace(/\s+/g, ""));
