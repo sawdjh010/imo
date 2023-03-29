@@ -36,7 +36,7 @@ importClass(java.io.FileOutputStream);
 // var isPrivateMode = version1GreaterVersion2(getVersion("com.moutai.mall"), privateModeStartVersion);
 // console.show();
 // console.hide();
-// var w = fInit();
+ var w = fInit();
 // sleep(3000);
 //fRefocus();
 // fInfo('当前i茅台版本为' + getVersion("com.moutai.mall") + '(' + isPrivateModes + ')');
@@ -1945,6 +1945,7 @@ function paddle_ocr_api() {
   console.log('PaddleOCR文字识别中');
   let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
   let eps = 30; // 坐标误差
+  console.info(list);
   if (arguments.length >= 2) eps = arguments[1];
   for (
     var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
@@ -1976,12 +1977,14 @@ function paddle_ocr_api() {
   }
   let res = '';
   for (var i = 0; i < list.length; i++) {
+    console.info(list[i]['text']);
     res += list[i]['text'];
   }
   list = null;
   return res;
 }
-fInit()
+//fInit()
+console.show();
 let img = captureScreen();
         img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
         img = images.interval(img, "#FD1111", 120);
