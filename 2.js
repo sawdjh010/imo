@@ -339,7 +339,9 @@ function queryList_click(json,wenben_dj) {
             //console.log("---"+json[i]+"+++")
            var b_coin = json[i].text()
           // log("文本："+b_coin)
+          var a_energy_2 = 0;
           if(b_coin== wenben_dj) {click(b_coin); fInfo("点击"+ wenben_dj +"成功")
+          if(b_coin== '领取')  a_energy_2 = 1;
                                   break;}
         } else {
             queryList_click(sonList);
@@ -522,8 +524,10 @@ function get_buy_result(){
       };
      	for(let element of elements){
       	 //获取预约时间
-         var time = element.findOne(id("date_time")).text()
-         var time_0 = element.findOne(id("date_time")).text()
+         let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
+          var time = queryList_0(rooot1,1);
+        //  var time = element.findOne(id("date_time")).text()
+        //  var time_0 = element.findOne(id("date_time")).text()
          //console.log("申购:",time)
         var time = time.replace(/-/g, '');
         var time = time.substring(0,10).match(/[0-9][0-9]*/g);
@@ -551,7 +555,7 @@ function get_buy_result(){
          }
       }
   } 
- result = "\n\n" + "账号：" + username +  "\n\n" + time_0 + "--申购结果:" + result;
+ result = "\n\n" + "账号：" + username +  "\n\n" + time + "--申购结果:" + result;
   //准备回退到App桌面
  // back_main_page()
   //进入到桌面
@@ -768,6 +772,14 @@ function maoyun_draw(){
     delay(2);
   click_text_element("首页",is_wait=false);
  delay(2);
+ if(a_energy_2==1){
+ click_text_element("我的",is_wait=false);
+ delay(2);
+ var a_energy = queryList_0(rooot, 2);
+   log("耐力值:" + a_energy);
+   var a_energy_1 = parseInt(a_energy * 0.1);
+   if(a_energy_1 < tansuo_num)  tansuo_num = a_energy_1;
+ }
    click_text_element("云购",is_wait=false);
   delay(2);
   back_main_page();
