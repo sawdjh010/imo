@@ -2095,3 +2095,5 @@ let img = captureScreen();
       // ocr_rslt_to_txt(res);
      //  log(ocr_rslt_to_txt.replace(/\s+/g, ""));
        img.recycle();
+       sleep(2000);
+       console.show();
