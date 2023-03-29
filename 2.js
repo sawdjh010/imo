@@ -1410,8 +1410,8 @@ function tansuo_draw(){
         var  XX = json[i].bounds().centerX();
         var  YY = json[i].bounds().centerY();
         if(i>1){
-          var  XX_1 = json[i].bounds().centerX();
-        var  YY_1 = json[i].bounds().centerY();
+        var  XX_1 = json[i-1].bounds().centerX();
+        var  YY_1 = json[i-1].bounds().centerY();
         };
            var b_coin = json[i].text()
    //       log(b_coin.bounds().centerX(),b_coin.bounds().centerY());
@@ -1450,7 +1450,7 @@ function tansuo_draw(){
               //click(json[i]);
               
                                   break;
-                                 }else if(b_coin == '取消') click(XX_1 + random(5, 20), YY_1 + random(5, 20));
+                                 }else if(b_coin == '取消') click(XX_1 + random(5, 30), YY_1 + random(5, 10));
           };
           if(b_coin == '确定') {
             delay(random(0.4, 0.8));
