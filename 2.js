@@ -1748,7 +1748,7 @@ function paddle_ocr_api() {
  // console.log('PaddleOCR文字识别中');
   fSet("title", "题目识别…");
   let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
-  fInfo(list);
+ // fInfo(list);
   let eps = 30; // 坐标误差
   if (arguments.length >= 2) eps = arguments[1];
   for (
@@ -1781,7 +1781,7 @@ function paddle_ocr_api() {
   }
   let res = '';
   for (var i = 0; i < list.length; i++) {
-    var b_coin = list[i]['textWords'];
+    var b_coin = list[i].words;
      res += list[i]['text'];
     x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
     y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
@@ -1789,7 +1789,7 @@ function paddle_ocr_api() {
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
         log(b_coin);
-        log(list[i]['textWords'] +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
+        log(list[i].words +'---坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
       if(b_coin != null){
         // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
@@ -1939,4 +1939,45 @@ function ocr_rslt_to_txt(result) {
   let ans = txt_list.join("\n");
   log(ans);
   return ans;
+}
+
+function paddle_ocr_api() {
+  console.log('PaddleOCR文字识别中');
+  let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
+  let eps = 30; // 坐标误差
+  if (arguments.length >= 2) eps = arguments[1];
+  for (
+    var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
+  ) {
+    for (var j = i + 1; j < list.length; j++) {
+      if (list[i]['bounds']['bottom'] > list[j]['bounds']['bottom']) {
+        var tmp = list[i];
+        list[i] = list[j];
+        list[j] = tmp;
+      }
+    }
+  }
+
+  for (
+    var i = 0; i < list.length; i++ // 在上下排序完成后，进行左右排序
+  ) {
+    for (var j = i + 1; j < list.length; j++) {
+      // 由于上下坐标并不绝对，采用误差eps
+      if (
+        Math.abs(list[i]['bounds']['bottom'] - list[j]['bounds']['bottom']) <
+        eps &&
+        list[i]['bounds']['left'] > list[j]['bounds']['left']
+      ) {
+        var tmp = list[i];
+        list[i] = list[j];
+        list[j] = tmp;
+      }
+    }
+  }
+  let res = '';
+  for (var i = 0; i < list.length; i++) {
+    res += list[i]['text'];
+  }
+  list = null;
+  return res;
 }
