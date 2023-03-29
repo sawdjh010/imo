@@ -1942,6 +1942,7 @@ function ocr_rslt_to_txt(result) {
 }
 function google_ocr_api_1(img) {
     console.log('GoogleMLKit文字识别中');
+  
     let list = JSON.parse(JSON.stringify(gmlkit.ocr(img, "zh").toArray(3))); // 识别文字，并得到results
     let eps = 30; // 坐标误差
     for (
@@ -2012,7 +2013,7 @@ function google_ocr_api_1(img) {
   for (var ii = 0; ii < arr.length-1; ii++) {
          var asub_1 = arr[ii];
  //   log(asub_1); 
-         if(b_coin_1 == asub_1) {
+         if(b_coin_1.toLowerCase() == asub_1) {
            console.info("点击答案："+ b_coin + '---坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
            click(x+ random(-10, 100),y);
            queding = 1;
@@ -2089,13 +2090,16 @@ sleep(2000);
 var queding = 1;
 let img = captureScreen();
         img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
+        console.time('题目识别');
         //img = images.interval(img, "#FD1111", 120);
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
       // let res = paddle_ocr_api_1(img);  
-       let res = google_ocr_api_1(img);
+      
+      let res = google_ocr_api_1(img);
       // ocr_rslt_to_txt(res);
      //  log(ocr_rslt_to_txt.replace(/\s+/g, ""));
+     console.timeEnd('题目识别');
        img.recycle();
        sleep(2000);
        console.show();
