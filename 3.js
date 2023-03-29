@@ -1955,6 +1955,7 @@ function paddle_ocr_api() {
         var tmp = list[i];
         list[i] = list[j];
         list[j] = tmp;
+        console.info('111+++'+list[j]);
       }
     }
   }
@@ -1972,12 +1973,12 @@ function paddle_ocr_api() {
         var tmp = list[i];
         list[i] = list[j];
         list[j] = tmp;
+        console.info('0000+++'+list[j]);
       }
     }
   }
   let res = '';
   for (var i = 0; i < list.length; i++) {
-    console.info(list[i]['text']);
     res += list[i]['text'];
   }
   list = null;
