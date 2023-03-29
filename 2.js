@@ -1336,13 +1336,12 @@ function tansuo_draw(){
       fClear();
         let img = captureScreen();
         img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
+        console.time('题目识别');
       //  img = images.interval(img, "#FD1111", 120);
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       let res = paddle_ocr_api(img);  
-       //let res = google_ocr_api(img);
-      // ocr_rslt_to_txt(res);
-     //  log(ocr_rslt_to_txt.replace(/\s+/g, ""));
+       //let res = paddle_ocr_api(img);  
+       let res = google_ocr_api(img);
+       console.timeEnd('题目识别');
        img.recycle();
       };
     //  queryList_1(find());
@@ -1650,12 +1649,110 @@ function hamibot_ocr_api() {
    list = null;
    return res;
 }
+function paddle_ocr_api() {
+  // console.log('PaddleOCR文字识别中');
+   fSet("title", "题目识别…");
+   let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
+  // fInfo(list);
+   let eps = 30; // 坐标误差
+   if (arguments.length >= 2) eps = arguments[1];
+   for (
+     var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
+   ) {
+     for (var j = i + 1; j < list.length; j++) {
+       if (list[i]['bounds']['bottom'] > list[j]['bounds']['bottom']) {
+         var tmp = list[i];
+         list[i] = list[j];
+         list[j] = tmp;
+       }
+     }
+   }
+ 
+   for (
+     var i = 0; i < list.length; i++ // 在上下排序完成后，进行左右排序
+   ) {
+     for (var j = i + 1; j < list.length; j++) {
+       // 由于上下坐标并不绝对，采用误差eps
+       if (
+         Math.abs(list[i]['bounds']['bottom'] - list[j]['bounds']['bottom']) <
+         eps &&
+         list[i]['bounds']['left'] > list[j]['bounds']['left']
+       ) {
+         var tmp = list[i];
+         list[i] = list[j];
+         list[j] = tmp;
+       }
+     }
+   }
+   let res = '';
+   for (var i = 0; i < list.length; i++) {
+     var b_coin = list[i].words;
+      res += list[i]['text'];
+     x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
+     y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
+    if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
+     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
+         };
+         //log(b_coin);
+         log(list[i].words +'---坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
+  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
+       if(b_coin != null){
+         // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
+        b_coin_1 = b_coin.replace(/ /g, "");//再删除多余空格
+        b_coin_1 = b_coin_1.replace(/A/g, "");//再删除多余空格
+        b_coin_1 = b_coin_1.replace(/B/g, "");//再删除多余空格
+        b_coin_1 = b_coin_1.replace(/C/g, "");//再删除多余空格
+        b_coin_1 = b_coin_1.replace(/D/g, "");//再删除多余空格
+        b_coin_1 = b_coin_1.replace(/：/g, "");//再删除多余空格
+        b_coin_1 = b_coin_1.replace(/%/g, "");//再删除多余空格
+        b_coin_1 = b_coin_1.replace(/:/g, "");//再删除多余空格
+       // b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
+        //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
+         b_coin_1 = b_coin_1.replace(/  /g, "");
+         b_coin_1 = b_coin_1.replace(/\s/g, "");
+         b_coin_1 = b_coin_1.replace(/  /g, "");
+         //log(b_coin_1);
+        // log(b_coin);
+       //}else continue;
+       if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
+      // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
+        var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
+      var asub_1 = '';
+   for (var ii = 0; ii < arr.length-1; ii++) {
+          var asub_1 = arr[ii];
+  //   log(asub_1); 
+          if(b_coin_1 == asub_1) {
+            console.info("点击答案："+ b_coin + '---坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
+            click(x+ random(-10, 100),y);
+            queding = 1;
+            lingdao_1 = true;
+          //  click(json[i]);  
+                              //  break;
+                               }else if(b_coin_1 == '取消' && queding != 1) {
+                                 click(xx+ random(-10, 100) ,yy + random(-10, 15));
+                                 lingdao_1 = true;
+                                 queding = 1;
+                               }
+        };
+    sleep(300);
+    if(b_coin_1 == '确定'&& queding == 1) {
+            console.info("点击："+ b_coin + '---坐标:('+ x + random(-10, 100) + ',' + y+ random(-10, 15) + ')')
+            click(x+ random(-10, 100), y+ random(-10, 15));
+          //  click(json[i]); 
+                     lingdao_1 = true;
+                               break;
+                               };
+                               }
+      //  res += list[i]['text'];
+  }
+   list = null;
+   return res;
+ }
 
-function google_ocr_api(img) {
- // console.log('GoogleMLKit文字识别中');
-  fSet("title", "题目识别…");
+ function google_ocr_api(img) {
+  console.log('GoogleMLKit文字识别中');
+
   let list = JSON.parse(JSON.stringify(gmlkit.ocr(img, "zh").toArray(3))); // 识别文字，并得到results
-  log(list);
   let eps = 30; // 坐标误差
   for (
     var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
@@ -1688,158 +1785,66 @@ function google_ocr_api(img) {
   let res = '';
   for (var i = 0; i < list.length; i++) {
     res += list[i]['text'];
-    var b_coin = list[i]['text'];
-    x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
-    y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
-   if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
-    yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
-        };
- //  log(list[i]['text'] +'坐标:('+ x + ',' + y + ')');.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
- //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
-      if(b_coin!=null){b_coin_1 = b_coin.replace(/A/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/B/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/C/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/D/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
-  //     b_coin_1 = b_coin_1.replace(/：/g, '');//再删除多余空格
-    //   b_coin_1 = b_coin_1.replace(/%/g, '');//再删除多余空格
-    //   b_coin_1 = b_coin_1.replace(/:/g, '');//再删除多余空格
-     //   b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
-       //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
-     //   b_coin_1 = b_coin_1.replace(/  /g, '');
-        b_coin_1 = b_coin_1.replace(/\s/g, "");
-        b_coin_1 = b_coin_1.replace(/  /g, "");
-        log(b_coin_1);
-      }else continue;
-      if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
-     // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
-                     var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
-     var asub_1 = '';
-  for (var ii = 0; ii < arr.length-1; ii++) {
-var asub_1 = arr[ii];
- //   log(asub_1);
-    
-         if(b_coin_1 == asub_1) {
-           console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
-           click(x+ random(-10, 100),y);
-           queding = 1;
-           lingdao_1 = true;
-         //  click(json[i]);  
-                             //  break;
-                              }else if(b_coin_1 == '取消' && queding != 1) {
-                                click(xx+ random(-10, 100) ,yy + random(-10, 15));
-                                lingdao_1 = true;
-                              }
-       };
-   sleep(500);
-   if(b_coin_1 == '确定'&& queding == 1) {
-           console.info("点击："+ b_coin + '坐标:('+ x + random(-10, 100) + ',' + y+ random(-10, 15) + ')')
-           click(x+ random(-10, 100), y+ random(-10, 15));
-         //  click(json[i]); 
-                    lingdao_1 = true;
-                              break;
-                              };
- }
-  list = null;
-  return res;
-}
+    var b_coin = list[i]['text'];//words;
+   // var b_coin = list[i].words;
+  // res += list[i]['text'];
+  x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
+  y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
+ if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
+  yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
+      };
+      //log(b_coin);
+   //   log(list[i].words +'---坐标:('+ x + ',' + y + ')');
+      log(list[i]['text'] +'---坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
+//      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
+    if(b_coin != null){
+      // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
+     b_coin_1 = b_coin.replace(/ /g, "");//再删除多余空格
+     b_coin_1 = b_coin_1.replace(/A/g, "");//再删除多余空格
+     b_coin_1 = b_coin_1.replace(/B/g, "");//再删除多余空格
+     b_coin_1 = b_coin_1.replace(/C/g, "");//再删除多余空格
+     b_coin_1 = b_coin_1.replace(/D/g, "");//再删除多余空格
+     b_coin_1 = b_coin_1.replace(/：/g, "");//再删除多余空格
+     b_coin_1 = b_coin_1.replace(/%/g, "");//再删除多余空格
+     b_coin_1 = b_coin_1.replace(/:/g, "");//再删除多余空格
+    // b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
+     //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
+      b_coin_1 = b_coin_1.replace(/  /g, "");
+      b_coin_1 = b_coin_1.replace(/\s/g, "");
+      b_coin_1 = b_coin_1.replace(/  /g, "");
+     // log(b_coin_2);
+      log(b_coin);
+    //}else continue;
+    if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
+   // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
+     var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
+   var asub_1 = '';
+for (var ii = 0; ii < arr.length-1; ii++) {
+       var asub_1 = arr[ii];
+//   log(asub_1); 
+       if(b_coin_1.toLowerCase() == asub_1) {
+         console.info("点击答案："+ b_coin + '---坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
+         click(x+ random(-10, 100),y);
+         queding = 1;
+         lingdao_1 = true;
+                           //  break;
+                            }else if(b_coin_1 == '取消' && queding != 1) {
+                              click(xx+ random(-10, 100) ,yy + random(-10, 15));
+                              lingdao_1 = true;
+                              queding = 1;
+                            }
+     };
+ sleep(300);
+ if(b_coin_1 == '确定'&& queding == 1) {
+         console.info("点击："+ b_coin + '---坐标:('+ x + random(-10, 100) + ',' + y+ random(-10, 15) + ')')
+         click(x+ random(-10, 100), y+ random(-10, 15));
 
-function paddle_ocr_api() {
- // console.log('PaddleOCR文字识别中');
-  fSet("title", "题目识别…");
-  let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
- // fInfo(list);
-  let eps = 30; // 坐标误差
-  if (arguments.length >= 2) eps = arguments[1];
-  for (
-    var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
-  ) {
-    for (var j = i + 1; j < list.length; j++) {
-      if (list[i]['bounds']['bottom'] > list[j]['bounds']['bottom']) {
-        var tmp = list[i];
-        list[i] = list[j];
-        list[j] = tmp;
-      }
-    }
-  }
+                  lingdao_1 = true;
+                            break;
+                            };
+                            }
 
-  for (
-    var i = 0; i < list.length; i++ // 在上下排序完成后，进行左右排序
-  ) {
-    for (var j = i + 1; j < list.length; j++) {
-      // 由于上下坐标并不绝对，采用误差eps
-      if (
-        Math.abs(list[i]['bounds']['bottom'] - list[j]['bounds']['bottom']) <
-        eps &&
-        list[i]['bounds']['left'] > list[j]['bounds']['left']
-      ) {
-        var tmp = list[i];
-        list[i] = list[j];
-        list[j] = tmp;
-      }
-    }
   }
-  let res = '';
-  for (var i = 0; i < list.length; i++) {
-    var b_coin = list[i].words;
-     res += list[i]['text'];
-    x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
-    y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
-   if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
-    yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
-        };
-       // log(b_coin);
-        log(list[i].words +'---坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
- //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
-      if(b_coin != null){
-        // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
-       b_coin_1 = b_coin.replace(/ /g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/A/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/B/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/C/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/D/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/：/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/%/g, "");//再删除多余空格
-       b_coin_1 = b_coin_1.replace(/:/g, "");//再删除多余空格
-      // b_coin_1 = b_coin_1.replace(/./g, '');//再删除多余空格
-       //           b_coin_1 = b_coin.replace(/:|%|.||/g, '');//再删除多余空格
-        b_coin_1 = b_coin_1.replace(/  /g, "");
-        b_coin_1 = b_coin_1.replace(/\s/g, "");
-        b_coin_1 = b_coin_1.replace(/  /g, "");
-       // log(b_coin_1);
-       // log(b_coin);
-      //}else continue;
-      if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
-     // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
-       var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
-     var asub_1 = '';
-  for (var ii = 0; ii < arr.length-1; ii++) {
-         var asub_1 = arr[ii];
- //   log(asub_1); 
-         if(b_coin_1 == asub_1) {
-           console.info("点击答案："+ b_coin + '坐标:('+ x + random(-10, 100)+ ',' + y + random(-10, 15) + ')')
-           click(x+ random(-10, 100),y);
-           queding = 1;
-           lingdao_1 = true;
-         //  click(json[i]);  
-                             //  break;
-                              }else if(b_coin_1 == '取消' && queding != 1) {
-                                click(xx+ random(-10, 100) ,yy + random(-10, 15));
-                                lingdao_1 = true;
-                                queding = 1;
-                              }
-       };
-   sleep(500);
-   if(b_coin_1 == '确定'&& queding == 1) {
-           console.info("点击："+ b_coin + '坐标:('+ x + random(-10, 100) + ',' + y+ random(-10, 15) + ')')
-           click(x+ random(-10, 100), y+ random(-10, 15));
-         //  click(json[i]); 
-                    lingdao_1 = true;
-                              break;
-                              };
-                              }
-     //  res += list[i]['text'];
- }
   list = null;
   return res;
 }
