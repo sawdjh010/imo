@@ -1789,7 +1789,7 @@ function paddle_ocr_api_1() {
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
         log(b_coin);
-        log(list[i]['textWords'] +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
+        log(list[i].words +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
       if(b_coin != null){
         // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
