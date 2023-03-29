@@ -1945,7 +1945,8 @@ function paddle_ocr_api() {
   console.log('PaddleOCR文字识别中');
   let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
   let eps = 30; // 坐标误差
-  console.info(list);
+  var list_1 =list.location;
+  console.info(list_1);
   if (arguments.length >= 2) eps = arguments[1];
   for (
     var i = 0; i < list.length; i++ // 选择排序对上下排序,复杂度O(N²)但一般list的长度较短只需几十次运算
