@@ -496,13 +496,21 @@ function get_buy_result(){
   fSet("title", "申购查询…");
    //w = fInit();
 	click_text_element("我的",is_wait=false)
-               
+        delay(1);       
   // 获取用户名称
 	// username = desc("已实名").findOne().parent().children()[0]
  // username = id("name_layout").findOne().parent().children()[0]
   username= className("android.widget.TextView").depth(13).findOne(0).text();
   click_text_element("申购单",is_wait=true)
-  
+  delay(1); 
+  click_text_element("我的",is_wait=false)
+        delay(1);       
+  // 获取用户名称
+	// username = desc("已实名").findOne().parent().children()[0]
+ // username = id("name_layout").findOne().parent().children()[0]
+  username= className("android.widget.TextView").depth(13).findOne(0).text();
+  click_text_element("申购单",is_wait=true)
+  delay(1); 
   //获取所有的item元素
   var rv_element= id("reservation_rv").findOne()
   //获取当前日期
@@ -518,7 +526,7 @@ function get_buy_result(){
   if(rv_element){
       var r_lt = 0;
       var r_lt_z = 0;
-  		var elements = rv_element.children()
+  		var elements = rv_element.children();
       for(let element of elements){
         r_lt_z +=1;
       };
