@@ -1945,7 +1945,7 @@ function paddle_ocr_api() {
   console.log('PaddleOCR文字识别中');
   let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
   let eps = 30; // 坐标误差
-  var list_1 =list.location;
+  var list_1 =list.words;
   console.info(list_1);
   if (arguments.length >= 2) eps = arguments[1];
   for (
@@ -1956,7 +1956,7 @@ function paddle_ocr_api() {
         var tmp = list[i];
         list[i] = list[j];
         list[j] = tmp;
-        console.info('111+++'+list[j]);
+        console.info('111+++'+list[j].words);
       }
     }
   }
@@ -1974,13 +1974,14 @@ function paddle_ocr_api() {
         var tmp = list[i];
         list[i] = list[j];
         list[j] = tmp;
-        console.info('0000+++'+list[j]);
+        console.info('0000+++'+list[j].words);
       }
     }
   }
   let res = '';
   for (var i = 0; i < list.length; i++) {
     res += list[i]['text'];
+    console.info('0+++'+list[i].words);
   }
   list = null;
   return res;
