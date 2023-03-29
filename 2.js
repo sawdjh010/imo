@@ -1244,7 +1244,7 @@ function rt(){
    home();
     exit();
 }
-fInfo("运行前重置学习APP");
+fInfo("运行前重置i茅台APP");
 exit_app("i茅台");
 sleep(1500);
 rt();
@@ -1315,6 +1315,7 @@ function tansuo_draw(){
  // try {
        let img_small_kaishi = images.read(path_jpg_2);
      let img_big_kaishi = captureScreen()
+     sleep(500);
     //  let result_0 = images.matchTemplate(img_big_kaishi, img_small_kaishi, {
     //    max: 1
     //  });
