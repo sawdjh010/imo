@@ -503,11 +503,10 @@ function get_buy_result(){
   username= className("android.widget.TextView").depth(13).findOne(0).text();
   click_text_element("申购单",is_wait=true)
   delay(1); 
+  back();
+  delay(1); 
   click_text_element("我的",is_wait=false)
         delay(1);       
-  // 获取用户名称
-	// username = desc("已实名").findOne().parent().children()[0]
- // username = id("name_layout").findOne().parent().children()[0]
   username= className("android.widget.TextView").depth(13).findOne(0).text();
   click_text_element("申购单",is_wait=true)
   delay(1); 
@@ -1369,7 +1368,7 @@ function tansuo_draw(){
       if(!lingdao_1) lq_guanbi_lq(path_jpg_1, 5, lingdao_1);
     }
     
-      delay(2);
+      delay(3);
      } 
  }
 
@@ -1388,7 +1387,7 @@ function tansuo_draw(){
         fInfo("领取---找到了(" + p_0.x + "," + p_0.y + ")");
          lingdao_1 = true;
         delay(random(0.3, 0.8))
-       click(p_0.x+50+random(5, 10), p_0.y+30+random(5, 10));//点击坐标
+       click(p_0.x+60+random(5, 10), p_0.y+30+random(5, 10));//点击坐标
        delay(random(0.5, 1))
        break;
                  } else {
@@ -1397,6 +1396,7 @@ function tansuo_draw(){
                    lingdao_1 = false;
             } 
         }
+        sleep(1000);
         return lingdao_1;
   }
   //遍历题目答题
