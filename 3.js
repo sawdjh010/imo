@@ -1988,6 +1988,7 @@ function paddle_ocr_api() {
 }
 //fInit()
 //console.show();
+sleep(2000);
 var queding = 1;
 let img = captureScreen();
         img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
