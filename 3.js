@@ -1975,7 +1975,7 @@ function google_ocr_api_1(img) {
     let res = '';
     for (var i = 0; i < list.length; i++) {
       res += list[i]['text'];
-      var b_coin = list[i].words;
+      var b_coin = list[i]['text']//words;
      res += list[i]['text'];
     x=(list[i]['bounds']['left'] + list[i]['bounds']['right'])/2;
     y=(list[i]['bounds']['bottom'] + list[i]['bounds']['top'])/2;
@@ -1983,7 +1983,7 @@ function google_ocr_api_1(img) {
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
         //log(b_coin);
-        log(list[i].words +'---坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
+        log(list[i]['text'] +'---坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
       if(b_coin != null){
         // b_coin_1 = b_coin_1.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\：|\；|\。|\！|\!|\"|\;|\:|\"|\'|\‘|\’|\,|\“|\”|\<|\.|\>|\/|\?|\？]/g, "");//再删除多余空格
