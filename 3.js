@@ -1788,7 +1788,7 @@ function paddle_ocr_api_1() {
    if(i>1){ xx=(list[i-1]['bounds']['left'] + list[i-1]['bounds']['right'])/2;
     yy=(list[i-1]['bounds']['bottom'] + list[i-1]['bounds']['top'])/2;
         };
-        log(b_coin);
+        //log(b_coin);
         log(list[i].words +'坐标:('+ x + ',' + y + ')');//.replace(/[^\u4e00-\u9fa5\d]|\d{1,2}\./g, "");
  //      b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
       if(b_coin != null){
@@ -1806,8 +1806,8 @@ function paddle_ocr_api_1() {
         b_coin_1 = b_coin_1.replace(/  /g, "");
         b_coin_1 = b_coin_1.replace(/\s/g, "");
         b_coin_1 = b_coin_1.replace(/  /g, "");
-        log(b_coin_1);
-        log(b_coin);
+        //log(b_coin_1);
+       // log(b_coin);
       //}else continue;
       if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
      // if(b_coin_1!='首页'&&b_coin_1!='取消'&&b_coin_1!='确定'&& i > 12) log("文本："+b_coin_1);
@@ -1829,7 +1829,7 @@ function paddle_ocr_api_1() {
                                 queding = 1;
                               }
        };
-   sleep(500);
+   sleep(300);
    if(b_coin_1 == '确定'&& queding == 1) {
            console.info("点击："+ b_coin + '坐标:('+ x + random(-10, 100) + ',' + y+ random(-10, 15) + ')')
            click(x+ random(-10, 100), y+ random(-10, 15));
