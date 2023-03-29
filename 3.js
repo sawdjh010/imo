@@ -1990,7 +1990,7 @@ function paddle_ocr_api() {
 //console.show();
 var queding = 1;
 let img = captureScreen();
-        img = images.clip(img,0,Math.floor(device.height/2),device.width,Math.floor(400+device.height/3));
+        img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
         img = images.interval(img, "#FD1111", 120);
         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
