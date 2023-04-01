@@ -157,7 +157,7 @@ fTips("设备的ID:" +device.getAndroidId()+ "\n当前i茅台版本为:" + getVe
 try {
   fTips("\n MAC:"+ device.getMacAddress());
           } catch (e) {
-            fInfo('非当使用的网络前非wifi');
+            fInfo('当前使用的网络非‘wifi’');
           };
 
 if(device.getBattery() < 30)fTips("当前电量:"+ device.getBattery());
@@ -606,7 +606,7 @@ function purchase_result(){
    try {
     result_1 += "\n MAC:"+ device.getMacAddress();
             } catch (e) {
-              fInfo('非当使用的网络前非wifi');
+              fInfo('当前使用的网络非‘wifi’');
             };
    if(tansuo_1 == true){
            tansuo_draw();
@@ -730,7 +730,7 @@ function purchase_buy(){
      try {
       resultss += "\n MAC:"+ device.getMacAddress();
               } catch (e) {
-                fInfo('非当使用的网络前非wifi');
+                fInfo('当前使用的网络非‘wifi’');
               };
      resultss = "\n\n" + wen_ts + "\n\n" + resultss;
          } else {
@@ -738,7 +738,7 @@ function purchase_buy(){
           try {
             resultss += "\n MAC:"+ device.getMacAddress();
                     } catch (e) {
-                      fInfo('非当使用的网络前非wifi');
+                      fInfo('当前使用的网络非‘wifi’');
                     };
           resultss = "\n\n" + wen_ts + "\n\n" + resultss;
                 }
