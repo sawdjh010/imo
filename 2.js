@@ -28,6 +28,7 @@ var test_no = TTXS_CONFIG.get("test_no", true);
 var test_nozhenpin = TTXS_CONFIG.get("test_nozhenpin", true);
 var test_chaxun = TTXS_CONFIG.get("test_chaxun", 0);
 
+var a_energy_2 = 0;
 var isPrivateModes = getVersion("com.moutai.mall").match(/[0-9][0-9]*/g).join('');
 var isPrivateMode_1 = isPrivateModes-2380;
 var imaotai_guanbi_thread = imaotai_guanbi();
@@ -152,7 +153,13 @@ swipe(500,2000,500,1000,240);//可以
 // }
 if(suiji_1) delay(random(5, 600)); 
 fTips( " 产品厂商品牌:"+ device.brand + "\n设备型号:" + device.model+"\n Android 系统版本号:"+ device.release);
-fTips("设备的ID:" +device.getAndroidId()+ "\n MAC:"+ device.getMacAddress()+ "\n当前i茅台版本为:" + getVersion("com.moutai.mall"));
+fTips("设备的ID:" +device.getAndroidId()+ "\n当前i茅台版本为:" + getVersion("com.moutai.mall"));
+try {
+  fTips("\n MAC:"+ device.getMacAddress());
+          } catch (e) {
+            fInfo('非当使用的网络前非wifi');
+          };
+
 if(device.getBattery() < 30)fTips("当前电量:"+ device.getBattery());
 else  fInfo("当前电量:"+ device.getBattery());
 // console.warn("\n 产品厂商品牌:"+ device.brand);
@@ -339,7 +346,7 @@ function queryList_click(json,wenben_dj) {
             //console.log("---"+json[i]+"+++")
            var b_coin = json[i].text()
           // log("文本："+b_coin)
-          var a_energy_2 = 0;
+          
           if(b_coin== wenben_dj) {click(b_coin); fInfo("点击"+ wenben_dj +"成功")
           if(b_coin== '领取')  a_energy_2 = 1;
                                   break;}
@@ -595,7 +602,12 @@ function purchase_result(){
          }
    //推送push
    //result_1 = "\n i茅台版本:" + getVersion("com.moutai.mall")+ "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
-   result_1 = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId()+ "\n\n MAC:"+ device.getMacAddress();
+   result_1 = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n 设备的ID:" +device.getAndroidId();
+   try {
+    result_1 += "\n MAC:"+ device.getMacAddress();
+            } catch (e) {
+              fInfo('非当使用的网络前非wifi');
+            };
    if(tansuo_1 == true){
            tansuo_draw();
                     }
@@ -714,11 +726,21 @@ function purchase_buy(){
   if(test_maoyun == true){
    
     var resultss =  maoyun_draw();//领取或查询小茅运
-     var resultss = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() + "\n"+ "MAC:"+ device.getMacAddress() +"\n\n" + resultss;
+     var resultss = "\n当前电量:"+ device.getBattery() + "\n\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" + "设备的ID:" + device.getAndroidId() +"\n\n" + resultss;
+     try {
+      resultss += "\n MAC:"+ device.getMacAddress();
+              } catch (e) {
+                fInfo('非当使用的网络前非wifi');
+              };
      resultss = "\n\n" + wen_ts + "\n\n" + resultss;
          } else {
-          var resultss = "\n当前电量:"+ device.getBattery() + "\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" +"设备的ID:" +device.getAndroidId()+ "\n" + " MAC:"+ device.getMacAddress() +"\n\n" + resultss;
-            resultss = "\n\n" + wen_ts + "\n\n" + resultss;
+          var resultss = "\n当前电量:"+ device.getBattery() + "\n" + device.brand + "--" + device.model+"--Android"+ device.release +"\n\n" +"设备的ID:" +device.getAndroidId()+ "\n\n" + resultss;
+          try {
+            resultss += "\n MAC:"+ device.getMacAddress();
+                    } catch (e) {
+                      fInfo('非当使用的网络前非wifi');
+                    };
+          resultss = "\n\n" + wen_ts + "\n\n" + resultss;
                 }
 //探索
 if(tansuo_1 == true){
@@ -779,7 +801,7 @@ function maoyun_draw(){
     delay(2);
   click_text_element("首页",is_wait=false);
  delay(2);
- if(a_energy_2==1){
+ if(a_energy_2 == 1){
  click_text_element("我的",is_wait=false);
  delay(2);
  var a_energy = queryList_0(rooot, 2);
