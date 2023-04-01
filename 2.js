@@ -1000,6 +1000,8 @@ function maoyun_draw(){
  var fanhui_cha = className("android.widget.Image").text("1649770812a016b4").findOne(2000); 
   if(fanhui_cha) className("android.widget.Image").text("1649770812a016b4").find().click();
   delay(1);
+  if(textContains('前往日程').exists() || text('前往日程').exists()) press(540 + randomNum(-30,30),1779 + randomNum(-50,50));
+  delay(1);
    text("我的").waitFor()
   //sleep(2000)
 	click_text_element("我的",is_wait=false)
