@@ -1511,7 +1511,8 @@ function tansuo_draw(){
           if(b_coin == '领取') {
             fInfo("点击："+b_coin)
             delay(random(0.3, 1.2));
-            click(b_coin);
+            lingdao_1 = true;
+            //click(b_coin);
             click(json[i]);
                               break;
                                  }
@@ -1523,6 +1524,7 @@ function tansuo_draw(){
             queryList_1(sonList);
         }
     }
+    delay(3);
       //返回结果值
       return b_coin
      
