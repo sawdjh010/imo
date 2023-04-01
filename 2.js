@@ -626,6 +626,7 @@ function purchase_result(){
 //真实预约
 function real_buy(){
   fSet("title", "申购…");
+  fClear();
   fInfo("预约申购")
     //等待【选择门店】页面加载完全
   
