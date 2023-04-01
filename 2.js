@@ -847,7 +847,7 @@ function maoyun_draw(){
  //  var maoyun0_draws = className("android.view.View").text("领取").find()   
   className("android.view.View").text("领取").find().click();
    textContains('前往日程').waitFor();
-  click_text_element("前往日程",is_wait=false);
+  click_text_element("前往日程",is_wait=false);//点击进入‘日程’
   continued_draw();
 //     log("本次领取入口有:",maoyun0_draws.length)   
 //     //商品标题
@@ -997,6 +997,9 @@ function maoyun_draw(){
   //sleep(2000)
  // back()
   back_main_page()
+ var fanhui_cha = className("android.widget.Image").text("1649770812a016b4").findOne(2000); 
+  if(fanhui_cha) className("android.widget.Image").text("1649770812a016b4").find().click();
+  delay(1);
    text("我的").waitFor()
   //sleep(2000)
 	click_text_element("我的",is_wait=false)
@@ -1313,6 +1316,15 @@ function tansuo_draw(){
   fSet("title", "探索…");
   fInfo("准备去探索（小茅运）");
   fClear();
+  if(a_energy_2 == 1 && tansuo_num == 0){
+    back_main_page() 
+    click_text_element("我的",is_wait=false);
+    delay(2);
+    var a_energy = queryList_0(rooot, 2);
+      log("耐力值:" + a_energy);
+      var a_energy_1 = parseInt(a_energy * 0.1);
+      if(a_energy_1 < tansuo_num)  tansuo_num = a_energy_1;
+    }
   // if(a_energy_1 < tansuo_num)  {fInfo("实有耐力值低于配置次数，将执行"+ a_energy_1 +"次");
   // toastLog("实有耐力值低于设定次数，将执行"+a_energy_1+"次");}
   // else {
