@@ -1324,7 +1324,9 @@ function tansuo_draw(){
    //wait_come_home_page()
    
    //进入【云购】Tab
-   click_text_element("云购",is_wait=false)
+   click_text_element("我的",is_wait=false)
+     delay(2);
+   click_text_element("首页",is_wait=false)
      delay(2);
      click_text_element("小茅运",is_wait=false)
      delay(4);
