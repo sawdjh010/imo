@@ -1410,6 +1410,7 @@ function tansuo_draw(){
     
       delay(3);
      } 
+     delay(5);
  }
 
  function lq_guanbi_lq(path_jpg_num,num,lingdao_1){
