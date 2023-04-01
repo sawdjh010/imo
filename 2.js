@@ -1509,11 +1509,13 @@ function tansuo_draw(){
                      }
           
           if(b_coin == '领取') {
-            fInfo("点击："+b_coin)
+           
             delay(random(0.3, 1.2));
-            lingdao_1 = true;
-            //click(b_coin);
+            click(b_coin);
+            fInfo("点击："+b_coin);
             click(json[i]);
+            lingdao_1 = true;
+            delay(random(0.5, 1));
                               break;
                                  }
          if(b_coin == '首页') {//click(b_coin);
