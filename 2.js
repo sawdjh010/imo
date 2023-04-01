@@ -1442,6 +1442,7 @@ function tansuo_draw(){
   }
   //遍历题目答题
   function queryList_1(json) {
+   let queding = 0;
     for (var i = 0; i < json.length; i++) {
         var sonList = json[i];
         if (sonList.childCount() == 0) {
@@ -1455,10 +1456,7 @@ function tansuo_draw(){
         };
            var b_coin = json[i].text()
    //       log(b_coin.bounds().centerX(),b_coin.bounds().centerY());
-          // log("文本："+b_coin)
-//           var b_coin_1 =b_coin_1.split('.'); //去除来源
-//           var b_coin_1 =b_coin_1.split('%'); //去除来源
-        //  b_coin_1 = b_coin.substring()
+          // log("文本："+b_coin)      //  b_coin_1 = b_coin.substring()
           b_coin_1 = b_coin.replace(/ /g, '');//再删除多余空格
           b_coin_1 = b_coin_1.replace(/A/g, '');//再删除多余空格
           b_coin_1 = b_coin_1.replace(/B/g, '');//再删除多余空格
@@ -1475,24 +1473,25 @@ function tansuo_draw(){
            b_coin_1 = b_coin_1.replace(/  /g, '');
          if(b_coin_1=='补给站'||b_coin_1=='为吃'||b_coin_1=='酿酒工艺'||b_coin_1=='制酒车间'||b_coin_1=='开始'||b_coin_1=='首页') {log("此次没发现题目：" + b_coin_1);break;};
          // var arr = [4, 2, 8, 34, 38, 4, 45, 44, 4, 2];
-                        var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
+                        var arr = ["酱香型", "53vol","云南省镇雄县", "贵州省仁怀市茅台镇", "包装员工的工号", '150.3平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '1年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年', '七年'];
         var asub_1 = '';
      for (var ii = 0; ii < arr.length-1; ii++) {
-//                        var arr = ["酱香型", "53vol", "贵州省仁怀市茅台镇", '1503平方公里', '贵州省赤水市', '高粱小麦水', '红缨子高粱', '三轮次', '七个轮次', '三四五轮次', '1946种', '糯高粱', '五年', '乳白色玻璃瓶', '陶坛', '没有', '系飘带员工的编号', '苦涩', '一年', '60以上', '云南省镇雄县', '重阳节', '两次', '高粱', '小麦', '黄曲白曲黑曲', '生产日期', '成义荣和恒兴', '酒瓶生产厂家代码', '165个', '2022年5月19日', '2006年', '威妥玛拼音', '2023年2月4日', '1992', '空间时间人物科学文化', '提供物系菌系和霉系', '高温堆积发酵', '于文江', '人曜', '七年'];
-                        var asub_1 = arr[ii];
+                      var asub_1 = arr[ii];
     //   log(asub_1);
             if(b_coin_1 == asub_1) {
               fInfo("点击答案："+b_coin_1)
               delay(random(0.4, 0.8));
-              click(b_coin);
-//                press(XX + random(5, 20), YY + random(5, 20), 100 + random(5, 20));
-//              click(XX + random(5, 20),YY + random(5, 20));
-              //click(json[i]);
-              
+              queding = 1;
+              lingdao_1 = true;
+              click(b_coin);          
                                   break;
-                                 }else if(b_coin == '取消') click(XX_1 + random(5, 30), YY_1 + random(5, 10));
+                                 }else if(b_coin == '取消' && queding != 1) { fInfo("点击："+b_coin);
+                                  click(XX_1 + random(-5, 20), YY_1 + random(-5, 10));
+                                  queding = 1;
+                                  lingdao_1 = true;
+                                }
           };
-          if(b_coin == '确定') {
+          if(b_coin == '确定' && queding == 1) {
             delay(random(0.4, 0.8));
             click(b_coin);
             fInfo("点击："+b_coin)
@@ -1713,6 +1712,7 @@ function hamibot_ocr_api() {
 function paddle_ocr_api() {
   // console.log('PaddleOCR文字识别中');
    fSet("title", "题目识别…");
+   let queding = 0;
    let list = JSON.parse(JSON.stringify(paddle.ocr(arguments[0]))); // 识别文字，并得到results
   // fInfo(list);
    let eps = 30; // 坐标误差
@@ -1812,7 +1812,7 @@ function paddle_ocr_api() {
 
  function google_ocr_api(img) {
   console.log('GoogleMLKit文字识别中');
-
+  let queding = 0;
   let list = JSON.parse(JSON.stringify(gmlkit.ocr(img, "zh").toArray(3))); // 识别文字，并得到results
   let eps = 30; // 坐标误差
   for (
