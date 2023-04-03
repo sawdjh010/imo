@@ -2176,9 +2176,9 @@ function get_buy_result(){
         log(Number(time));
          if(Number(time) == Number(current)){
           	//获取结果
-            var status =element.findOne(id("draw_status")).text()
+            var status =element.findOne(id("draw_status").depth(15)).text()
             //品种
-            var title = element.findOne(id("mt_goods_name")).text()
+            var title = element.findOne(id("mt_goods_name").depth(16)).text()
          	// try {
           //   //获取结果
           //   var status =element.findOne(className("android.widget.TextView").depth(15).findOnce(2)).text()
