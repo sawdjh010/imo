@@ -2175,20 +2175,24 @@ function get_buy_result(){
         log(Number(current));
         log(Number(time));
          if(Number(time) == Number(current)){
-         	try {
-            //获取结果
-            var status =element.findOne(className("android.widget.TextView").depth(15).findOnce(2)).text()
+          	//获取结果
+            var status =element.findOne(id("draw_status")).text()
+            //品种
+            var title = element.findOne(id("mt_goods_name")).text()
+         	// try {
+          //   //获取结果
+          //   var status =element.findOne(className("android.widget.TextView").depth(15).findOnce(2)).text()
            
-            //品种
-            var title = element.findOne(className("android.widget.TextView").depth(16).findOnce(0)).text()
-          log(status+title);
-          } catch (error) {
-            //获取结果
-            var status =className("android.widget.TextView").depth(15).findOnce(2).text()
-            //品种
-            var title = className("android.widget.TextView").depth(16).findOnce(0).text()
-            log('1'+status+title);
-          }	
+          //   //品种
+          //   var title = element.findOne(className("android.widget.TextView").depth(16).findOnce(0)).text()
+          // log(status+title);
+          // } catch (error) {
+          //   //获取结果
+          //   var status =className("android.widget.TextView").depth(15).findOnce(2).text()
+          //   //品种
+          //   var title = className("android.widget.TextView").depth(16).findOnce(0).text()
+          //   log('1'+status+title);
+          // }	
           
             delay(0.5);
             fInfo("种类:",title,",结果:",status)
