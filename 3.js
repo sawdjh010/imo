@@ -269,10 +269,10 @@ function randomNum(minNum, maxNum) {
 //   	log("完全进入到主页")
 // }
 
-//补充为2位数
-function add0(m){
-	return m<10?'0'+m:m
-}
+// //补充为2位数
+// function add0(m){
+// 	return m<10?'0'+m:m
+// }
 
 //获取当天日期
 // function get_today(){
@@ -2112,8 +2112,8 @@ function add0(m){
 //获取当天日期
 function get_today(){
 	var myDate = new Date();
-	 return `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`
- // return myDate.getFullYear()+'-'+add0(myDate.getMonth()+1)+'-'+add0(myDate.getDate()+' '+add0("09:00场"))
+	// return `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`
+  return myDate.getFullYear()+'-'+add0(myDate.getMonth()+1)+'-'+add0(myDate.getDate()+' '+add0("09:00场"))
 }
 //查询申购结果
 function get_buy_result(){
@@ -2160,11 +2160,11 @@ function get_buy_result(){
       	 //获取预约时间
        //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
         //  var time = queryList_0(rooot1,1);
-        try {
-          var time = element.findOne(className("android.widget.TextView").depth(15).findOnce(1)).text();
-        } catch (error) {
+        // try {
+        //   var time = element.findOne(className("android.widget.TextView").depth(15).findOnce(1)).text();
+        // } catch (error) {
           var time = className("android.widget.TextView").depth(15).findOnce(1).text();
-        }
+        // }
       
         //  var time_0 = element.findOne(id("date_time")).text()
          console.log("申购:",time)
