@@ -2150,10 +2150,11 @@ function get_buy_result(){
   if(rv_element){
       var r_lt = 0;
       var r_lt_z = 0;
-  		var elements = rv_element.find();//children();
+  		var elements = rv_element.children();
       for(let element of elements){
         r_lt_z +=1;
       };
+      var elements = rv_element.find();//children();
      	for(let element of elements){
       	 //获取预约时间
        //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
