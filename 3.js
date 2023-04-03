@@ -2150,7 +2150,7 @@ function get_buy_result(){
   if(rv_element){
       var r_lt = 0;
       var r_lt_z = 0;
-  		var elements = rv_element.children();
+  		var elements = rv_element.find();//children();
       for(let element of elements){
         r_lt_z +=1;
       };
@@ -2159,9 +2159,9 @@ function get_buy_result(){
        //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
         //  var time = queryList_0(rooot1,1);
         try {
-          var time = element.children().findOne(id("date_time")).text();
+          var time = element.findOne(id("date_time")).text();
         } catch (error) {
-          var time = element.child().findOne(id("date_time")).text();
+          var time = element.findOne(id("date_time")).text();
         }
       
         //  var time_0 = element.findOne(id("date_time")).text()
