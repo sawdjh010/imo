@@ -2088,17 +2088,96 @@ function paddle_ocr_api() {
 //console.show();
 sleep(2000);
 var queding = 1;
-let img = captureScreen();
-        img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
-        console.time('题目识别');
-        //img = images.interval(img, "#FD1111", 120);
-        //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
-       //let res = paddle_ocr_api_1(img);  
-      let res = google_ocr_api_1(img);
-      // ocr_rslt_to_txt(res);
-     //  log(ocr_rslt_to_txt.replace(/\s+/g, ""));
-     console.timeEnd('题目识别');
-       img.recycle();
-       sleep(2000);
-       console.show();
+// let img = captureScreen();
+//         img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
+//         console.time('题目识别');
+//         //img = images.interval(img, "#FD1111", 120);
+//         //let res = hamibot_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
+//        //let res = google_ocr_api(images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3)));
+//        //let res = paddle_ocr_api_1(img);  
+//       let res = google_ocr_api_1(img);
+//       // ocr_rslt_to_txt(res);
+//      //  log(ocr_rslt_to_txt.replace(/\s+/g, ""));
+//      console.timeEnd('题目识别');
+//        img.recycle();
+//        sleep(2000);
+//        console.show();
+//查询申购结果
+function get_buy_result(){
+  fSet("title", "申购查询…");
+   //w = fInit();
+// 	click_text_element("我的",is_wait=false)
+//         delay(1);       
+//   // 获取用户名称
+// 	// username = desc("已实名").findOne().parent().children()[0]
+//  // username = id("name_layout").findOne().parent().children()[0]
+//   username= className("android.widget.TextView").depth(13).findOne(0).text();
+//   click_text_element("申购单",is_wait=true)
+//   delay(1); 
+//   back();
+//   delay(1); 
+//   click_text_element("我的",is_wait=false)
+        delay(1);       
+  // username= className("android.widget.TextView").depth(13).findOne(0).text();
+  // click_text_element("申购单",is_wait=true)
+  delay(1); 
+  //获取所有的item元素
+  var rv_element= id("reservation_rv").findOne()
+  //获取当前日期
+  var current = get_today();
+  delay(0.5);
+  fInfo("当前日期:",current);
+  var current = current.replace(/-/g, '');
+	var current = current.substring(0,8).match(/[0-9][0-9]*/g);
+ // var current = parseInt(current.replace(/\s+/g, ''), 8);
+ // console.log("当前日期:",current);
+  //获取下面的所有子元素Item
+  let result = ""
+  if(rv_element){
+      var r_lt = 0;
+      var r_lt_z = 0;
+  		var elements = rv_element.children();
+      for(let element of elements){
+        r_lt_z +=1;
+      };
+     	for(let element of elements){
+      	 //获取预约时间
+       //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
+        //  var time = queryList_0(rooot1,1);
+      var time = element.findOne(id("date_time")).text();
+        //  var time_0 = element.findOne(id("date_time")).text()
+         //console.log("申购:",time)
+        var time = time.replace(/-/g, '');
+        var time = time.substring(0,10).match(/[0-9][0-9]*/g);
+      //   var time = parseInt(time.replace(/\s+/g, ''), 8)
+      //  console.log("申购:",time);
+         if(Number(time) == Number(current)){
+         		//获取结果
+            var status =element.findOne(id("draw_status")).text()
+            //品种
+            var title = element.findOne(id("mt_goods_name")).text()
+            delay(0.5);
+            fInfo("种类:",title,",结果:",status)
+                 result += "\n\n " + " " + "\n\n种类:"+title+"，" + "\n结果:"+status;      
+           	if(status == "申购失败" || status == "静候申购结果"){
+              var r_l_t = 0;
+               var r_l_t_s = "继续加油";
+              r_lt += 1;
+            }else {var r_l_t = r_lt_z;
+                   var r_l_t_s = "幸运者";
+                  }
+           
+              let percent = (Number(r_l_t) / r_lt_z * 100).toFixed() + '%';
+              let detail = r_l_t_s + ": " + r_lt + "/" + r_lt_z;
+              result += '<div class="item"><div class="bar"><div style="width: ' + percent + ';"></div></div><span>' + detail + '</span></div>';
+         }
+      }
+  } 
+ result = "\n\n" + "账号：" + username +  "\n\n" + time + "--申购结果:" + result;
+  //准备回退到App桌面
+ // back_main_page()
+  //进入到桌面
+//  home()
+  return result
+}
+get_buy_result();
