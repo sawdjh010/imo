@@ -127,8 +127,8 @@ auto.waitFor();
 //从配置文件中，根据name获取参数值
 var group_name = '反馈群';
 var run_type = 'buy';
-var weixin_push = false;
-var maoyun_draw_1 = true;
+//var weixin_push = false;
+//var maoyun_draw_1 = true;
 var no_2 = false;
 var no_3 = true;
 var suiji_1 = false;
@@ -596,7 +596,7 @@ function purchase_result(){
   var result_pre = get_buy_result()
   var result = result_pre?result_pre:"查询结果为空"
   var result = result_pre?result_pre:"查询结果为空"
-  if(maoyun_draw_1 == true){
+  if(test_maoyun == true){
     var resultss = maoyun_draw();//领取或查询小茅运
     var result = resultss + "\n\n" + result
          }
