@@ -2112,8 +2112,8 @@ function add0(m){
 //获取当天日期
 function get_today(){
 	var myDate = new Date();
-	// return `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`
-  return myDate.getFullYear()+'-'+add0(myDate.getMonth()+1)+'-'+add0(myDate.getDate()+' '+add0("09:00场"))
+	 return `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`
+ // return myDate.getFullYear()+'-'+add0(myDate.getMonth()+1)+'-'+add0(myDate.getDate()+' '+add0("09:00场"))
 }
 //查询申购结果
 function get_buy_result(){
