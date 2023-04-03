@@ -2167,11 +2167,13 @@ function get_buy_result(){
         }
       
         //  var time_0 = element.findOne(id("date_time")).text()
-         //console.log("申购:",time)
+         console.log("申购:",time)
         var time = time.replace(/-/g, '');
         var time = time.substring(0,10).match(/[0-9][0-9]*/g);
       //   var time = parseInt(time.replace(/\s+/g, ''), 8)
-      //  console.log("申购:",time);
+        console.log("申购:",time);
+        log(Number(current));
+        log(Number(time));
          if(Number(time) == Number(current)){
          	try {
             //获取结果
