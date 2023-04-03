@@ -2139,6 +2139,7 @@ function get_buy_result(){
   //获取当前日期
   var current = get_today();
   delay(0.5);
+  log(current);
   fInfo("当前日期:",current);
   var current = current.replace(/-/g, '');
 	var current = current.substring(0,8).match(/[0-9][0-9]*/g);
@@ -2157,7 +2158,7 @@ function get_buy_result(){
       	 //获取预约时间
        //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
         //  var time = queryList_0(rooot1,1);
-      var time = element.findOne(id("date_time")).text();
+      var time = element.find(id("date_time")).text();
         //  var time_0 = element.findOne(id("date_time")).text()
          //console.log("申购:",time)
         var time = time.replace(/-/g, '');
