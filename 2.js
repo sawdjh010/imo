@@ -549,7 +549,8 @@ function get_buy_result(){
         var time = time.replace(/-/g, '');
         var time = time.substring(0,10).match(/[0-9][0-9]*/g);
       //   var time = parseInt(time.replace(/\s+/g, ''), 8)
-      //  console.log("申购:",time);
+        log("申购:",time);
+        log(Number(current));
          if(Number(time) == Number(current)){
          		//获取结果
             var status =element.findOne(id("draw_status")).text()
