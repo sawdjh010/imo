@@ -2154,6 +2154,12 @@ function get_buy_result(){
       for(let element of elements){
         r_lt_z +=1;
       };
+      log(r_lt_z);
+     var el_emen = className("android.widget.TextView").text("预约时间:").parent().child().find(); 
+     for(let el_emen of el_emens){
+      r_lt_z +=1;
+      log(el_emen);
+    };
       var elements = rv_element.find();//children();
      	for(let element of elements){
       	 //获取预约时间
