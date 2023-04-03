@@ -542,7 +542,7 @@ function get_buy_result(){
       	 //获取预约时间
         //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
         //   var time = queryList_0(rooot1,1);
-        var time = className("android.widget.TextView").depth(15).findOnce(1)
+        var time = className("android.widget.TextView").depth(15).findOnce(1).text();
         //  var time = element.findOne(id("date_time")).text()
         //  var time_0 = element.findOne(id("date_time")).text()
          //console.log("申购:",time)
