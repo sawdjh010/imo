@@ -127,7 +127,7 @@ auto.waitFor();
 //从配置文件中，根据name获取参数值
 var group_name = '反馈群';
 var run_type = 'buy';
-//var weixin_push = false;
+var weixin_push = false;
 //var maoyun_draw_1 = true;
 var no_2 = false;
 var no_3 = true;
@@ -527,7 +527,7 @@ function get_buy_result(){
   var current = current.replace(/-/g, '');
 	var current = current.substring(0,8).match(/[0-9][0-9]*/g);
  // var current = parseInt(current.replace(/\s+/g, ''), 8);
- // console.log("当前日期:",current);
+  log("当前日期:",current);
   //获取下面的所有子元素Item
   let result = ""
   if(rv_element){
@@ -537,10 +537,12 @@ function get_buy_result(){
       for(let element of elements){
         r_lt_z +=1;
       };
+      log(r_lt_z);
      	for(let element of elements){
       	 //获取预约时间
-         let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
-          var time = queryList_0(rooot1,1);
+        //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
+        //   var time = queryList_0(rooot1,1);
+        var time = className("android.widget.TextView").depth(15).findOnce(1)
         //  var time = element.findOne(id("date_time")).text()
         //  var time_0 = element.findOne(id("date_time")).text()
          //console.log("申购:",time)
