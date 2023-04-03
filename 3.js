@@ -2155,7 +2155,11 @@ function get_buy_result(){
         r_lt_z +=1;
       };
       log(r_lt_z);
-      var elements = rv_element.children();
+      var element_ss = rv_element.children();
+      for(let element_s of element_ss){
+        r_lt_z +=1;
+      };
+      var elements = element_ss.children();
      	for(let element of elements){
       	 //获取预约时间
        //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
