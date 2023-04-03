@@ -2131,7 +2131,7 @@ function get_buy_result(){
 //   delay(1); 
 //   click_text_element("我的",is_wait=false)
         delay(1);       
-   username= className("android.widget.TextView").depth(13).findOne(0).text();
+  // username= className("android.widget.TextView").depth(13).findOne(0).text();
   // click_text_element("申购单",is_wait=true)
   delay(1); 
   //获取所有的item元素
@@ -2202,7 +2202,7 @@ function get_buy_result(){
          }
       }
   } 
- result = "\n\n" + "账号：" + username +  "\n\n" + time + "--申购结果:" + result;
+ result = "\n\n" + "账号："  +  "\n\n" + time + "--申购结果:" + result;
   //准备回退到App桌面
  // back_main_page()
   //进入到桌面
