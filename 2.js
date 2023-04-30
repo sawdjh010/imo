@@ -566,14 +566,16 @@ function get_buy_result(){
             var status = element.findOne(id("draw_status")).text();
             //品种
             var title = element.findOne(id("mt_goods_name")).text();
-            log("申购结果:", time + title + status);
+            log("申购结果:",time + title + status);
+            fTips("申购结果:",time + title + status);
           } catch (e) {
             var status = element.findOne(className("android.widget.TextView").depth(15).drawingOrder(4).indexInParent(3)).text();
             var title = element.findOne(className("android.widget.TextView").depth(16)).text();
-            log("申购结果:", time + title + status);
+            log("申购结果:",time + title + status);
+            fTips("申购结果:",time + title + status);
           }
             delay(0.5);
-           // fInfo("种类:",title,",结果:",status);
+            fInfo("种类:",title,",结果:",status);
                  result += "\n\n " + " " + "\n\n种类:"+title+"，" + "\n结果:"+status;      
            	if(status == "申购失败" || status == "静候申购结果"){
               var r_l_t = 0;
