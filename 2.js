@@ -543,8 +543,19 @@ function get_buy_result(){
         //  let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
         //   var time = queryList_0(rooot1,1);
        // var time = className("android.widget.TextView").depth(15).findOnce(1).text();
-        //  var time = element.findOne(id("date_time")).text()
+       try {
+           var time = element.findOne(id("date_time")).text()
+       } catch (e) {
+        try {
           var time = element.findOne(className("android.widget.TextView").depth(15).findOnce(1)).text()
+        } catch (e) {
+          let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
+           var time = queryList_0(rooot1,1);
+        }
+         
+       }
+       
+          
          //console.log("申购:",time)
         var time = time.replace(/-/g, '');
         var time = time.substring(0,10).match(/[0-9][0-9]*/g);
