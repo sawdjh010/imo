@@ -1359,7 +1359,7 @@ function tansuo_draw(){
  // try {
        let img_small_kaishi = images.read(path_jpg_2);
      let img_big_kaishi = captureScreen()
-     sleep(500);
+     sleep(700);
     //  let result_0 = images.matchTemplate(img_big_kaishi, img_small_kaishi, {
     //    max: 1
     //  });
@@ -1399,6 +1399,7 @@ function tansuo_draw(){
       if(!lingdao_1){
       fClear();
         let img = captureScreen();
+        sleep(500);
         img = images.clip(img,0,Math.floor(device.height/4),device.width,Math.floor(400+device.height/3));
         console.time('题目识别');
       //  img = images.interval(img, "#FD1111", 120);
