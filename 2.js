@@ -566,11 +566,11 @@ function get_buy_result(){
             var status = element.findOne(id("draw_status")).text();
             //品种
             var title = element.findOne(id("mt_goods_name")).text();
-            fInfo("申购结果:", time + title + status);
+            log("申购结果:", time + title + status);
           } catch (e) {
             var status = element.findOne(className("android.widget.TextView").depth(15).drawingOrder(4).indexInParent(3)).text();
             var title = element.findOne(className("android.widget.TextView").depth(16)).text();
-            fInfo("申购结果:", time + title + status);
+            log("申购结果:", time + title + status);
           }
             delay(0.5);
            // fInfo("种类:",title,",结果:",status);
