@@ -547,7 +547,7 @@ function get_buy_result(){
            var time = element.findOne(id("date_time")).text();
        } catch (e) {
         try {
-          var time = element.findOne(className("android.widget.TextView").depth(15).findOnce(1)).text();
+          var time = element.findOne(className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1)).text();
         } catch (e) {
           let rooot1 = className("android.widget.TextView").depth(15).drawingOrder(2).indexInParent(1).find();
            var time = queryList_0(rooot1,1);
@@ -563,10 +563,16 @@ function get_buy_result(){
         log("申购:",Number(time));
         log(Number(current));
          if(Number(time) == Number(current)){
-         		//获取结果
+          try {
+            //获取结果
             var status = element.findOne(id("draw_status")).text();
             //品种
             var title = element.findOne(id("mt_goods_name")).text();
+          } catch (e) {
+            var status = element.findOne(className("android.widget.TextView").depth(15).drawingOrder(4).indexInParent(3)).text();
+            var title = element.findOne(className("android.widget.TextView").depth(16)).text();
+          }
+         		
             delay(0.5);
             fInfo("种类:",title,",结果:",status)
                  result += "\n\n " + " " + "\n\n种类:"+title+"，" + "\n结果:"+status;      
