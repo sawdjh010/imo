@@ -708,7 +708,8 @@ function purchase_buy(){
 
     //商品标题
     for(let good_enterence of good_enterences){
-        log("入口" + rukou + 1 + ":",good_enterence.text())
+      rukou += 1;
+        log("入口" + rukou + ":",good_enterence.text())
       if(good_enterence.text()=='本场申购已结束'){
         var wen_ts = "‘本场申购已结束’---明天“9：00场”再来";
         fInfo(wen_ts);
@@ -726,9 +727,9 @@ function purchase_buy(){
       }
       else if(good_enterence.text()=='预约申购'){
           // if(no_1&&rukou==1) continue;
-           if(test_no && rukou==2) { fInfo("已勾选不申请--1935");continue;}
-           if(test_nozhenpin && rukou==3)  { fInfo("已勾选不申请--贵州茅台酒(珍品)");continue;}
-           rukou += 1;
+           if(test_no && rukou == 2) { fInfo("已勾选不申请--1935");continue;}
+           if(test_nozhenpin && rukou == 3)  { fInfo("已勾选不申请--贵州茅台酒(珍品)");continue;}
+        
           // if(no_4&&rukou==4) continue;
        // my_click_non_clickable("预约申购");	
         good_enterence.click()
@@ -736,7 +737,7 @@ function purchase_buy(){
             real_buy();
         }else{
         		log("该条已经申购，过滤掉。。。")
-             rukou += 1;
+           //  rukou += 1;
         }	
     }
  //   log("-----------------------------------------------------")
