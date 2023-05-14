@@ -1265,7 +1265,10 @@ function rt(){
            end = new Date().getTime();
            fInfo("运行结束,共耗时" + (parseInt(end - start)) / 1000 + "秒");
           back_main_page()   //返回主页
-          click_text_element("首页",is_wait=false)
+         // click_text_element("首页",is_wait=false)
+         fInfo("运行后--重置i茅台APP");
+       exit_app("i茅台");
+        sleep(1500);
           fInfo("3s后自动关闭悬浮窗，可以查看日志");
    sleep(3000);
    // console.hide();
