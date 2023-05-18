@@ -1382,7 +1382,7 @@ function tansuo_draw(){
       while (true && path_jp<7){
  // try {
        let img_small_kaishi = images.read(path_jpg_2);
-     let img_big_kaishi = captureScreen()
+     let img_big_kaishi = captureScreen();
      sleep(700);
     //  let result_0 = images.matchTemplate(img_big_kaishi, img_small_kaishi, {
     //    max: 1
