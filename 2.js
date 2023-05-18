@@ -1359,6 +1359,7 @@ function tansuo_draw(){
   // else {
     fInfo("将执行配置的"+tansuo_num+"次");
   toastLog("将执行配置的"+ tansuo_num+"次");
+  fSet("title", "探索"+ tansuo_num +"次");
 // }
       //等待进入到主页
        back_main_page() 
@@ -1373,11 +1374,12 @@ function tansuo_draw(){
      delay(4);
      click_text_element("探索",is_wait=false)
      delay(3);
+    // fSet("title", "探索…");
      for(var iii = 0; iii < tansuo_num; iii++){
-      fSet("title", "探索…");
+      fClear();
       fInfo("第" + (iii + 1) + "次点击‘开始’");
      var path_jp=0;
- while (true && path_jp<7){
+      while (true && path_jp<7){
  // try {
        let img_small_kaishi = images.read(path_jpg_2);
      let img_big_kaishi = captureScreen()
