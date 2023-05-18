@@ -1517,7 +1517,7 @@ function tansuo_draw(){
      for (var ii = 0; ii < arr.length-1; ii++) {
                       var asub_1 = arr[ii];
     //   log(asub_1);
-            if(b_coin_1 == asub_1) {
+            if(b_coin_1 == asub_1 && queding != 1) {
               fInfo("点击答案："+b_coin_1)
               delay(random(0.4, 0.8));
               queding = 1;
