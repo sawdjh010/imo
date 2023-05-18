@@ -1491,6 +1491,7 @@ function tansuo_draw(){
         if(i>1){
         var  XX_1 = json[i-1].bounds().centerX();
         var  YY_1 = json[i-1].bounds().centerY();
+        log(XX_1 + ','+ YY_1);
         };
            var b_coin = json[i].text()
    //       log(b_coin.bounds().centerX(),b_coin.bounds().centerY());
