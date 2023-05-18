@@ -272,7 +272,7 @@ function randomNum(minNum, maxNum) {
 function wait_come_home_page(){
 		//等待加载到主页
     textContains('首页').waitFor();
-    textContains('云购').waitFor();
+    textContains('i购').waitFor();
   	log("完全进入到主页")
 }
 
@@ -380,7 +380,7 @@ function queryList_click_num(json,num_dj) {
 
 //进入到申购页面
 function enter_buy_pre_page(){
-	click_text_element("云购")
+	click_text_element("i购")
   delay(1);
   my_click_clickable("享约申购")
 }
@@ -389,7 +389,7 @@ function enter_buy_pre_page(){
 function back_main_page() {
     //判断是否在主界面
     while (true) {
-        if (textContains('首页').exists()&&textContains('云购').exists()&&textContains('发现').exists()&&textContains('小茅运').exists()&&textContains('我的').exists()) {
+        if (textContains('首页').exists()&&textContains('i购').exists()&&textContains('发现').exists()&&textContains('小茅运').exists()&&textContains('我的').exists()) {
             break;
         } else {
             back();
@@ -685,8 +685,8 @@ function purchase_buy(){
   //等待进入到主页
   wait_come_home_page()
   
-  //进入【云购】Tab
-  click_text_element("云购",is_wait=false)
+  //进入【i购】Tab
+  click_text_element("i购",is_wait=false)
 //  click_text_element("线上销售",is_wait=false)
   my_click_clickable("享约申购");
    delay(1);
@@ -834,7 +834,7 @@ function maoyun_draw(){
    var a_energy_1 = parseInt(a_energy * 0.1);
    if(a_energy_1 < tansuo_num)  tansuo_num = a_energy_1;
  }
-   click_text_element("云购",is_wait=false);
+   click_text_element("i购",is_wait=false);
   delay(2);
   back_main_page();
    delay(1);
@@ -848,7 +848,7 @@ function maoyun_draw(){
   //  sleep(3000);
     click_text_element("我的",is_wait=false);
     delay(2);
-   click_text_element("云购",is_wait=false)
+   click_text_element("i购",is_wait=false)
                 delay(2);
     click_text_element("小茅运",is_wait=false)
    delay(1);   //  }
@@ -1364,7 +1364,7 @@ function tansuo_draw(){
        back_main_page() 
    //wait_come_home_page()
    
-   //进入【云购】Tab
+   //进入【i购】Tab
    click_text_element("我的",is_wait=false)
      delay(2);
    click_text_element("首页",is_wait=false)
