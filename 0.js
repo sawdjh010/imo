@@ -5,11 +5,13 @@ device.wakeUpIfNeeded();
 var meizhou_0 = true;
 var meizhou_end = 1;
 // 读取自定义配置
+var w = fInit();
 var BH_KAMI_CONFIG = storages.create("BH_KAMI_CONFIG");
 
 var TTXS_PRO_CONFIG = storages.create("TTXS_PRO_CONFIG");
 var watchdog = TTXS_PRO_CONFIG.get("watchdog", "1800");
 var slide_verify = TTXS_PRO_CONFIG.get("slide_verify", "300");
+var slide_verify_on = TTXS_PRO_CONFIG.get("slide_verify_on", 0);
 var fast_mode = TTXS_PRO_CONFIG.get("fast_mode", false);
 var ddtong = TTXS_PRO_CONFIG.get("ddtong", false);
 var weixin_kaiguan = TTXS_PRO_CONFIG.get("weixin_kaiguan", true);
@@ -233,6 +235,7 @@ if (storage.get(engine_version, true)) {
     storage.put(engine_version, false);
   }
 }
+
 var w = fInit();
 // console.setTitle("学习减压四合一");
 // console.show();
@@ -271,7 +274,7 @@ threads.start(function () {
   toastLog("开始自动获取截图权限");
   var btn = className("android.widget.Button").textMatches(/允许|立即开始|START NOW/).findOne(5000);
   if (btn) {
-    sleep(1000);
+    sleep(random(2500, 3500));
     btn.click();
   }
   toastLog("结束获取截图权限");
@@ -286,15 +289,67 @@ if (!requestScreenCapture(false)) { // false为竖屏方向
 fInfo("设置屏幕常亮");
 device.keepScreenOn(3600 * 1000);
 // 下载题库
-fInfo("检测题库更新");
-const update_info = get_tiku_by_http("https://gitcode.net/m0_64980826/songge_tiku/-/raw/master/info.json");
+fInfo("检测题库更新");//https://fastly.jsdelivr.net/gh/OuO-dodo/tiku@master/info.json
+const update_info = get_tiku_by_http("https://ghproxy.com/https://github.com/OuO-dodo/tiku/blob/master/info.json");
+if (!(update_info.statusCode >= 200 && update_info.statusCode < 300)){update_info = {
+  "dati_tiku_version" : 20230121,
+  "dati_tiku_link": "https://gitcode.net/m0_64980826/songge_tiku/-/raw/master/dati_tiku_20230121.txt",
+  "dati_tiku_link2": "https://raw.kgithub.com/OuO-dodo/tiku/master/dati_tiku_20230121.txt",
+  "tiku_version": 20230428,
+  "tiku_link": "https://gitcode.net/m0_64980826/songge_tiku/-/raw/master/tiku_json_20230428.txt",
+  "tiku_link2": "https://raw.kgithub.com/OuO-dodo/tiku/master/tiku_json_20230428.txt",
+  "question_reg": "魏晋时期|立春时节|投笔|永乐皇帝|古代建筑|志愿者|预警信号|公狮|七律长征|太阳的大气层|含氧量|国之大事|体育健身|三部著作|泓水之战|本土作物|甲肝|古代皇帝|古代社会|超流体|气囊中|一条鱼|生肖邮票|医学奖|痛风|台风根据|幽禽|以下水域|冷热病|古典文学|龙泉窑址|敌友|唇形科|江苏目前|绵白糖|预备党员",
+  "include_reg": "排水口|古代兵器|变脸|培大豆|节能减排|四岳|鸳鸯|子午觉|汉字产生|宇宙中|变声|血型|长征四号|标准文字|力量体制|原始农业",
+  "default_ocr_replace": {"\\+":"十"},
+  "old_ocr_replace": {"[闵阅]值":"阈值","[點赔精]然失色":"黯然失色","九雪云外":"九霄云外","不落[集案室][白自]":"不落窠臼"},
+  "accent_ocr_replace": {
+      "草营人":"草菅人","消[强洱]":"消弭","切[碟槎碳]":"切磋","并行不[停惊]?(?!背)":"并行不悖","[评呼]然心动":"怦然心动","[此吃北][陀吃呢]风云":"叱咤风云",
+      "chaiqian":"chāiqiǎn","浓意妄为":"恣意妄为","[厦魔]品":"赝品","九[^宵]?云外":"九霄云外","葱是生非":"惹是生非","言简意购":"言简意赅",
+      "[脸胎]炙人口":"脍炙人口","不落[^巢]?[白自]":"不落窠臼","针碗时[蜂摔辩]":"针砭时弊","[哆哔][唆峻]":"啰唆","既往不[答智]":"既往不咎","组拿":"缉拿",
+      "暖[陀跑]":"蹉跎","跨踏":"踌躇","调帐":"惆怅","[任仟]悔":"忏悔","快[寄密窑]":"诀窍","浙临":"濒临","底护":"庇护","抵悟":"抵牾","情懒":"慵懒",
+      "[泽溶]炼":"淬炼","博奔":"博弈","[疼痉]李":"痉挛","[凌演]合":"凑合","神抵":"神祗","发物":"发轫","声名[鸽韵]起":"声名鹊起","貂鲜":"貂蝉","b6":"bù",
+      "[悠慈]气":"憋气","[继绎伴]脚石":"绊脚石","河汉":"河汊","修营":"修葺","杯盘狼精":"杯盘狼藉","有特无恐":"有恃无恐","蒸[^溜]?水":"蒸馏水",
+      "嘴之以鼻":"嗤之以鼻","款收":"歉收","[链挺键]而走险":"铤而走险","[进母][康庸]置疑":"毋庸置疑","叫苦不[选送]":"叫苦不迭","追不及待":"迫不及待",
+      "相形见细":"相形见绌","饮鸽止渴":"饮鸩止渴","不[胜胚]而走":"不胫而走","[晖蹄]红":"蹿红","挑三栋四":"挑三拣四","沉酒":"沉湎","[忆恒]气":"怄气",
+      "跌[容岩]起伏":"跌宕起伏","声内":"声呐","蓝等充数":"滥竽充数","[驻姓]款":"赃款","差[造道]":"差遣","再接再历":"再接再厉","菱摩不振":"萎靡不振",
+      "喉声叹气":"唉声叹气","点.zhui":"点缀zhuì","寒暗":"寒暄","[组祖]击手":"狙击手","奴.?bi":"奴婢bì","矫.造作":"矫揉造作","巨壁":"巨擘",
+      ".之若[跨鹭]":"趋之若鹜","白暴白弃":"自暴自弃","cuotu[od]":"cuōtuó","鞭答":"鞭笞","夏然而止":"戛然而止","[壁跨]浑水":"蹚浑水","鱼鲤":"鱼鳔",
+      "瓜熟带":"瓜熟蒂",
+      "粗[^矿]?(?!矿)":"粗犷","陷[^井]?(?!井)":"陷阱","古今杂[^揉]?(?!揉)":"古今杂糅",
+      "[^蟹董\\.]?伏":"蛰伏","[^阀\\.]?值":"阈值","[^暗\\.]?然失色":"黯然失色"
+      },
+  "other_ocr_replace": {
+      "[斐翡表]秀":"裴秀","何族":"侗族","从[我戒]":"从戎","朱捷":"朱棣","李诚":"李诫","\\+儿":"十八","黄色.橙色.红色":"黄色-橙色-红色","狐虎兽":"狮虎兽",
+      "五岭.乌蒙.金沙.+?山":"五岭、乌蒙、金沙、大渡、岷山","([a-d].?)光球层、?色球层.*?(?=[a-d].?|$)":"$1光球层、色球层、日冕层","动脉巾":"动脉血",
+      "[福祝][成戒]":"祀戎","准备活动.基本活动.放松活动":"准备活动-基本活动-放松活动","诗经\\W+?春秋\\W+?论语":"诗经-春秋-论语","宋囊公":"宋襄公","南稻北栗":"南稻北粟",
+      "娄.+?传播":"粪-口传播","([a-d].?)龙有.?五爪.*?四爪.?(?=[a-d].?|$)":"$1龙有“五爪”，蟒有“四爪”","令媛":"令嫒","液氨":"液氦","氨气":"氮气","鱼鲜":"鱼鳞",
+      "庚电年":"庚申年","青营素":"青蒿素","[嘎嘿漂][岭吟]":"嘌呤","热带风晶":"热带风暴","合风":"台风","婴武":"鹦鹉","潮海":"渤海","症疾":"疟疾","刘森思|刘想":"刘勰",
+      "蜜头":"窑头","嘎觉":"嗅觉","苦塞":"苦寒","游猴":"猕猴","藤糖":"蔗糖","捅讨":"通过"
+  },
+  "include_ocr_replace":{
+      "排水口":[["麒麟|鹿其"],"[蜗璃蝙]","螭"],"古代兵器":[["戈","矛"],"载","戟"],"变脸":[["京","豫"],"JI","川"],"培大豆":[["泰"],"[藏救]","菽"],
+      "节能减排":[["26","24","28"],"[^C]C","℃"],"四岳":[["舜","禹"],"解|鱼系","鲧"],"鸳鸯":[["爸","驾"],"驾","鸳"],"子午觉":[["23时","11时"],"一","—"],
+      "汉字产生":[["行书","楷书"],"小[豪拿蒙]","小篆"],"宇宙中":[["氧","碳"],"氨","氦"],"变声":[["氧气"],"氨气","氦气"],"血型":[["A型","B型"],"0","O"],
+      "长征四号":[["甲","丙"],"Z","乙"],"标准文字":[["隶书","金文"],"小[豪拿蒙]","小篆"],"力量体制":[["工","士"],"衣","农"],
+      "原始农业":[["豆","麦"],"[栗菜]","粟"]
+  }
+}
+};
+//const update_info = get_tiku_by_http("https://gitcode.net/m0_64980826/songge_tiku/-/raw/master/info.json");
+//const update_info = get_tiku_by_http("https://gitee.com/djh010/xuexiqiangguo-xxqg/blob/master/info.json");
 fInfo("正在加载对战题库......请稍等\n题库版本:" + update_info["tiku_version"]);
 fInfo("如果不动就是正在下载，多等会");
+var tiku_link3 = "https://raw.kgithub.com/01buluo/zuguo/main/tiku_json_20230428.txt";
+var dati_tiku_link3 = "https://raw.kgithub.com/01buluo/zuguo/main/dati_tiku_20230121.txt";
 var tiku = [];
 try {
   tiku = get_tiku_by_http(update_info["tiku_link"]);
 } catch (e) {
-  tiku = get_tiku_by_http(update_info["tiku_link2"]);
+  try {
+    tiku = get_tiku_by_http(update_info["tiku_link2"]);
+  } catch (e) {
+    tiku = get_tiku_by_http(update_info["tiku_link3"]);
+  }
 }
 // var tiku = get_tiku_by_gitee();
 fInfo("正在加载专项题库......请稍等\n题库版本:" + update_info["dati_tiku_version"]);
@@ -358,7 +413,7 @@ function do_pinglun() {
   fSet("title", "评论…");
   fClear();
   sleep(1000);
-  swipe(device_w / 2, device_h * 0.7, device_w / 2, device_h * 0.4, 1000);
+  swipe(device_w / 2+random(-5, 6), device_h * 0.7+random(-7, 10), device_w / 2+random(-6, 6), device_h * 0.4+random(-4, 4), random(950, 1100));
   id("general_card_title_id").findOne().parent().parent();
   fInfo("尝试点击title:" + id("general_card_title_id").findOne().text());
   //   //log("文章click:", wen_box.click());
@@ -379,7 +434,7 @@ function do_pinglun() {
     fRefocus();
   }
   fInfo("评论框click: true");
-  let content_list = ["全心全意为人民服务", "不忘初心，牢记使命", "不忘初心，方得始终", "永远坚持党的领导", "富强、民主、文明、和谐", "自由，平等，公正，法治"];
+  let content_list = ["全心全意为人民服务", "坚持学习","思想受礼，点赞","实事求是","不忘初心，牢记使命", "不忘初心，方得始终", "永远坚持党的领导","坚守一线，筑梦未来", "富强、民主、文明、和谐", "追梦，筑梦","自由，平等，公正，法治"];
   classNameEndsWith("EditText").findOne().setText(content_list[random(0, content_list.length - 1)]);
   sleep(1000);
   text("发布").findOne().click();
@@ -434,16 +489,16 @@ function do_shipin() {
   textMatches(/\d{2}:\d{2}/).waitFor();
   let video_list = frame_box.findOne(className("android.widget.ListView"));
   var v = className('android.widget.FrameLayout').clickable(true).depth(22).findOne().bounds();
-  press(v.centerX(), v.centerY() - 50, 150);
+  press(v.centerX() + random(-7, 8), v.centerY()+ random(-7, 8) - 50, random(130, 188));
   fInfo('点击视频');
   sleep(2500);
   //video_list.child(1).child(1).child(0).click();
   text("分享").waitFor();
   if (idContains("guide_view").findOne(1500)) {
     fInfo("检测到引导遮罩");
-    sleep(1000);
+    sleep(random(900, 1100));
     click(device_w / 2, device_h / 2);
-    sleep(1000);
+    sleep(random(900, 1200));
     click(device_w / 2, device_h / 4);
   }
   sleep(800);
@@ -454,7 +509,7 @@ function do_shipin() {
     if(textContains("刷新重试").exists()) {
       console.error("检测到使用的手机流量，准备点击'刷新重试'");
        var v = text("刷新重试").findOne().bounds();
-      press(v.centerX(), v.centerY(), 150);;
+      press(v.centerX()+random(-1, 5), v.centerY() + random(-7, 8), random(120, 180));;
       sleep(random(1000, 1500));
     }
   sleep(random(8000, 9500));
@@ -463,10 +518,10 @@ function do_shipin() {
     re_times += 6;
   }
   for (let i = 0; i < re_times; i++) {
-    click(device_w / 2, device_h / 2);
-    sleep(500);
-    swipe(device_w / 2, device_h * 0.8, device_w / 2, device_h * 0.1, 1000);
-    sleep(random(8000, 9500));
+    click(device_w / 2 +random(-7, 8), device_h / 2 + random(-5, 6));
+    sleep(random(490, 560));
+    swipe(device_w / 2 + random(-7, 9), device_h * 0.8 + random(-4, 8), device_w / 2 + random(-5, 5), device_h * 0.1+random(-3, 5), random(900, 1100));
+    sleep(random(8300, 12500));
   }
   back();
   fInfo("视频个数已刷完");
@@ -488,6 +543,10 @@ function do_wenzhang() {
   }
   fClear();
   fInfo("切换地区为北京");
+  if(text("亮点").findOne(2000)) text("亮点").findOne(2000).parent().parent().child(5).click();
+  my_click_non_clickable("北京");
+  delay(2);
+  my_click_non_clickable("北京");
   text("切换地区").findOne(3000);
   let beijing_2 =className("android.widget.TexitView").depth(17).find();
   queryList_1(beijing_2,"北京");
@@ -499,12 +558,18 @@ function do_wenzhang() {
   //let beijing_1 =className("android.widget.TexitView").depth(17).find();
  // queryList_1(find(),"北京");
   //className("android.widget.TexitView").depth(17).findOne(2000)
-  text("切换地区").findOne(3000).click();
+  try {
+    text("切换地区").findOne().click();
+  } catch (e) {
+    fInfo("手动点击切换地区");
+    text("亮点").findOne(2000).parent().parent().child(5).click();
+  }
   log("查找北京");
   text("北京").waitFor();
   sleep(500);exit
   log("切换北京");
-  text("北京").findOne().parent().parent().click();
+  if(text("北京").findOne()) text("北京").findOne().parent().parent().click();
+  else queryList_1(find(),"北京");
   log("查找banner");
   //let banner = className("android.support.v7.widget.RecyclerView").findOne();
   let banner = classNameContains("RecyclerView").findOne();
@@ -590,7 +655,7 @@ function do_wenzhang() {
     classNameContains("com.uc.webview.export").waitFor();
     fInfo("查找webview");
     let father_view = className("android.webkit.WebView").findOne(9000);
-    sleep(1000);
+    sleep(random(1000, 1500));
     //     let father_view = className("android.view.View").depth(16).findOne();
     // 判断是否为专题而不是文章
     if (father_view && father_view.find(idContains("__next")).empty()) {
@@ -601,24 +666,24 @@ function do_wenzhang() {
         // 不先点一下划不动
         idContains("xxqg-article-header").findOne().child(0).click();
       }
-      swipe(device_w / 2, device_h * 0.7, device_w / 2, device_h * 0.3, 1000);
+      swipe(device_w / 2+random(-3, 7), device_h * 0.7+random(-3, 8), device_w / 2+random(-7, 10), device_h * 0.3+random(-5, 6), random(950, 1100));
       if (wen_num < re_times - 1) {
         sleep(random(9000, 10500));
       } else {
         // 第6次停顿刷时间
         //console.show();   
         toastLog("正在刷时长程序未停止");
-        let shichang = 6 * random(55, 60);
+        let shichang = 6 * random(55, 66);
         fClear();
         fInfo("开始刷时长，总共" + shichang + "秒");
         let wait_time = 1;
         for (let i = 0; i < shichang; i++) { //*random(55, 60)
           // 每15秒增加一次滑动防息屏
-          if (i % 15 == 0) {
-            swipe(device_w / 2, device_h * 0.6, device_w / 2, device_h * 0.6 - 100, 500);
-            sleep(500);
+          if (i % random(8, 16) == 0) {
+            swipe(device_w / 2 + random(-5, 10), device_h * 0.6 + random(-10, 5), device_w / 2+ random(-5, 10), device_h * 0.6+ random(-15, 10) - 100, 500);
+            sleep(500 + random(-5, 10));
           } else {
-            sleep(1000);
+            sleep(1000 + random(7, 12));
           }
           //w.info.setText("已观看文章" + wait_time + "秒，总共" + shichang + "秒");
           fSet("info", "已观看文章" + wait_time + "秒，总共" + shichang + "秒");
@@ -635,7 +700,7 @@ function do_wenzhang() {
     back();
     //id("general_card_image_id").waitFor();
     className("android.widget.ListView").scrollable().depth(17).waitFor();
-    sleep(1000);
+    sleep(random(900, 1200));
     while (!wen_box_slt.exists()) {
       listview.scrollForward();
       sleep(200);
@@ -645,11 +710,11 @@ function do_wenzhang() {
   }
   // 更新已读文章库
   storage_user.put("old_wen_list", old_wen);
-  sleep(3000);
+  sleep(random(3000, 4000));
   // 关闭音乐
   close_video();
   back();
-  sleep(3000);
+  sleep(random(3000, 4000));
   // 返回积分页
   jifen_init();
   ran_sleep();
@@ -681,6 +746,7 @@ function do_meiri() {
       continue;
     }
     do_exec();
+    delay(0.3);
     // 点击确定下一题
     depth(20).text("确定").findOne().click();
     ran_sleep();
@@ -807,6 +873,11 @@ if(meizhou_d != null) meizhou_d.parent().click()
   //text("我要答题").waitFor();
   sleep(1000);
   back();
+  sleep(1500);
+  if (!text("我的").exists()) {sleep(3500);
+    if (!text("我的").exists()) back();
+    sleep(1000);
+    }
   text("我的").waitFor();
   ran_sleep();
   meizhou_end = 0;
@@ -892,6 +963,7 @@ function do_zhuanxiang() {
     text(num + substr).waitFor();
     num++;
     do_exec();
+    delay(0.2);
     // 点击确定下一题
     let next = className("android.view.View").filter(function (l) {
       return (l.text() == "下一题") || (l.text() == "完成");
@@ -904,11 +976,12 @@ function do_zhuanxiang() {
   }
   // 循环结束完成答题
   text("查看解析").waitFor();
-  sleep(1000);
+  delay(random(0.9, 1.2));
   // 如果题目答错，循环每一题并添加错题
   if (textMatches(/\d+分/).findOne().text() != "100分") {
     fInfo("有错题，尝试上传错题");
     text("查看解析").findOne().click();
+    delay(random(0.5, 1));
     tihao = textMatches(reg).findOne().text();
     num = Number(tihao.match(reg)[1]);
     sum = Number(tihao.match(reg)[2]);
@@ -966,6 +1039,7 @@ function do_tiaozhan() {
   while (true) {
     fClear();
     fInfo("第" + (total + 1) + "题");
+    delay(1.5);
     // 等待选项列表
     let xuan_list = className("android.widget.ListView").findOne().children();
     // 获取题目
@@ -987,6 +1061,31 @@ function do_tiaozhan() {
       // 循环对比所有选项和答案，选出相似度最大的
       for (let xuan_box of xuan_list) {
         let xuan_txt = xuan_box.child(0).child(1).text();
+        log(xuan_txt);
+        for (let ans of ans_list) {
+          let similar = str_similar(ans.slice(2), xuan_txt);
+          //log(xuan_txt, similar);
+          if (similar > max_simi) {
+            max_simi = similar;
+            xuanxiang = xuan_box.child(0);
+          }
+        }
+      }
+      if(xuanxiang == null){
+        var question = className("android.view.View").depth(25).enabled(true).drawingOrder(0).indexInParent(0).findOne(30000).text();
+        // 截取到下划线前
+        question = question.slice(0, question.indexOf(" "));
+
+        try {
+          // 此网站只支持十个字符的搜索
+          var r1 = http.get("http://www.syiban.com/search/index/init.html?modelid=1&q=" + encodeURI(question.slice(0, 10)));
+          ans = r1.body.string().match(/答案：.*</);
+      } catch (error) { }
+      let max_simi = 0;
+      let xuanxiang = null;
+      // 循环对比所有选项和答案，选出相似度最大的
+      for (let xuan_box of xuan_list) {
+        let xuan_txt = xuan_box.child(0).child(1).text();
         //log(xuan_txt);
         for (let ans of ans_list) {
           let similar = str_similar(ans.slice(2), xuan_txt);
@@ -997,6 +1096,7 @@ function do_tiaozhan() {
           }
         }
       }
+      };
       if (xuanxiang != null) {
         fInfo("最终：" + xuanxiang.child(1).text());
         xuanxiang.click();
@@ -1009,7 +1109,9 @@ function do_tiaozhan() {
     else {
       fInfo("未找到答案");
       // 选第一个选项
-      xuan_list[0].child(0).click();
+      tiaozhan_01();//备选通道
+     // break;
+     // xuan_list[0].child(0).click();
     }
     sleep(2500);
     // 判断题是否答错
@@ -1661,7 +1763,7 @@ function do_dingyue() {
             return true;
             } else { 
            //   img.recycle();
-              swipe(x, h1, x, h2, random(800, 1200)); // 下滑动
+              swipe(x+random(-5, 5), h1+random(-2, 8), x + random(-4, 6), h2+random(-2, 7), random(800, 1200)); // 下滑动
               toastLog("下滑搜索中……");
               //fInfo("下滑搜索中……");
               asub_1--;
@@ -1728,7 +1830,7 @@ function do_dingyue() {
                   return true;
                   } else { 
                  //   img.recycle();
-                    swipe(x, h1, x, h2, random(800, 1200)); // 下滑动
+                    swipe(x+random(-5, 5), h1+random(-3, 3), x+random(-2, 5), h2+random(-3, 7), random(800, 1200)); // 下滑动
                     toastLog("下滑搜索中……");
                     asub_1--;
                 sleep(random(800, 1500)); 
@@ -1919,13 +2021,15 @@ function do_exec(type) {
   // 等待加载
   let tishi = text("查看提示").findOne();
   //log(tishi);
+  delay(random(0.5, 0.8));
   // 点击查看提示按钮
   tishi.click();
   // 随机延迟、等待提示
   ran_sleep();
   // 等待加载
-  let tishi_0 = text("提示").findOne(5000);
+  let tishi_0 = text("提示").findOne(3000);
   if (!tishi_0) text("查看提示").findOne().click();
+  delay(random(0.5, 1));
    text("提示").waitFor();
 
   // 判断题型
@@ -1939,6 +2043,7 @@ function do_exec(type) {
     var ans = get_ans_by_re(que_txt);
     if (ans && depth(26).text(ans).exists()) {
       // 定位选项并点击
+      delay(0.1);
       depth(26).text(ans).findOnce().parent().click();
     }
     //else if (ans = get_ans_by_http_dati(que_txt)) {
@@ -1960,6 +2065,7 @@ function do_exec(type) {
           "F": 5
         };
         className("android.widget.RadioButton").findOnce(idx_dict[ans[0]]).parent().click();
+        delay(0.7);
       }
       // 否则用ocr
       else {
@@ -1967,6 +2073,7 @@ function do_exec(type) {
           ans = get_ans_by_ocr1().replace(/\s/g, "");
         }
         if (depth(26).text(ans).exists()) {
+          delay(0.3);
           depth(26).text(ans).findOne().parent().click();
         } else {
           // 筛选出相似度最大的
@@ -1982,8 +2089,10 @@ function do_exec(type) {
           }
           //点击选项
           if (xuanxiang) {
+            delay(0.3);
             xuanxiang.click();
           } else {
+            delay(0.5);
             className("android.widget.RadioButton").findOne().parent().click();
           }
           //log(xuanxiang.find().size());
@@ -2030,12 +2139,14 @@ function do_exec(type) {
       //长度和空格数相等才会填充
       if (ans && word_num == ans.length) {
         // 定位填空并填入
+        delay(0.7);
         depth(25).className("android.widget.EditText").findOne().setText(ans);
       } else {
         ans = get_ans_by_ocr1().replace(/\s/g, "");
         if (!ans) {
           ans = "未识别出文字";
         }
+        delay(0.7);
         depth(25).className("android.widget.EditText").setText(ans);
       }
     }
@@ -2057,6 +2168,7 @@ function do_exec(type) {
       let ans_txt = ans;
       for (let edit of edit_clt) {
         let n = edit.parent().children().find(className("android.view.View")).length;
+        delay(0.7);
         edit.setText(ans_txt.slice(0, n));
         ans_txt = ans_txt.slice(n);
       }
@@ -2082,6 +2194,7 @@ function do_exec(type) {
       sleep(500);
       for (let n of collect) {
         // 直接点击会点不上全部
+        delay(random(1.1, 1.8)); 
         n.parent().click();
       }
     }
@@ -2105,6 +2218,7 @@ function do_exec(type) {
         };
         for (let n of ans) {
           className("android.widget.CheckBox").findOnce(idx_dict[n]).parent().click();
+          delay(random(0.9, 1.7));
         }
       }
       // 如果不是全选
@@ -2116,6 +2230,7 @@ function do_exec(type) {
         for (let n of collect) {
           let xuan_txt = n.parent().child(2).text().replace(/[^\u4e00-\u9fa5\w]/g, "");
           if (ans.indexOf(xuan_txt) >= 0) {
+            delay(random(0.8, 1.8));
             n.parent().click();
           }
         }
@@ -2125,7 +2240,7 @@ function do_exec(type) {
   fInfo("答案：" + ans);
   // 返回退出查看提示界面
   back();
-  sleep(1000);
+  delay(random(0.9, 1.1));
   return true;
 }
 
@@ -2170,6 +2285,7 @@ function get_ans_by_ocr1() {
   fInfo('开始截屏');
   let img = captureScreen();
   // 控制截图范围
+  delay(1.2);
   img = images.clip(img, tishi_box.left - 10, tishi_box.top - 10, tishi_box.width() + 20, tishi_box.height());
   //images.save(img, '/sdcard/1/1.png');
   // 二值化
@@ -2301,7 +2417,11 @@ function update_dati_tiku() {
       try {
         dati_tiku = get_tiku_by_http(update_info["dati_tiku_link"]);
       } catch (e) {
-        dati_tiku = get_tiku_by_http(update_info["dati_tiku_link2"]);
+        try {
+          dati_tiku = get_tiku_by_http(update_info["dati_tiku_link2"]);
+        } catch (e) {
+          dati_tiku = get_tiku_by_http(update_info["dati_tiku_link3"]);
+        }
       }
       storage.put("dati_tiku_link", update_info["dati_tiku_link"]);
       storage.put('dati_tiku', dati_tiku);
@@ -2387,7 +2507,8 @@ function get_ans_by_tiku(que_txt) {
 function get_tiku_by_http(link) {
   // 通过gitee的原始数据保存题库
   if (!link) {
-    link = "https://mart-17684809426.coding.net/p/tiku/d/tiku/git/raw/master/tiku_json.txt"
+   // link = "https://mart-17684809426.coding.net/p/tiku/d/tiku/git/raw/master/tiku_json.txt"
+   link ="https://gh.api.99988866.xyz/https://github.com/OuO-dodo/tiku/blob/master/info.json"
   }
   let req = http.get(link, {
     headers: {
@@ -2398,7 +2519,7 @@ function get_tiku_by_http(link) {
   log(req.statusCode);
   // 更新题库时若获取不到，则文件名+1
   if (req.statusCode != 200) {
-    throw "网络原因未获取到题库，请尝试切换流量或者更换114DNS，退出脚本";
+   throw "网络原因未获取到题库，请尝试切换流量或者更换114DNS，退出脚本";
     return false;
   }
   return req.body.json();
@@ -2571,8 +2692,21 @@ function ocr_test() {
   }
   try {
     fInfo("测试ocr功能，开始截图");
-    let img_test = captureScreen();
-    img_test = images.clip(img_test, 0, 100, device_w, 250);
+    var jietu_01 = true;
+    var jietu_02 = true;
+    while(jietu_01){
+      let img_test = captureScreen();
+    delay(1);
+    if(img_test) {jietu_01 = false;return img_test;}
+    else fInfo("测试ocr功能，开始截图1");
+    }
+    try {
+       img_test = images.clip(img_test, 0, 100, device_w, 250);
+       delay(1);
+    } catch (e) {
+      img_test = images.clip(img_test, 0, 100, device_w, 250);
+      delay(1);
+    }   
     log("开始识别");
     //console.time("OCR识别结束");
     let begin = new Date();
@@ -2738,17 +2872,21 @@ function login(username, pwd) {
     //   var json_0 = find();
     //     queryList_2(json_0,"拖动滑块直到出现","后松开","此滑动验证（目前）需要手动--震动2s");
     // };//检测是否‘当前功能使用人数过多……’的防护机制
-    if (!textMatches("我的").exists() && !text("我的").exists()) {
+    if (!(textMatches("我的").exists() || textMatches("登录").exists()) ||!(text("我的").exists() || text("登录").exists())) {
       back();
     sleep(random(2600, 3500));
     }
     if (!textMatches("我的").exists() && !text("我的").exists()) {
       app.launchApp('学习强国');
-      fInfo("重启‘qg’  耐心等待……");
+      fInfo("重启 ‘q-g’  耐心等待……");
       sleep(random(1200, 1700))
       if (!textMatches("我的").exists() && !text("我的").exists()) sleep(random(3600, 4500));}
-    if (!textMatches("我的").exists() && !text("我的").exists()) fInfo("此处可能bug，手动点击到qg首页……或者一直等到第一轮结束自动重启");
-      // queryList_1(find(),"确定")
+    if (!textMatches("我的").exists() && !text("我的").exists()) {
+      fInfo("此处可能 bug，手动点击到qg首页……或者一直等到第一轮结束自动重启");
+    sleep(3000);
+    if (!textMatches("我的").exists() && !text("我的").exists()) back();
+    }
+    // queryList_1(find(),"确定")
       // sleep(1250); 
       // queryList_1(find(),"登录");
   };
@@ -2894,13 +3032,22 @@ function handling_huatu_exceptions() {
 function qg_guanbi(){
 let qg_guanbi_thread = threads.start(function () {
   //在新线程执行的代码
-  //sleep(500);
+  sleep(500);
   fInfo("检测兼容性--‘关闭应用’弹窗");
-  var btn = className("android.widget.Button").textMatches(/关闭应用|应用信息|START NOW/).findOne(5000);
+  var btn = className("android.widget.Button").textMatches(/关闭应用|应用信息|“学习强国”屡次停止运行|"学习强国"屡次停止运行/).findOne(5000);
   if (btn) {
     sleep(1000);
-    click( btn.bounds().centerX() + 50, btn.bounds().centerX() - 30);
-    press(btn.bounds().centerX() + 50, btn.bounds().centerX() - 30,100)
+    click( btn.bounds().centerX() + 50, btn.bounds().centerX() - 50);
+    press(btn.bounds().centerX() + 50, btn.bounds().centerX() - 50,100)
+    swipe(btn.bounds().centerX()+50+random(-3, 6), btn.bounds().centerY()-70, btn.bounds().centerX() + 50, btn.bounds().centerY()-100, random(800, 1200)); // 下滑动
+  }
+  sleep(500);
+  var btn = className("android.widget.Button").textMatches(/关闭应用|应用信息|“学习强国”屡次停止运行|"学习强国"屡次停止运行/).findOne(5000);
+  if (btn) {
+    sleep(1000);
+    click( btn.bounds().centerX(), btn.bounds().centerX());
+    press(btn.bounds().centerX(), btn.bounds().centerX(),100)
+    swipe(btn.bounds().centerX()+50, btn.bounds().centerY()-70, btn.bounds().centerX() + 50, btn.bounds().centerY()-100, random(800, 1200)); // 下滑动
   }
   fInfo("检测到兼容性弹窗--已关闭应用");
   toastLog("检测到兼容性弹窗--已关闭应用");
@@ -2916,7 +3063,7 @@ function noverify() {
       if (!Number(slide_verify)) {
         fInfo("未开启自动验证");
         break
-      } else {
+      } else{
         var delay = Number(slide_verify);
         click(222,375);
         press(222,375,150);
@@ -2930,6 +3077,7 @@ function noverify() {
         sleep(1000);
       //  continue;
       }
+      if(slide_verify_on = 1){
       text("请按照说明拖动滑块").waitFor();
       let bound = textContains("请按照说明拖动滑块").findOne().parent().child(1).bounds();
       let hua_bound = text("请按照说明拖动滑块").findOne().bounds();
@@ -2952,6 +3100,26 @@ function noverify() {
         sleep(random(1000, 1500));
         continue;
       }
+       }else{
+      var bound = idContains("nc_1_n1t").findOne().bounds();
+      var hua_bound = text("向右滑动验证").findOne().bounds();
+      var x_start = bound.centerX();
+      var dx = x_start - hua_bound.left;
+      var x_end = hua_bound.right - dx;
+      var x_mid = (x_end - x_start) * random(5, 8) / 10 + x_start;
+      var back_x = (x_end - x_start) * random(2, 3) / 10;
+      var y_start = random(bound.top, bound.bottom);
+      var y_end = random(bound.top, bound.bottom);
+      log("y_start:", y_start, "x_start:", x_start, "x_mid:", x_mid, "x_end:", x_end);
+      x_start = random(x_start - 7, x_start);
+      x_end = random(x_end, x_end + 10);
+      //       sleep(600);
+      //       press(x_start, y_start, 200);
+      //       sleep(200);
+      gesture(random(delay, delay + 50), [x_start, y_start], [x_mid, y_end], [x_mid - back_x, y_start], [x_end, y_end]);
+      //swipe(x_start, y_start, x_end, y_end, random(900,1000));
+      sleep(500);
+       }
       if (textContains("刷新").exists()) {
         click("刷新");
         sleep(random(1000, 1500));
@@ -3083,7 +3251,7 @@ function fInit() {
     <card cardCornerRadius='8dp' alpha="0.8">
       <vertical>
         <horizontal bg='#FF000000' padding='10 5'>
-        <text id='version' textColor="#FFFFFF" textSize="18dip">学习减压四合一+</text>
+        <text id='version' textColor="#FFFFFF" textSize="18dip">学习测试四合一+</text>
         <text id='title' h="*" textColor="#FFFFFF" textSize="13dip" layout_weight="1" gravity="top|right"></text>
         </horizontal>
         <ScrollView>
@@ -3097,7 +3265,7 @@ function fInit() {
   );
   (function () {
     //w.title.setFocusable(true);
-    w.version.setText("学习减压四合一pro+" + newest_version);
+    w.version.setText("学习测试四合一pro+" + newest_version);
   });
   w.setSize(665, -2);
   w.setPosition(10, 10);
@@ -3166,6 +3334,7 @@ function getScores(i) {
       if (id("comm_head_xuexi_score").exists()) {
           id("comm_head_xuexi_score").findOnce().click();
       } else if (text("积分").exists()) {
+        delay(1);
           text("积分").findOnce().parent().child(1).click();
       }
       sleep(3000);
@@ -3270,7 +3439,7 @@ function xxqg(userinfo) {
   fInfo("检测界面……?新?旧 " + "\n   此处时间可能略长耐心等待……")
   // name = id("my_display_name").findOne().text();
   a = id("tv_item_content").findOne(5000);
-  swipe(device_w / 2, device_h * 0.4, device_w / 2, device_h * 0.5, 1000);
+  swipe(device_w / 2 + random(-5, 10), device_h * 0.4+random(-3, 3), device_w / 2+random(-5, 7), device_h * 0.5+random(-7, 5), random(950, 1100));
   if(a == null){fInfo("检测到新版界面");
     setScreenMetrics(1080, 1920);
     a_a = text("学习积分").findOne(3000);
@@ -3393,6 +3562,8 @@ function xxqg(userinfo) {
     else mz_1.parent().click();
     sleep(1000);
     for (b = do_meizhou(); !b;) b = do_meizhou();
+   if(!text("我的").findOne(4500)) {
+    if(!(textContains("我的").exists()||text("我的").exists())) back();}
     text("我的").waitFor();
     getScores(3);
     sleep(random(900, 1500));
@@ -3562,3 +3733,140 @@ sleep(10000);
 console.hide();
 home();
 exit();
+/**
+ * 模拟点击不可以点击元素
+ * @param {UiObject / string} target 控件或者是控件文本
+ */
+function my_click_non_clickable(target) {
+  if (typeof target == "string") {
+      text(target).waitFor();
+      var tmp = text(target).findOne().bounds();
+  } else {
+      var tmp = target.bounds();
+  }
+  var randomX = random(tmp.left, tmp.right);
+  var randomY = random(tmp.top, tmp.bottom);
+  click(randomX, randomY);
+}
+
+// 模拟点击可点击元素
+function my_click_clickable(target) {
+
+  text(target).waitFor();
+  // 防止点到页面中其他有包含“我的”的控件，比如搜索栏
+  if (target == "我的") {
+      log("点击:" + "comm_head_xuexi_mine");
+      id("comm_head_xuexi_mine").findOne().click();
+  } else {
+      click(target);
+  }
+}
+/*备用调整答题
+ **********挑战答题*********
+ */
+ function tiaozhan_01() {
+  log("开启‘挑战答题’备用方式");
+  sleep(random_time(delay_time));
+  // 加载页面
+  log("等待:" + "android.view.View");
+  className("android.view.View").clickable(true).depth(22).waitFor();
+ sleep(random_time(delay_time));
+          // 题目
+          log("题目等待:" + "android.view.View");
+          className("android.view.View").depth(24).waitFor();
+        log("题目等待完成1:" );
+          var question = className("android.view.View").depth(25).enabled(true).drawingOrder(0).indexInParent(0).findOne(30000).text();
+          // 截取到下划线前
+          question = question.slice(0, question.indexOf(" "));
+          // 选项文字列表
+          var options_text = [];
+          // 等待选项加载
+          log("等待选项加载:" + "android.widget.RadioButton");
+          className("android.widget.RadioButton").depth(28).clickable(true).waitFor();
+         log("等待选项加载01:")
+          // 获取所有选项控件，以RadioButton对象为基准，根据UI控件树相对位置寻找选项文字内容
+           var options = className("android.view.View").depth(28).enabled(true).drawingOrder(0).indexInParent(1).find();
+         // var options = className("android.widget.RadioButton").depth(28).find();
+         log("等待选项加载:"+options)
+          // 选项文本
+          options.forEach((element, index) => {
+              //挑战答题中，选项文字位于RadioButton对象的兄弟对象中
+              options_text[index] = element.parent().child(1).text();
+          });
+          do_contest_answer_01(28, question, options_text);
+ sleep(random_time(delay_time * 2));
+}
+/**
+ * 答题（挑战答题、四人赛与双人对战）
+ * @param {int} depth_click_option 点击选项控件的深度，用于点击选项
+ * @param {string} question 问题
+ * @param {list[string]} options_text 每个选项文本
+ */
+function do_contest_answer_01(depth_click_option, question, options_text) {
+  if(textContains("继续").exists() && textContains("退出").exists()) click("继续");
+   if (textContains("网络开小差").exists() && textContains("确定").exists()) click("确定");
+    question = question.slice(0, 10);
+    // 如果是特殊问题需要用选项搜索答案，而不是问题
+    if (special_problem.indexOf(question.slice(0, 7)) != -1) {
+        var original_options_text = options_text.concat();
+        var sorted_options_text = original_options_text.sort();
+        question = sorted_options_text.join("|");
+    }
+    // 从哈希表中取出答案
+    var answer = map_get(question);
+log("000"+ answer)
+    // 如果本地题库没搜到，则搜网络题库
+    if (answer == null) {
+        var result;
+        // 发送http请求获取答案 网站搜题速度 r1 > r2
+        try {
+            // 此网站只支持十个字符的搜索
+            var r1 = http.get("http://www.syiban.com/search/index/init.html?modelid=1&q=" + encodeURI(question.slice(0, 10)));
+            result = r1.body.string().match(/答案：.*</);
+        } catch (error) { }
+//         // 如果第一个网站没获取到正确答案，则利用第二个网站
+//         if (!(result && result[0].charCodeAt(3) > 64 && result[0].charCodeAt(3) < 69)) {
+//             try {
+//                 // 此网站只支持六个字符的搜索
+//                 var r2 = http.get("https://www.souwen123.com/search/select.php?age=" + encodeURI(question.slice(0, 6)));
+//                 result = r2.body.string().match(/答案：.*</);
+//             } catch (error) { }
+//         }
+
+        if (result) {
+            // 答案文本
+            var result = result[0].slice(5, result[0].indexOf("<"));
+            log("0答案: " + result);
+            select_option(result, depth_click_option, options_text);
+        } else {
+            // 没找到答案，点击第一个
+            log("点击:" + "android.widget.RadioButton");
+            try {
+                className("android.widget.RadioButton").depth(depth_click_option).clickable(true).findOne(delay_time * 3).click();
+            } catch (error) { }
+        }
+    } else {
+        log("1答案: " + answer);
+        select_option(answer, depth_click_option, options_text);
+    }
+}
+/**
+ * 用于下面选择题
+ * 获取2个字符串的相似度
+ * @param {string} str1 字符串1
+ * @param {string} str2 字符串2
+ * @returns {number} 相似度
+ */
+function getSimilarity(str1, str2) {
+    var sameNum = 0;
+    //寻找相同字符
+    for (var i = 0; i < str1.length; i++) {
+        for (var j = 0; j < str2.length; j++) {
+            if (str1[i] === str2[j]) {
+                sameNum++;
+                break;
+            }
+        }
+    }
+    return sameNum / str2.length;
+}
