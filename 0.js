@@ -780,10 +780,10 @@ function purchase_buy(){
           //  if(no_3 && rukou==3)  {console.info("已勾选不申请--贵州茅台酒(珍品)");continue;}
            if(no_2 && rukou==2) {console.info("已勾选不申请--1935");
            // sleep(random(1500,2000));
-            swipe(x_1,y_1,500,x_1,y_1 - 220 + random(-14,56),random(330,560));//滑动
+           swipe(x_1, y_1, x_1, y_1 - 520 + random(-14,56), random(330,560));//滑动
             continue;} 
            if(no_3 && rukou==3)  {console.info("已勾选不申请--贵州茅台酒(珍品)");
-             swipe(x_1,y_1,500,x_1,y_1 - 220 + random(-14,56),random(330,560));//滑动
+           swipe(x_1, y_1, x_1, y_1 - 520 + random(-14,56), random(330,560));//滑动
             continue;}
           // if(no_4&&rukou==4) continue;
        // my_click_non_clickable("预约申购");	
@@ -791,6 +791,8 @@ function purchase_buy(){
         good_enterence.click()
          //   click("预约申购");
             real_buy();
+            delay(random(0.9, 1.6));
+            swipe(x_1, y_1, x_1, y_1 - 520 + random(-14,56), random(330,560));//滑动
         }else{
         		log("该条已经申购，过滤掉。。。")
         }	
