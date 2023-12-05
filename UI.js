@@ -1963,6 +1963,10 @@ function startDownload(url) {
 }
 function getScript(choice) {
     let url_prefix = [
+        'https://githubfast.com/sawdjh010/imo/blob/main/',
+        'https://521github.com/sawdjh010/imo/blob/main/',
+        'https://github.com/sawdjh010/imo/blob/main/',
+        'http://s51q7y5av.bkt.clouddn.com/',
         'https://gh-proxy.com/https://github.com/sawdjh010/imo/blob/main/',
        //"https://ghproxy.com/https://raw.githubusercontent.com/sec-an/Better-Auto-XXQG/main/",
         "https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/",

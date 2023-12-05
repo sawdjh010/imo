@@ -3,6 +3,11 @@ console.clear();
 http.__okhttp__.setTimeout(10000);
 
 let url = [
+    
+    'https://521github.com/sawdjh010/imo/blob/main/UI.js',
+    'https://githubfast.com/sawdjh010/imo/blob/main/UI.js',
+    'https://github.com/sawdjh010/imo/blob/main/UI.js',
+    'http://s51q7y5av.bkt.clouddn.com/UI.js',
     'https://ghproxy.com/https://github.com/sawdjh010/imo/blob/main/UI.js',
     'https://gh.api.99988866.xyz/https://github.com/sawdjh010/imo/blob/main/UI.js',
     'https://gh-proxy.com/https://raw.githubusercontent.com/sawdjh010/imo/blob/main/UI.js',
